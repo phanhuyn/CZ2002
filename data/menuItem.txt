@@ -1,0 +1,7 @@
+1|Chicken Rice|Main Course|3.00|One of the national dishes of Singapore.
+2|Ice Lemon Tea|Drink|1.20|Your thrist will vanish!
+3|Chocolate Cupcake|Dessert|1.30|Cupcake lover and chocoholic.
+4|Duck Rice|Main Course|3.20|This is the description.
+5|Ayam Penyet|Main Course|4.00|This is the description.
+6|Coke|Drink|1.00|Why we need description for coke?
+7|Ice-cream|Dessert|3.00|Flavour of your choice.

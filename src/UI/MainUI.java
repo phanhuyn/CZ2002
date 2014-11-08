@@ -13,7 +13,10 @@ public class MainUI {
 	}
 
 	public void displayMainFunction() {
-		System.out.println("1. Edit Menu");
+		System.out.println("1. Menu Option");
+		System.out.println("2. Reservation Option");
+		System.out.println("3. Order Option");
+		System.out.println("4. Sale Report Option");
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter your choice: ");
 		int choice;
@@ -21,8 +24,16 @@ public class MainUI {
 		switch (choice) {
 		case 1:
 			mMainController.menuOption();
+			break;
 		case 2:
-			
+			mMainController.reservationOption();
+			break;
+		case 3:
+			mMainController.orderOption();
+			break;
+		case 4:
+			//mMainController.orderOption();
+			break;
 		}
 	}
 }

@@ -6,24 +6,18 @@ import Entity.Restaurant;
 
 public class Main {
 
-	private final static String PATH_TO_FILE = "";
+	private final static DataAdapter dataAdapter = new DataAdapter();
 
 	public static void main(String[] args) {
 
 		// Initialize
-		DataAdapter dataAdapter = new DataAdapter();
 		Restaurant restaurant = new Restaurant();
 
-		dataAdapter.loadRestaurantResource(restaurant, PATH_TO_FILE);
+		dataAdapter.loadRestaurantResource(restaurant);
 
-		MainController mainController = new MainController(restaurant,
-				dataAdapter);
+		MainController mainController = new MainController(restaurant);
 
 		mainController.run();
-	}
-
-	public static String getPathToFile() {
-		return PATH_TO_FILE;
 	}
 
 }

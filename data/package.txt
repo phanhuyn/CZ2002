@@ -1,0 +1,2 @@
+1|Meal of the month|5.30|Chicken Rice served with Chocolate Cupcake and Ice Lemon Tea|1,2,3
+2|The treat|6.00|Duck Rice with Coke and Ice cream|4,6,7
