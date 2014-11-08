@@ -9,13 +9,12 @@ import Controller.OrderController;
 import Entity.Order;
 
 public class OrderUI {
-  
-  private CreateOrderUI mCreateOrder;
-  private ViewOrderUI mViewOrder;
   private OrderController mOrderController;
   
   private String customerName;
   private int orderID;
+  
+  //constructor
   public OrderUI(OrderController orderCont) {
   	mOrderController = orderCont;
   }
