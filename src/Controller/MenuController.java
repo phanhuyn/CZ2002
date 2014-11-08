@@ -1,10 +1,12 @@
 package Controller;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import Data.DataAdapter;
 import Entity.Menu;
 import Entity.MenuItem;
+import Entity.PromotionalPackage;
 import Main.Main;
 
 public class MenuController {
@@ -71,5 +73,15 @@ public class MenuController {
 		//mMenu.addMenuItem(menuItem);
 	}
 	
+	public ArrayList<MenuItem> getMenuItemList() {
+		// TODO Auto-generated method stub
+		return mMenu.getListMenuItems();
+		//return null;
+	}
+
+	public ArrayList<PromotionalPackage> getPackageList() {
+		// TODO Auto-generated method stub
+		return mMenu.getListPackages();
+	}
 
 }

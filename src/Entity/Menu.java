@@ -53,4 +53,15 @@ public class Menu {
 		System.out.println("~~~~~~~~~ End of menu ~~~~~~~~~~");
 	}
 
+	public ArrayList<MenuItem> getListMenuItems() {
+		// TODO Auto-generated method stub
+		return mMenuItemList;
+		//return null;
+	}
+
+	public ArrayList<PromotionalPackage> getListPackages() {
+		// TODO Auto-generated method stub
+		return mPromotionalPackageList;
+	}
+
 }
