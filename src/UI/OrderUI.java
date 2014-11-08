@@ -10,19 +10,26 @@ import Entity.Order;
 
 public class OrderUI {
   
-  public static ArrayList<Order> mOrderList = loadFromDb();
-  
+  private CreateOrderUI mCreateOrder;
+  private ViewOrderUI mViewOrder;
   private OrderController mOrderController;
+  
   private String customerName;
   private int orderID;
   
+  public OrderUI(OrderController orderCont) {
+  	mOrderController = orderCont;
+  }
+  
   public void run() {
 		int choice = 0;
-		while (choice <= 3){
-			System.out.println("1. Print Invoice.");
-			System.out.println("2. Print Sales Revenue Report by Date.");
-			System.out.println("3. Print Sales Revenue Report by Month.");
-			System.out.println("4. Quit.");
+		while (choice <= 5){
+			System.out.println("1. Create Order");
+			System.out.println("2. View Order.");
+			System.out.println("3. Print Invoice.");
+			System.out.println("4. Print Sales Revenue Report by Date.");
+			System.out.println("5. Print Sales Revenue Report by Month.");
+			System.out.println("6. Quit.");
 			
 			System.out.println("Select your option: ");
 			
@@ -30,10 +37,13 @@ public class OrderUI {
 			choice = sc.nextInt();
 			
 			switch (choice) {
-			case 1:
-				printInvoice();
+			case 1: break;
+			case 2: break;
+			case 3:	printInvoice();
 				break;
-
+			case 4: break;
+			case 5: break;
+			case 6: break;
 			}
 		}
 		return;
