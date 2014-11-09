@@ -1,9 +1,12 @@
 package Controller;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import Entity.Menu;
 import Entity.MenuItem;
+
+import Entity.PromotionalPackage;
 
 public class MenuController {
 
@@ -101,5 +104,15 @@ public class MenuController {
 		mMenu.replaceMenuItemById(choice, tempMenuItem);
 		// ADD EXCEPTION HANDLING
 	}
+	
+	public ArrayList<MenuItem> getMenuItemList() {
+		// TODO Auto-generated method stub
+		return mMenu.getListMenuItems();
+		//return null;
+	}
 
+	public ArrayList<PromotionalPackage> getPackageList() {
+		// TODO Auto-generated method stub
+		return mMenu.getListPackages();
+	}
 }

@@ -52,11 +52,22 @@ public class Menu {
 			System.out.println("~~~~~~~~~ Promotional Package ~~~~~~~~~~");
 			for (PromotionalPackage promotionalPackage : mPromotionalPackageList) {
 				System.out.print(i + ". ");
-
 				i++;
 				System.out.println();
 			}
 		}
 		System.out.println("~~~~~~~~~ End of menu ~~~~~~~~~~");
 	}
+
+	public ArrayList<MenuItem> getListMenuItems() {
+		// TODO Auto-generated method stub
+		return mMenuItemList;
+		//return null;
+	}
+
+	public ArrayList<PromotionalPackage> getListPackages() {
+		// TODO Auto-generated method stub
+		return mPromotionalPackageList;
+	}
+
 }
