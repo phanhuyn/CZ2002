@@ -154,23 +154,22 @@ public class MenuController {
 	// 6. Delete Promotional Package.
 	public void deletePromotionalPackage() {
 		System.out.println("Select the item to delete: ");
-		mMenu.print(false, true, false);
+		mMenu.print(false, false, true);
 		int choice;
 		Scanner sc = new Scanner(System.in);
 		choice = sc.nextInt();
 		sc.nextLine();
 
-		MenuItem itemToDelete = mMenu.getMenuItemById(choice);
+		PromotionalPackage packageToDelete = mMenu.getPromotionalPackageById(choice);
 
-		System.out
-				.println("Are you sure you want to delete this item? (Enter 'y' to confirm)");
-		itemToDelete.print(true);
+		System.out.println("Are you sure you want to delete this item? (Enter 'y' to confirm)");
+		packageToDelete.print(true);
 
 		String confirm = sc.next();
-		System.out.println(confirm);
+		//System.out.println(confirm);
 		if (confirm.charAt(0) == 'y') {
-			mMenu.deleteMenuItemById(choice);
-			System.out.println("Item deleted.");
+			mMenu.deletePromotionalPackageById(choice);
+			System.out.println("Package deleted.");
 		}
 	}
 
@@ -190,7 +189,7 @@ public class MenuController {
 		itemToDelete.print(true);
 
 		String confirm = sc.next();
-		System.out.println(confirm);
+		//System.out.println(confirm);
 		if (confirm.charAt(0) == 'y') {
 			mMenu.deleteMenuItemById(choice);
 			System.out.println("Item deleted.");

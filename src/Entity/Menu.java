@@ -30,6 +30,10 @@ public class Menu {
 		mMenuItemList.add(menuItem);
 
 	}
+	
+	public int getMenuItemIndexByReference(MenuItem menuItem){
+		return mMenuItemList.indexOf(menuItem) + 1;
+	}
 
 	// Promotional Package methods
 

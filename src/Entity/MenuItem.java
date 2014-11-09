@@ -1,5 +1,7 @@
 package Entity;
 
+import java.util.ArrayList;
+
 import Data.WriteToTxt;
 
 public class MenuItem implements WriteToTxt {
@@ -7,6 +9,8 @@ public class MenuItem implements WriteToTxt {
 	private String mType;
 	private double mPrice;
 	private String mDescription;
+	private ArrayList<PromotionalPackage> mContainingPackageList;
+	private Object mContainingPromotionalPackage;
 	
 	public MenuItem(){}
 
@@ -15,6 +19,7 @@ public class MenuItem implements WriteToTxt {
 		mType = type;
 		mPrice = price;
 		mDescription = description;
+		ArrayList<PromotionalPackage> mContainingPackageList = new ArrayList<PromotionalPackage>();
 	}
 	
 	public void print(boolean detail){
@@ -25,6 +30,7 @@ public class MenuItem implements WriteToTxt {
 			System.out.print(" - " + getDescription());
 		}
 		System.out.println();
+		System.out.println(toString());
 	}
 	
 	public String getName() {
@@ -52,9 +58,21 @@ public class MenuItem implements WriteToTxt {
 	}
 
 	@Override
-	public String toText() {
-		// TODO Auto-generated method stub
-		return null;
+	public String toString() {
+		return (mName + "|" + mType + "|" + mPrice + "|" + mDescription);
+	}
+	
+	public void notifyPromotionalPackage(){
+		for (PromotionalPackage promotionalPackage : mContainingPackageList){
+			promotionalPackage.update(this);
+		}
+	}
+	
+	public void attach (PromotionalPackage promotionalPackage){
+		mContainingPackageList.add(promotionalPackage);
 	}
 
+	public void detach (PromotionalPackage promotionalPackage){
+		mContainingPackageList.remove(promotionalPackage);
+	}
 }
