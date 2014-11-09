@@ -17,8 +17,15 @@ import Entity.Staff;
 import Entity.Table;
 
 public class DataAdapter {
+	String[] fileName = {"data/menuItem.txt", "data/package.txt", "data/table.txt", "data/staff.txt"};
+	
 	public boolean loadRestaurantResource(Restaurant restaurant) {
-		
+		/*
+			USE:
+				String.split("\\|", -1) to account for the empty string!
+			More information at:
+				http://stackoverflow.com/questions/14602062/java-string-split-removed-empty-values
+		*/
 		Menu menu = restaurant.getMenu();
 		ArrayList<Table> tableList = new ArrayList<Table>();
 		ArrayList<Staff> staffList = new ArrayList<Staff>();
@@ -78,21 +85,130 @@ public class DataAdapter {
 		return true;
 	}
 
-	public boolean save() {
-		FileWriter fwStreamShort;
-		try {
-			fwStreamShort = new FileWriter("a");
-			BufferedWriter bwStreamShort = new BufferedWriter(fwStreamShort);
-			PrintWriter pwStreamShort = new PrintWriter(bwStreamShort, false);
-
-			FileWriter fwStreamLong = new FileWriter("a");
-			BufferedWriter bwStreamLong = new BufferedWriter(fwStreamLong);
-			PrintWriter pwStreamLong = new PrintWriter(bwStreamLong, false);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public boolean save(Restaurant restaurant)
+	{
+		PrintWriter writer, writer2;
+		
+		/*
+			Table and reservation
+		*/
+		try
+		{
+			ArrayList<Table> tables = restaurant.getTableList();
+			writer  = new PrintWriter("data/table.txt");
+			writer2 = new PrintWriter("data/reservation.txt");
+			for(Table table: tables)
+			{
+				writer.println(table);
+				for(Reservation reservation: table.getReservation())
+					writer2.println(reservation);
+			}
 		}
-
+		catch(FileNotFoundException e)
+		{
+			System.out.println("File not found exception: " + e.getMessage());
+			return false;
+		}
+		catch(IOException e)
+		{
+			System.out.println("I/O exception: " + e.getMessage());
+			return false;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Other exception: " + e.getMessage());
+			return false;
+		}
+		finally
+		{
+			try
+			{
+				writer.close();
+				writer2.close();
+			}
+			catch(Exception e)
+			{
+				System.out.println("Exception caught while JAVA trying to close PrintWriter!");
+				return false;
+			}
+		}
+		
+		/*
+			Menu Item
+		*/
+		try
+		{
+			ArrayList<MenuItem> menuItemList = restaurant.getMenu().getListMenuItems();
+			writer = new PrintWriter("data/menuItem.txt");
+			for(MenuItem item: menuItemList)
+				writer.println(item);
+		}
+		catch(FileNotFoundException e)
+		{
+			System.out.println("File not found exception: " + e.getMessage());
+			return false;
+		}
+		catch(IOException e)
+		{
+			System.out.println("I/O exception: " + e.getMessage());
+			return false;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Other exception: " + e.getMessage());
+			return false;
+		}
+		finally
+		{
+			try
+			{
+				writer.close();
+			}
+			catch(Exception e)
+			{
+				System.out.println("Exception caught while JAVA trying to close PrintWriter!");
+				return false;
+			}
+		}
+		
+		/*
+			Staff
+		*/
+		try
+		{
+			ArrayList<Staff> staffs = restaurant.getStaffList();
+			writer = new PrintWriter("data/staff.txt");
+			for(Staff staff: staffs)
+				writer.println(staff);
+		}
+		catch(FileNotFoundException e)
+		{
+			System.out.println("File not found exception: " + e.getMessage());
+			return false;
+		}
+		catch(IOException e)
+		{
+			System.out.println("I/O exception: " + e.getMessage());
+			return false;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Other exception: " + e.getMessage());
+			return false;
+		}
+		finally
+		{
+			try
+			{
+				writer.close();
+			}
+			catch(Exception e)
+			{
+				System.out.println("Exception caught while JAVA trying to close PrintWriter!");
+				return false;
+			}
+		}
+		
 		return true;
 	}
 
