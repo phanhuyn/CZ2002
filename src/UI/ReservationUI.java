@@ -1,3 +1,9 @@
+/**
+  @author Peter
+  @version 1.0
+  @since 2014-11-09
+ */
+
 package UI;
 
 import java.util.Scanner;
@@ -9,19 +15,32 @@ import Entity.Reservation;
 import Entity.Table;
 
 public class ReservationUI {
-	/*
-	 * - FINISH removeReservationOption() METHOD
+	/**
+	 * Reservation controller class.
 	 */
-
 	private ReservationController mgr;
+	
+	/**
+	 * A scanner for input operation.
+	 */
 	private Scanner scan = new Scanner(System.in);
+	
+	/**
+	 * Base year of Date class.
+	 */
 	private static int baseYear = 1900;
-
+	
+	/**
+	 * Constructor.
+	 * @param mgr Reservation controller class.
+	 */
 	public ReservationUI(ReservationController mgr) {
 		this.mgr = mgr;
 	}
 
-
+	/**
+	 * This function is called when reservation option is selected.
+	 */
 	public void run() {
 		System.out.println("1. Reserve table(s)");
 		System.out.println("2. Remove a reservation");
@@ -43,6 +62,9 @@ public class ReservationUI {
 		}
 	}
 	
+	/**
+	 * This function is called when a customer would like to reserve a table.
+	 */
 	public void reserveTableOption() {
 		System.out.print("\nPlease enter your full name (case sensitive): ");
 		String fullName = scan.next();
@@ -91,7 +113,10 @@ public class ReservationUI {
 		} else
 			System.out.println("Reservation is cancelled.");
 	}
-
+	
+	/**
+	 * This function is called when a customer would like to remove a reservation.
+	 */
 	public void removeReservationOption() {
 		System.out.print("\nPlease enter your full name (case sensitive): ");
 		String fullName = scan.next();
