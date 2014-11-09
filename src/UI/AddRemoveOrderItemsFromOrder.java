@@ -8,21 +8,21 @@ package UI;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Controller.MainController;
 import Controller.MenuController;
 import Controller.OrderController;
 import Entity.Menu;
 import Entity.MenuItem;
 import Entity.Order;
 import Entity.PromotionalPackage;
-import Entity.Restaurant;
 
 public class AddRemoveOrderItemsFromOrder {
 	private OrderController mOrderController;
+	private MenuController mMenuController;
 	private final String spacing = "***********************************";
 	
-	public AddRemoveOrderItemsFromOrder(){
+	public AddRemoveOrderItemsFromOrder(Menu menu){
 		mOrderController = new OrderController();
+		mMenuController = new MenuController(menu);
 	}
 	
 	public void run(){
@@ -33,9 +33,6 @@ public class AddRemoveOrderItemsFromOrder {
 				/*
 				 * exit and back to main screen
 				 */
-				scan.close();
-				MainUI mainUI = new MainUI(new MainController(new Restaurant()));
-				mainUI.displayMainFunction();
 				break;
 			}
 			if(option == 1){
@@ -74,7 +71,6 @@ public class AddRemoveOrderItemsFromOrder {
 							 * start adding item to order
 							 */
 							int continueSelect = 1, choice2 = 0, confirm = 0;
-							MenuController mMenuController = new MenuController(new Menu());
 							ArrayList<MenuItem> menuItems = mMenuController.getMenuItemList();
 							ArrayList<PromotionalPackage> packages = mMenuController.getPackageList();
 							ArrayList<MenuItem> orderMenuItemList = order.getMenuItemsList();

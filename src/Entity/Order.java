@@ -6,9 +6,12 @@
 package Entity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import Data.DataAdapter;
-public class Order {
+import Data.WriteToTxt;
+public class Order implements WriteToTxt{
 	/*
 	 * mStaffID indicates staff that who created order
 	 * mItems is the list of menu items included in order
@@ -23,6 +26,7 @@ public class Order {
 	private String mCustomerName;
 	private int mTableId;
 	private double mTotalPrice;
+	private Calendar mTime;
 	
 	public static ArrayList<Order> mOrderList = loadFromDb();
 	
@@ -39,6 +43,7 @@ public class Order {
 		mItems = new ArrayList<MenuItem>();
 		mPackages = new ArrayList<PromotionalPackage>();
 		
+		mTime = Calendar.getInstance();
 		for(int i = 0; i < Items.size(); ++i){
 			mItems.add(Items.get(i));
 		    mTotalPrice+= Items.get(i).getPrice();
@@ -52,7 +57,7 @@ public class Order {
 		saveToDB();
 	}
 	
-	private static ArrayList<Order> loadFromDb() {
+	public static ArrayList<Order> loadFromDb() {
 		// TODO Auto-generated method stub
 		//DataAdapter mDataApdapter = new DataAdapter();
 		//return mDataAdapter.loadDataFromDb("Order");
@@ -94,6 +99,10 @@ public class Order {
 		return mTotalPrice;
 	}
 	
+	public Calendar getTime() {
+		return mTime;
+	}
+	
 	/*
 	 * Mutator methods for Class
 	 */
@@ -112,8 +121,10 @@ public class Order {
 	public void setTableId(int tableId){
 		mTableId = tableId;
 	}
-	
 
+	public void setTime() {
+		mTime = Calendar.getInstance();
+	}
 	/*
 	 * add methods to add MenuItem or PromotionalPackage to Order
 	 */
@@ -149,5 +160,13 @@ public class Order {
 			mTotalPrice+= mPackages.get(i).getPrice();
 		}
 	}
+
+	@Override
+	public String toText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 }
