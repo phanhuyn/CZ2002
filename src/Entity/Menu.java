@@ -16,6 +16,10 @@ public class Menu {
 		return mMenuItemList.get(id - 1);
 	}
 
+	public void replaceMenuItemById(int id, MenuItem menuItem) {
+		mMenuItemList.set(id - 1, menuItem);
+	}
+
 	public void addMenuItem(MenuItem menuItem) {
 		mMenuItemList.add(menuItem);
 
@@ -25,32 +29,34 @@ public class Menu {
 		mPromotionalPackageList.add(promotionalPackage);
 	}
 
-	public void print() {
-		int i = 1;
+	public void print(boolean detail, boolean printMenuItem,
+			boolean printPackage) {
+
 		System.out.println("~~~~~~~~~ MENU ~~~~~~~~~~");
-		System.out.println("~~~~~~~~~ A la carte ~~~~~~~~~~");
-		for (MenuItem item : mMenuItemList) {
-			System.out.print(i + ". " + item.getName() + " (" + item.getType()
-					+ ")" + " : " + item.getPrice());
-			System.out.print(" - " + item.getDescription());
-			System.out.println();
-			i++;
-		}
-		i =1;
-		System.out.println("~~~~~~~~~ Promotional Package ~~~~~~~~~~");
-		for (PromotionalPackage promotionalPackage : mPromotionalPackageList) {
-			System.out.println(i + ". " + promotionalPackage.getName() + " : "
-					+ promotionalPackage.getPrice());
-			System.out.print("Items included: ");
-			double price = 0;
-			for (MenuItem item : promotionalPackage.getItemList()){
-				System.out.print(item.getName() + ", ");
-				price += item.getPrice();
+		int i;
+
+		// Print menu items
+		if (printMenuItem) {
+			i = 1;
+			System.out.println("~~~~~~~~~ A la carte ~~~~~~~~~~");
+			for (MenuItem item : mMenuItemList) {
+				System.out.print(i + ". ");
+				item.print(detail);
+				i++;
 			}
-			System.out.println("Save " + String.format( "%.2f", (price - promotionalPackage.getPrice()) ) +  " dollar!");
-			i++;
+		}
+
+		// Print food package
+		if (printPackage) {
+			i = 1;
+			System.out.println("~~~~~~~~~ Promotional Package ~~~~~~~~~~");
+			for (PromotionalPackage promotionalPackage : mPromotionalPackageList) {
+				System.out.print(i + ". ");
+
+				i++;
+				System.out.println();
+			}
 		}
 		System.out.println("~~~~~~~~~ End of menu ~~~~~~~~~~");
 	}
-
 }

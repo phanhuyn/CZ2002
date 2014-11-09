@@ -17,6 +17,16 @@ public class MenuItem implements WriteToTxt {
 		mDescription = description;
 	}
 	
+	public void print(boolean detail){
+		System.out.print(getName());
+		if (detail) {
+			System.out.print(" (" + getType() + ")" + " : "
+					+ getPrice());
+			System.out.print(" - " + getDescription());
+		}
+		System.out.println();
+	}
+	
 	public String getName() {
 		return mName;
 	}

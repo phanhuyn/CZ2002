@@ -19,6 +19,21 @@ public class PromotionalPackage implements WriteToTxt {
 		mItemList = itemList;
 	}
 
+	public void print(boolean detail) {
+		System.out.print(getName());
+		if (detail) {
+			System.out.println(" : " + getPrice());
+			System.out.print("Items included: ");
+			double price = 0;
+			for (MenuItem item : getItemList()) {
+				System.out.print(item.getName() + ", ");
+				price += item.getPrice();
+			}
+			System.out.print("Save "
+					+ String.format("%.2f", (price - getPrice())) + " dollar!");
+		}
+	}
+
 	public String getName() {
 		return mName;
 	}
