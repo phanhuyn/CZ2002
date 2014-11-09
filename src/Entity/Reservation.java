@@ -55,4 +55,14 @@ public class Reservation {
 	public Table getTable() {
 		return table;
 	}
+	
+	public String toString()
+	{
+		return id + "|" + table.getId() + "|" fullName + "|" + contactNo + "|" + sizeOfPax + "|" + start.getTime() + "|" + end.getTime();
+	}
+	
+	public void setNextId(int nextId)
+	{
+		this.nextId = nextId;
+	}
 }

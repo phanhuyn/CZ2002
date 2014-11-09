@@ -23,28 +23,28 @@ public class ReservationUI {
 
 
 	public void run() {
-		int choice = 0;
-		while (choice <= 2) {
-			System.out.println("1. reserveTableOption() .");
-			System.out.println("2. removeReservationOption ");
-
-			System.out.println("Select your option: ");
-
-			Scanner sc = new Scanner(System.in);
-			choice = sc.nextInt();
+		System.out.println("1. Reserve table(s)");
+		System.out.println("2. Remove a reservation");
+		System.out.println("3. Return to main menu");
+		
+		System.out.print("Select your option: ");
+		int choice = scan.nextInt();
+		while (1 <= choice && choice <= 2) {
 			switch (choice) {
-			case 1:
-				reserveTableOption();
-				break;
-			case 2:
-				removeReservationOption();
-				break;
+				case 1:
+					reserveTableOption();
+					break;
+				case 2:
+					removeReservationOption();
+					break;
+				default:
+					break;
 			}
 		}
 	}
 	
 	public void reserveTableOption() {
-		System.out.print("Please enter your full name (case sensitive): ");
+		System.out.print("\nPlease enter your full name (case sensitive): ");
 		String fullName = scan.next();
 
 		System.out.print("Please enter your contact number: ");
@@ -57,14 +57,12 @@ public class ReservationUI {
 		Date start, end;
 
 		do {
-			System.out
-					.print("Please provide day, month, and year separated by a space: ");
+			System.out.print("Please provide day, month, and year separated by a space: ");
 			d = scan.nextInt();
 			M = scan.nextInt();
 			y = scan.nextInt() - baseYear;
 
-			System.out
-					.print("Please provide hour, and minute separated by a space in 24h format: ");
+			System.out.print("Please provide hour, and minute separated by a space in 24h format: ");
 			h = scan.nextInt();
 			m = scan.nextInt();
 
@@ -80,8 +78,7 @@ public class ReservationUI {
 			which = mgr.getTable(n, start, end);
 
 			if (which == null) {
-				System.out
-						.print("Sorry, no table is available for your reservation.\nWould you like to reenter your input: ");
+				System.out.print("Sorry, no table is available for your reservation.\nWould you like to reenter your input: ");
 				choice = scan.next().charAt(0);
 			}
 		} while (choice == 'y' || choice == 'Y');
@@ -90,14 +87,13 @@ public class ReservationUI {
 			if (mgr.allocate(which, fullName, contactNo, n, start, end))
 				System.out.println("Allocation of reservation is successful!");
 			else
-				System.out
-						.println("Allocation of reservation is unsuccessful!");
+				System.out.println("Allocation of reservation is unsuccessful!");
 		} else
 			System.out.println("Reservation is cancelled.");
 	}
 
 	public void removeReservationOption() {
-		System.out.print("Please enter your full name (case sensitive): ");
+		System.out.print("\nPlease enter your full name (case sensitive): ");
 		String fullName = scan.next();
 
 		System.out.print("Please enter your contact number: ");

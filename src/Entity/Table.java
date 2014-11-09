@@ -54,4 +54,17 @@ public class Table {
 	public int getId() {
 		return id;
 	}
+	
+	public String toString()
+	{
+		String reservation_str = "";
+		for(int i = 0; i < reservation.size(); ++i)
+			reservation_str += (i > 0 ? "," : "") + reservation[i].getId();
+		return id + "|" + capacity + "|" + reservation_str;
+	}
+	
+	public void setNextId(int nextId)
+	{
+		this.nextId = nextId;
+	}
 }
