@@ -58,7 +58,7 @@ public class Reservation {
 	
 	public String toString()
 	{
-		return id + "|" + table.getId() + "|" fullName + "|" + contactNo + "|" + sizeOfPax + "|" + start.getTime() + "|" + end.getTime();
+		return id + "|" + table.getId() + "|" +fullName + "|" + contactNo + "|" + sizeOfPax + "|" + start.getTime() + "|" + end.getTime();
 	}
 	
 	public void setNextId(int nextId)

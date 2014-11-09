@@ -3,6 +3,7 @@ package Controller;
 import Data.DataAdapter;
 import Entity.Restaurant;
 import UI.MainUI;
+import UI.OrderUI;
 import UI.ReservationUI;
 
 public class MainController {
@@ -25,8 +26,10 @@ public class MainController {
 	}
 	
 	public void orderOption(){
-		OrderController orderController = new OrderController();
+		//OrderController orderController = new OrderController();
 		//orderController.run();
+		OrderUI mOrderUI = new OrderUI(mRestaurant);
+		mOrderUI.run();
 	}
 	
 	public void reservationOption(){
