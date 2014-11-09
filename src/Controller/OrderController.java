@@ -5,6 +5,7 @@
 package Controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import Entity.MenuItem;
 import Entity.Order;
@@ -16,8 +17,19 @@ public class OrderController {
 		listOrder = Order.mOrderList;
 	}
 	
-	
-	
+	/*
+	 * this method use to find order that match the day user input
+	 */
+	public ArrayList<Order> find(int day, int month, int year){
+		ArrayList<Order> matchDayOrderList = new ArrayList<Order>();
+		for(Order order : listOrder){
+			Date date = order.getTime().getTime();
+			if(date.getDay() == day && date.getMonth() == month && date.getYear() == year){
+				matchDayOrderList.add(order);
+			}
+		}
+		return matchDayOrderList;
+	}
 	
 	public Order find(String customerName, int mId) {
 		// TODO Auto-generated method stub
@@ -28,6 +40,7 @@ public class OrderController {
 		}
 		return null;
 	}
+	
 	
 	public ArrayList<Order> getListOrder(){
 		return listOrder;
@@ -57,10 +70,6 @@ public class OrderController {
 			System.out.println("- PromotionalPackage " + (i+1) + " : " + packages.get(i).getName() + "       Price:" + menuItems.get(i).getPrice());
 		}
 		System.out.println("Total Price: " + order.getTotalPrice());
-	}
-	public void saveToDB() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

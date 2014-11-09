@@ -113,8 +113,7 @@ public class AddRemoveOrderItemsFromOrder {
 								if(confirm == 1){
 									MenuItem mItem = new MenuItem(menuItems.get(i-1).getName(), menuItems.get(i-1).getType(),menuItems.get(i-1).getPrice(),menuItems.get(i-1).getDescription());
 									orderMenuItemList.add(mItem);
-									order.reCalculatePrice();
-									mOrderController.saveToDB();
+
 								}
 								/*
 								 * ask user to continue adding menu item or not
@@ -166,8 +165,7 @@ public class AddRemoveOrderItemsFromOrder {
 								if(confirm == 1){
 									PromotionalPackage mPackage = new PromotionalPackage(packages.get(i-1).getName(),packages.get(i-1).getPrice(),packages.get(i-1).getDescription(),packages.get(i-1).getItemList());
 									orderPackageList.add(mPackage);
-									order.reCalculatePrice();
-									mOrderController.saveToDB();
+
 								}
 								/*
 								 * ask user to continue adding promotional packages or not
@@ -181,6 +179,7 @@ public class AddRemoveOrderItemsFromOrder {
 							/*
 							 * end adding item to order
 							 */
+							order.reCalculatePrice();
 							System.out.println("End adding item to order");
 							System.out.println(spacing);
 						}
@@ -254,8 +253,7 @@ public class AddRemoveOrderItemsFromOrder {
 								 */
 								if(confirm == 1){
 									orderMenuItemList.remove(i-1);
-									order.reCalculatePrice();
-									mOrderController.saveToDB();
+
 								}
 								/*
 								 * ask user to continue removing menu item or not
@@ -311,8 +309,6 @@ public class AddRemoveOrderItemsFromOrder {
 								 */
 								if(confirm == 1){
 									orderPackageList.remove(i-1);
-									order.reCalculatePrice();
-									mOrderController.saveToDB();
 								}
 								/*
 								 * ask user to continue removing promotional packages or not
@@ -326,6 +322,7 @@ public class AddRemoveOrderItemsFromOrder {
 							/*
 							 * end removing item from order
 							 */
+							order.reCalculatePrice();
 							System.out.println("Endvremoving item from order");
 							System.out.println(spacing);
 						}

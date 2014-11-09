@@ -42,8 +42,8 @@ public class Order implements WriteToTxt{
 		mTotalPrice = 0;
 		mItems = new ArrayList<MenuItem>();
 		mPackages = new ArrayList<PromotionalPackage>();
-		
 		mTime = Calendar.getInstance();
+		
 		for(int i = 0; i < Items.size(); ++i){
 			mItems.add(Items.get(i));
 		    mTotalPrice+= Items.get(i).getPrice();
@@ -53,8 +53,7 @@ public class Order implements WriteToTxt{
 			mPackages.add(Packages.get(i));
 			mTotalPrice+= Packages.get(i).getPrice();
 		}
-		
-		saveToDB();
+	 
 	}
 	
 	public static ArrayList<Order> loadFromDb() {
@@ -136,16 +135,6 @@ public class Order implements WriteToTxt{
 		mPackages.add(pPackage);
 	}
 	
-	/*
-	 * save Order to database(write to text file)
-	 */
-	private void saveToDB(){
-		
-		//DataAdapter mDataAdapter = new DataAdapter();
-		//mDataAdapter.writeNewOrder(this);
-		mOrderList.add(this);
-		
-	}
 
 	public void reCalculatePrice() {
 		// TODO Auto-generated method stub
