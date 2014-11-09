@@ -29,7 +29,7 @@ public class OrderUI {
 	System.out.print("Enter Order ID : ");
 	orderID = sc.nextInt();
 
-	Order order = new( morderController.find(customerName, orderID) );
+	Order order =  mOrderController.find(customerName, orderID);
 	if(order == null)
 	{
 		System.out.println("No order found!");
