@@ -5,51 +5,42 @@
 package Controller;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Date;
 
 import Entity.MenuItem;
 import Entity.Order;
 import Entity.PromotionalPackage;
-import UI.OrderUI;
 
 public class OrderController {
 	private ArrayList<Order> listOrder;
-	private OrderUI mOrderUI;
-	
 	public OrderController(){
 		listOrder = Order.mOrderList;
 	}
 	
-	
-	 
-	public void run() {
-		int choice = 0;
-		while (choice <= 5){
-			System.out.println("1. Create Order");
-			System.out.println("2. View Order.");
-			System.out.println("3. Print Invoice.");
-			System.out.println("4. Print Sales Revenue Report by Date.");
-			System.out.println("5. Print Sales Revenue Report by Month.");
-			System.out.println("6. Quit.");
-			
-			System.out.println("Select your option: ");
-			
-			Scanner sc = new Scanner(System.in);
-			choice = sc.nextInt();
-			
-			switch (choice) {
-			case 1: break;
-			case 2: break;
-			case 3:	mOrderUI.printInvoice();
-				break;
-			case 4: break;
-			case 5: break;
-			case 6: break;
+	/*
+	 * this method use to find order that match the day user input
+	 */
+	public ArrayList<Order> findOrderByTime(int day, int month, int year){
+		ArrayList<Order> matchDayOrderList = new ArrayList<Order>();
+		for(Order order : listOrder){
+			Date date = order.getTime();
+			if(date.getDay() == day && date.getMonth() == (month-1) && date.getYear() == (year-1900)){
+				matchDayOrderList.add(order);
 			}
 		}
-		return;
-	} 
+		return matchDayOrderList;
+	}
 	
+	public ArrayList<Order> findOrderByTime(int month, int year){
+		ArrayList<Order> matchDayOrderList = new ArrayList<Order>();
+		for(Order order : listOrder){
+			Date date = order.getTime();
+			if(date.getMonth() == (month-1) && date.getYear() == (year-1900)){
+				matchDayOrderList.add(order);
+			}
+		}
+		return matchDayOrderList;
+	}
 	public Order find(String customerName, int mId) {
 		// TODO Auto-generated method stub
 		for(Order order: listOrder){
@@ -59,6 +50,7 @@ public class OrderController {
 		}
 		return null;
 	}
+	
 	
 	public ArrayList<Order> getListOrder(){
 		return listOrder;
@@ -70,10 +62,24 @@ public class OrderController {
 		// TODO Auto-generated method stub
 		Order order = new Order(mStaffName, orderMenuItemList, orderPackageList, mCustomerId, mCustomerName, mTableId);
 		listOrder.add(order);
-	}
-	public void saveToDB() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Order is made, below is the information: ");
+		System.out.println("Order ID: " + order.getId());
+		System.out.println("Staff created order: " + order.getStaff());
+		System.out.println("Date: " + order.getTime());
+		System.out.println("Customer: "+ order.getCustomerName() + "       ID:"+order.getCustomerId());
+		System.out.println("Table: " + order.getTableId());
+		System.out.println("Order list: ");
+		System.out.println("Menu items: ");
+		ArrayList<MenuItem> menuItems = order.getMenuItemsList();
+		for(int i = 0; i < menuItems.size(); ++i){
+			System.out.println("- Menu item " + (i+1) + " : " + menuItems.get(i).getName() + "       Price:" + menuItems.get(i).getPrice());
+		}
+		System.out.println("Promotional packages: ");
+		ArrayList<PromotionalPackage> packages = order.getPromotionalPackagesList();
+		for(int i = 0; i < packages.size(); ++i){
+			System.out.println("- PromotionalPackage " + (i+1) + " : " + packages.get(i).getName() + "       Price:" + menuItems.get(i).getPrice());
+		}
+		System.out.println("Total Price: " + order.getTotalPrice());
 	}
 
 }

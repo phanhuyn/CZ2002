@@ -8,21 +8,21 @@ package UI;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Controller.MainController;
 import Controller.MenuController;
 import Controller.OrderController;
 import Entity.Menu;
 import Entity.MenuItem;
 import Entity.Order;
 import Entity.PromotionalPackage;
-import Entity.Restaurant;
 
 public class AddRemoveOrderItemsFromOrder {
 	private OrderController mOrderController;
+	private MenuController mMenuController;
 	private final String spacing = "***********************************";
 	
-	public AddRemoveOrderItemsFromOrder(){
+	public AddRemoveOrderItemsFromOrder(Menu menu){
 		mOrderController = new OrderController();
+		mMenuController = new MenuController(menu);
 	}
 	
 	public void run(){
@@ -33,9 +33,6 @@ public class AddRemoveOrderItemsFromOrder {
 				/*
 				 * exit and back to main screen
 				 */
-				scan.close();
-				MainUI mainUI = new MainUI(new MainController(new Restaurant()));
-				mainUI.displayMainFunction();
 				break;
 			}
 			if(option == 1){
@@ -74,7 +71,6 @@ public class AddRemoveOrderItemsFromOrder {
 							 * start adding item to order
 							 */
 							int continueSelect = 1, choice2 = 0, confirm = 0;
-							MenuController mMenuController = new MenuController(new Menu());
 							ArrayList<MenuItem> menuItems = mMenuController.getMenuItemList();
 							ArrayList<PromotionalPackage> packages = mMenuController.getPackageList();
 							ArrayList<MenuItem> orderMenuItemList = order.getMenuItemsList();
@@ -117,8 +113,7 @@ public class AddRemoveOrderItemsFromOrder {
 								if(confirm == 1){
 									MenuItem mItem = new MenuItem(menuItems.get(i-1).getName(), menuItems.get(i-1).getType(),menuItems.get(i-1).getPrice(),menuItems.get(i-1).getDescription());
 									orderMenuItemList.add(mItem);
-									order.reCalculatePrice();
-									mOrderController.saveToDB();
+
 								}
 								/*
 								 * ask user to continue adding menu item or not
@@ -170,8 +165,7 @@ public class AddRemoveOrderItemsFromOrder {
 								if(confirm == 1){
 									PromotionalPackage mPackage = new PromotionalPackage(packages.get(i-1).getName(),packages.get(i-1).getPrice(),packages.get(i-1).getDescription(),packages.get(i-1).getItemList());
 									orderPackageList.add(mPackage);
-									order.reCalculatePrice();
-									mOrderController.saveToDB();
+
 								}
 								/*
 								 * ask user to continue adding promotional packages or not
@@ -185,6 +179,7 @@ public class AddRemoveOrderItemsFromOrder {
 							/*
 							 * end adding item to order
 							 */
+							order.reCalculatePrice();
 							System.out.println("End adding item to order");
 							System.out.println(spacing);
 						}
@@ -258,8 +253,7 @@ public class AddRemoveOrderItemsFromOrder {
 								 */
 								if(confirm == 1){
 									orderMenuItemList.remove(i-1);
-									order.reCalculatePrice();
-									mOrderController.saveToDB();
+
 								}
 								/*
 								 * ask user to continue removing menu item or not
@@ -315,8 +309,6 @@ public class AddRemoveOrderItemsFromOrder {
 								 */
 								if(confirm == 1){
 									orderPackageList.remove(i-1);
-									order.reCalculatePrice();
-									mOrderController.saveToDB();
 								}
 								/*
 								 * ask user to continue removing promotional packages or not
@@ -330,6 +322,7 @@ public class AddRemoveOrderItemsFromOrder {
 							/*
 							 * end removing item from order
 							 */
+							order.reCalculatePrice();
 							System.out.println("Endvremoving item from order");
 							System.out.println(spacing);
 						}

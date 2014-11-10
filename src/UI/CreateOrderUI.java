@@ -4,7 +4,9 @@
 
 package UI;
 
+import java.util.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
 
 import Controller.MainController;
@@ -14,20 +16,28 @@ import Entity.Menu;
 import Entity.MenuItem;
 import Entity.PromotionalPackage;
 import Entity.Restaurant;
+import Entity.Staff;
+import Entity.Table;
 
 public class CreateOrderUI {
 	private OrderController mOrderController;
+	private MenuController mMenuController;
+	private ArrayList<Staff> mStaffList;
+	private ArrayList<Table> mTableList;
 	private final String spacing = "***********************************";
 	
-	public CreateOrderUI(){
+	public CreateOrderUI(Restaurant restaurant){
 		mOrderController = new OrderController();
+		mMenuController = new MenuController(restaurant.getMenu());
+		mStaffList = restaurant.getStaffList();
+		mTableList = restaurant.getTableList();
+		
 	}
 	
 	public void run(){
 		Scanner scan = new Scanner(System.in);
-		String mStaffName, mCustomerName;
+		String mStaffName = null, mCustomerName;
 		int mCustomerId, option = 1, mTableId = 0;
-		MenuController mMenuController = new MenuController(new Menu());
 		ArrayList<MenuItem> menuItems = mMenuController.getMenuItemList();
 		ArrayList<PromotionalPackage> packages = mMenuController.getPackageList();
 		ArrayList<MenuItem> orderMenuItemList = new ArrayList<MenuItem>();
@@ -35,8 +45,9 @@ public class CreateOrderUI {
 		while(true){
 			/*
 			 * Let user input information of new order
-			 * option = 1: finish making order,back to main screen
-			 * option = 2: start making or re-making order
+			 */
+			/*
+			 * option = 1: create another order
 			 * option = 0: cancel and exit
 			 */
 			if(option == 0){
@@ -44,9 +55,7 @@ public class CreateOrderUI {
 				 * exit and back to main screen
 				 */
 				System.out.println(spacing);
-				scan.close();
-				MainUI mainUI = new MainUI(new MainController(new Restaurant()));
-				mainUI.displayMainFunction();
+				break;
 			}
 			
 			System.out.println(spacing);
@@ -60,8 +69,18 @@ public class CreateOrderUI {
 			
 			if(option == 1){
 				System.out.println("CREATE ORDER FORM: ");
-				System.out.print("Please enter staff name: ");
-				mStaffName = scan.next();
+				while(true){
+					System.out.println("List of staff avaialable for service: ");
+					for(Staff staff: mStaffList){
+						System.out.println("- Staff name: " + staff.getName() + ", id: " + staff.getId() );
+					}
+					System.out.print("Please enter the ID of the staff: ");
+					int staffId = scan.nextInt();
+					mStaffName = mStaffList.get(staffId).getName();
+					if(mStaffName!= null){
+						break;
+					}
+				}
 				System.out.print("Please enter customer name: ");
 				mCustomerName = scan.next();
 				System.out.print("Please input customer ID: ");
@@ -71,6 +90,10 @@ public class CreateOrderUI {
 				 * Loop for user to select menu items
 				 */
 				while(continueSelect != 0){
+					if(menuItems.size() == 0){
+						System.out.println("No item in menu!");
+						break;
+					}
 					System.out.println("Below is the list of menu items, please enter the number respectively: ");
 					int i;
 					for(i = 1; i < menuItems.size() + 1; ++i){
@@ -122,6 +145,10 @@ public class CreateOrderUI {
 				 * Loop for user to select promotional packages
 				 */
 				while(continueSelect != 0){
+					if(packages.size() == 0){
+						System.out.println("No promotional packages in the menu");
+						break;
+					}
 					System.out.println("Below is the list of promotional packages, please enter the number respectively: ");
 					int i ;
 					for(i = 1; i < packages.size() + 1; ++i){
@@ -170,17 +197,36 @@ public class CreateOrderUI {
 				/*
 				 * get table's number
 				 */
-				System.out.print("Enter table's number: ");
-				mTableId = scan.nextInt();
-				
+				while(true){
+					int numOfPeople = 0;
+					while(numOfPeople <= 0){
+						System.out.print("Please input number of people");
+						numOfPeople = scan.nextInt();
+					}
+					System.out.println("Below is the list of free table: ");
+					Date currentTime = Calendar.getInstance().getTime();
+					Date nextTime = currentTime;
+					nextTime.setMinutes(currentTime.getMinutes()+1);
+					for(Table table : mTableList){
+						if(table.isAvailable(numOfPeople, currentTime, nextTime))
+						System.out.println("Table number: " + table.getId() + ", #pax: " + table.getCapacity());
+					}
+					System.out.print("Enter table's number: ");
+					mTableId = scan.nextInt();
+					if(0<= mTableId && mTableId <= mTableList.size() && mTableList.get(mTableId).isAvailable(numOfPeople, currentTime, nextTime)){
+						break;
+					}
+				}
 				/*
 				 * ask user to confirm making order
 				 */
+				
 				confirm = 0;
 				System.out.print("Enter 1 to confirm making order, 0 to cancel,: ");
 				confirm = scan.nextInt();
 				if(confirm == 1){
-					mOrderController.createNewOrder(mStaffName, orderMenuItemList, orderPackageList, mCustomerId, mCustomerName, mTableId);					
+					System.out.print(spacing);
+					mOrderController.createNewOrder(mStaffName, orderMenuItemList, orderPackageList, mCustomerId, mCustomerName, mTableId);		
 				}
 				
 				/*
@@ -191,7 +237,7 @@ public class CreateOrderUI {
 				while(option!= 0 && option != 1){
 					System.out.println(spacing);
 					System.out.println("Choose the option");
-					System.out.println("1. View other order.");
+					System.out.println("1. Create other order.");
 					System.out.println("0. Back to main screen.");
 					System.out.print("Your option: ");
 					option = scan.nextInt();

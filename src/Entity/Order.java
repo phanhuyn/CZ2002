@@ -6,14 +6,21 @@
 package Entity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import Data.DataAdapter;
-public class Order {
+import Data.WriteToTxt;
+public class Order implements WriteToTxt{
 	/*
-	 * mStaffID indicates staff that who created order
+	 * mStaffI indicates staff that who created order
 	 * mItems is the list of menu items included in order
 	 * mPackages is the list of promotional packages included in order
 	 * mCustomerID is the ID of customer that do the order
+	 * mCustomerName is the name of customer
+	 * mTableId indicates the id of the table for the order
+	 * mTotalPrice is the total price that need to pay for the order
+	 * mTime indicates the time that user make order
 	 */
 	private int mOrderId;
 	private String mStaff;
@@ -23,6 +30,7 @@ public class Order {
 	private String mCustomerName;
 	private int mTableId;
 	private double mTotalPrice;
+	private Date mTime;
 	
 	public static ArrayList<Order> mOrderList = loadFromDb();
 	
@@ -38,6 +46,7 @@ public class Order {
 		mTotalPrice = 0;
 		mItems = new ArrayList<MenuItem>();
 		mPackages = new ArrayList<PromotionalPackage>();
+		mTime = Calendar.getInstance().getTime();
 		
 		for(int i = 0; i < Items.size(); ++i){
 			mItems.add(Items.get(i));
@@ -48,11 +57,10 @@ public class Order {
 			mPackages.add(Packages.get(i));
 			mTotalPrice+= Packages.get(i).getPrice();
 		}
-		
-		saveToDB();
+	 
 	}
 	
-	private static ArrayList<Order> loadFromDb() {
+	public static ArrayList<Order> loadFromDb() {
 		// TODO Auto-generated method stub
 		//DataAdapter mDataApdapter = new DataAdapter();
 		//return mDataAdapter.loadDataFromDb("Order");
@@ -94,6 +102,10 @@ public class Order {
 		return mTotalPrice;
 	}
 	
+	public Date getTime() {
+		return mTime;
+	}
+	
 	/*
 	 * Mutator methods for Class
 	 */
@@ -112,8 +124,10 @@ public class Order {
 	public void setTableId(int tableId){
 		mTableId = tableId;
 	}
-	
 
+	public void setTime() {
+		mTime = Calendar.getInstance().getTime();
+	}
 	/*
 	 * add methods to add MenuItem or PromotionalPackage to Order
 	 */
@@ -125,16 +139,6 @@ public class Order {
 		mPackages.add(pPackage);
 	}
 	
-	/*
-	 * save Order to database(write to text file)
-	 */
-	private void saveToDB(){
-		
-		//DataAdapter mDataAdapter = new DataAdapter();
-		//mDataAdapter.writeNewOrder(this);
-		mOrderList.add(this);
-		
-	}
 
 	public void reCalculatePrice() {
 		// TODO Auto-generated method stub
@@ -149,5 +153,13 @@ public class Order {
 			mTotalPrice+= mPackages.get(i).getPrice();
 		}
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 }

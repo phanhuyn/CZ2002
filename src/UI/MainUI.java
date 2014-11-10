@@ -21,7 +21,7 @@ public class MainUI {
 		System.out.println("Enter your choice: ");
 		int choice;
 		choice = sc.nextInt();
-		while (choice <= 4) {
+		while (choice <= 5) {
 
 			switch (choice) {
 			case 1:
@@ -34,13 +34,15 @@ public class MainUI {
 				mMainController.orderOption();
 				break;
 			case 4:
-				// mMainController.orderOption();
+				mMainController.orderOption();
 				break;
 			case 5:
-				//save
+				mMainController.save();
 				break;
 			case 6:
+				mMainController.save();
 				System.out.println("Programm terminating...");
+				break;
 			}
 			System.out.println("1. Menu Option");
 			System.out.println("2. Reservation Option");
