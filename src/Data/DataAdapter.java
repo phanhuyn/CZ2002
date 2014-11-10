@@ -107,7 +107,7 @@ public class DataAdapter {
 		/*
 			Table and reservation
 		*/
-		/*try
+		try
 		{
 			ArrayList<Table> tables = restaurant.getTableList();
 			writer  = new PrintWriter("data/table.txt");
@@ -115,8 +115,7 @@ public class DataAdapter {
 			for(Table table: tables)
 			{
 				writer.println(table);
-				//need check getReservation() function - NHAT
-				for(Reservation reservation: table.getReservation("",""))
+				for(Reservation reservation: table.getReservation())
 					writer2.println(reservation);
 			}
 		}
@@ -147,7 +146,7 @@ public class DataAdapter {
 				System.out.println("Exception caught while JAVA trying to close PrintWriter!");
 				return false;
 			}
-		}*/
+		}
 		
 		/*
 			Menu Item

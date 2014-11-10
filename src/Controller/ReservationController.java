@@ -35,6 +35,16 @@ public class ReservationController {
 		this.table = restaurant.getTableList();
 	}
 	
+	// FOR TESTING ONLY
+	// DISABLE THIS PART OF CODE AFTER TESTING
+	public ReservationController()
+	{
+		this.restaurant = null;
+		this.table = new ArrayList<Table>();
+		table.add(new Table(2));
+		table.add(new Table(2));
+	}
+	
 	/**
 	 * Returns a table which is able to be reserved during start time until end time.
 	 * If there are multiple tables, the one with smallest capacity is returned.
