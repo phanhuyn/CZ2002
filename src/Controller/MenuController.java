@@ -105,8 +105,9 @@ public class MenuController {
 
 	// 5. Update Promotional Package.
 	public void updatePromotionalPackage() {
-		System.out.println("Select the package to edit: ");
+		
 		mMenu.print(false, false, true);
+		System.out.println("Select the package to edit: ");
 		int choice;
 		Scanner sc = new Scanner(System.in);
 		choice = sc.nextInt();
@@ -115,6 +116,8 @@ public class MenuController {
 		PromotionalPackage tempOldPackage = mMenu
 				.getPromotionalPackageById(choice);
 
+		tempOldPackage.print(true);
+		
 		System.out.println("Input the new name of the promotional package: ");
 		String name = sc.nextLine();
 		// System.out.println(name);
@@ -153,17 +156,17 @@ public class MenuController {
 
 	// 6. Delete Promotional Package.
 	public void deletePromotionalPackage() {
-		System.out.println("Select the item to delete: ");
+		
 		mMenu.print(false, false, true);
+		System.out.println("Select the item to delete: ");
 		int choice;
 		Scanner sc = new Scanner(System.in);
 		choice = sc.nextInt();
 		sc.nextLine();
 
 		PromotionalPackage packageToDelete = mMenu.getPromotionalPackageById(choice);
-
-		System.out.println("Are you sure you want to delete this item? (Enter 'y' to confirm)");
 		packageToDelete.print(true);
+		System.out.println("Are you sure you want to delete this item? (Enter 'y' to confirm)");
 
 		String confirm = sc.next();
 		//System.out.println(confirm);
@@ -175,8 +178,9 @@ public class MenuController {
 
 	// 3. Delete Menu Item
 	public void deleteMenuItem() {
-		System.out.println("Select the item to delete: ");
+		
 		mMenu.print(false, true, false);
+		System.out.println("Select the item to delete: ");
 		int choice;
 		Scanner sc = new Scanner(System.in);
 		choice = sc.nextInt();
@@ -219,7 +223,7 @@ public class MenuController {
 		mMenu.addMenuItem(new MenuItem(name, type, price, description));
 		System.out.println("Menu item added!");
 
-		// //// ADD EXCEPTION HANDLING!!!!
+		// ////TODO ADD EXCEPTION HANDLING!!!!
 	}
 
 	// 2. Update menu item
@@ -232,6 +236,7 @@ public class MenuController {
 		sc.nextLine();
 
 		MenuItem tempOldMenuItem = mMenu.getMenuItemById(choice);
+		tempOldMenuItem.print(true);
 
 		System.out.println("Enter the new name: ");
 		String name = sc.nextLine();
@@ -244,8 +249,7 @@ public class MenuController {
 		String description = sc.nextLine();
 
 		MenuItem tempMenuItem = new MenuItem(name, type, price, description);
-		mMenu.addMenuItem(tempMenuItem);
-
+		
 		mMenu.replaceMenuItemById(choice, tempMenuItem);
 		// ADD EXCEPTION HANDLING
 	}

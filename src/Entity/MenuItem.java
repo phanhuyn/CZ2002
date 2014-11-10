@@ -9,8 +9,8 @@ public class MenuItem implements WriteToTxt {
 	private String mType;
 	private double mPrice;
 	private String mDescription;
+	private static Menu mMenu;
 	private ArrayList<PromotionalPackage> mContainingPackageList;
-	private Object mContainingPromotionalPackage;
 	
 	public MenuItem(){}
 
@@ -19,7 +19,11 @@ public class MenuItem implements WriteToTxt {
 		mType = type;
 		mPrice = price;
 		mDescription = description;
-		ArrayList<PromotionalPackage> mContainingPackageList = new ArrayList<PromotionalPackage>();
+		mContainingPackageList = new ArrayList<PromotionalPackage>();
+	}
+	
+	public static void setMenu (Menu menu){
+		mMenu = menu;
 	}
 	
 	public void print(boolean detail){
@@ -29,8 +33,6 @@ public class MenuItem implements WriteToTxt {
 					+ getPrice());
 			System.out.print(" - " + getDescription());
 		}
-		System.out.println();
-		System.out.println(toString());
 	}
 	
 	public String getName() {
@@ -59,12 +61,19 @@ public class MenuItem implements WriteToTxt {
 
 	@Override
 	public String toString() {
-		return (mName + "|" + mType + "|" + mPrice + "|" + mDescription);
+		
+		return (mMenu.getMenuItemIndexByReference(this)+"|" + mName + "|" + mType + "|" + mPrice + "|" + mDescription);
 	}
 	
 	public void notifyPromotionalPackage(){
 		for (PromotionalPackage promotionalPackage : mContainingPackageList){
 			promotionalPackage.update(this);
+		}
+	}
+	
+	public void notifyPromotionalPackage(MenuItem menuItem){
+		for (PromotionalPackage promotionalPackage : mContainingPackageList){
+			promotionalPackage.update(this, menuItem);
 		}
 	}
 	

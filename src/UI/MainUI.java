@@ -36,11 +36,18 @@ public class MainUI {
 			case 4:
 				// mMainController.orderOption();
 				break;
+			case 5:
+				//save
+				break;
+			case 6:
+				System.out.println("Programm terminating...");
 			}
 			System.out.println("1. Menu Option");
 			System.out.println("2. Reservation Option");
 			System.out.println("3. Order Option");
 			System.out.println("4. Sale Report Option");
+			System.out.println("5. Save data");
+			System.out.println("6. Exit");
 			System.out.println("Enter your choice: ");
 
 			choice = sc.nextInt();

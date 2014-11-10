@@ -59,14 +59,22 @@ public class DataAdapter {
 				for (int i = 0; i < tempItemId.length; i++) {
 					tempPackageMenuItem.add(menu.getMenuItemById(Integer
 							.parseInt(tempItemId[i])));
+	
 				}
-				menu.addPromotionalPackage(new PromotionalPackage(
+				PromotionalPackage tempPromotionalPackage = new PromotionalPackage(
 						tempAttribute[1], Double.parseDouble(tempAttribute[2]),
-						tempAttribute[3], tempPackageMenuItem));
+						tempAttribute[3], tempPackageMenuItem);
+				for (int i = 0; i < tempItemId.length; i++) {
+					menu.getMenuItemById(Integer.parseInt(tempItemId[i])).attach(tempPromotionalPackage);
+				}
+				menu.addPromotionalPackage(tempPromotionalPackage);
 				tempString = brPackage.readLine();
 			}
 			brPackage.close();
 
+			MenuItem.setMenu(menu);
+			PromotionalPackage.setMenu(menu);
+			
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found: " + e.getMessage());
 		} catch (IOException e) {

@@ -10,7 +10,7 @@ public class PromotionalPackage implements WriteToTxt {
 	private double mPrice;
 	private String mDescription;
 	private ArrayList<MenuItem> mItemList;
-	private Menu mMenu;
+	private static Menu mMenu;
 
 	public PromotionalPackage(String name, double price, String description,
 			ArrayList<MenuItem> itemList) {
@@ -26,18 +26,38 @@ public class PromotionalPackage implements WriteToTxt {
 			System.out.println(" : " + getPrice());
 			System.out.print("Items included: ");
 			double price = 0;
-			for (MenuItem item : getItemList()) {
+			for (MenuItem item : mItemList) {
 				System.out.print(item.getName() + ", ");
 				price += item.getPrice();
 			}
-			System.out.print("Save "
+			System.out.println("Save "
 					+ String.format("%.2f", (price - getPrice())) + " dollar!");
 		}
-		System.out.println(toString());
 	}
 
 	public void update(MenuItem menuItem){
 		mItemList.remove(menuItem);
+		double price = 0;
+		for (MenuItem item : mItemList) {
+			//System.out.print(item.getName() + ", ");
+			price += item.getPrice();
+		}
+		if (price < mPrice){
+			mPrice = price;
+		}
+	}
+	
+	public void update(MenuItem menuItem, MenuItem newItem){
+		mItemList.remove(menuItem);
+		mItemList.add(newItem);
+		double price = 0;
+		for (MenuItem item : mItemList) {
+			System.out.print(item.getName() + ", ");
+			price += item.getPrice();
+		}
+		if (price < mPrice){
+			mPrice = price;
+		}
 	}
 	
 	public String getName() {
@@ -56,7 +76,7 @@ public class PromotionalPackage implements WriteToTxt {
 		return mItemList;
 	}
 	
-	public void setMenu(Menu menu){
+	public static void setMenu(Menu menu){
 		mMenu = menu;
 	}
 
@@ -65,11 +85,12 @@ public class PromotionalPackage implements WriteToTxt {
 		String itemList;
 		itemList = "";
 		for (int i = 0; i < mItemList.size(); i++){
-			if (i < mItemList.size()){
+			itemList += mMenu.getMenuItemIndexByReference(mItemList.get(i));
+			if (i < (mItemList.size() -1)){
 				itemList += ",";
 			}
 		}
-		return (mName + "|" + mPrice + "|" + mDescription + "|" + itemList);
+		return (mMenu.getPromotionalPackageIndexByReference(this) + "|" + mName + "|" + mPrice + "|" + mDescription + "|" + itemList);
 	}
 
 }

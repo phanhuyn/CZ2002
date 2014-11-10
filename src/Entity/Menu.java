@@ -19,10 +19,12 @@ public class Menu {
 	}
 
 	public void replaceMenuItemById(int id, MenuItem menuItem) {
+		(mMenuItemList.get(id -1)).notifyPromotionalPackage(menuItem);
 		mMenuItemList.set(id - 1, menuItem);
 	}
 
 	public void deleteMenuItemById(int id) {
+		(mMenuItemList.get(id -1)).notifyPromotionalPackage();
 		mMenuItemList.remove(id - 1);
 	}
 
@@ -52,6 +54,11 @@ public class Menu {
 	public void addPromotionalPackage(PromotionalPackage promotionalPackage) {
 		mPromotionalPackageList.add(promotionalPackage);
 	}
+	
+	public int getPromotionalPackageIndexByReference(PromotionalPackage promotionalPackage){
+		return mPromotionalPackageList.indexOf(promotionalPackage) + 1;
+	}
+
 
 	public void print(boolean detail, boolean printMenuItem,
 			boolean printPackage) {
@@ -66,6 +73,7 @@ public class Menu {
 			for (MenuItem item : mMenuItemList) {
 				System.out.print(i + ". ");
 				item.print(detail);
+				System.out.println();
 				i++;
 			}
 		}
