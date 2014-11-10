@@ -75,14 +75,19 @@ public class OrderUI {
 	}
 	else
 	{
-		System.out.println("Staff Name                     : " + order.getStaff() );
-		System.out.println("Table ID                       : " + order.getTableId() );
-		System.out.println("========================================================");
+		System.out.println("================= Loh Yeh Moh Yeh Resto =================");
+		System.out.println("Staff Name : " + order.getStaff() );
+		System.out.println("Table ID   : " + order.getTableId() );
+		System.out.println("Date       : " + order.getTime() );
+		System.out.println("---------------------------------------------------------");
 		System.out.println("Menu Items                     : " + order.getMenuItemsList() );
 		System.out.println("Promotional Set Packages       : " + order.getPromotionalPackagesList() );
-		System.out.println("========================================================");
-		System.out.println("Grand Total (inclusive of GST) : " + ( (order.getTotalPrice() ) * 1.07 ) );
-		System.out.println("============= Thank you! Please come again! ============");
+		System.out.println("---------------------------------------------------------");
+		System.out.println("SubTotal					   : " + ( order.getTotalPrice() ) );
+		System.out.println("Taxes                          : " + ( order.getTotalPrice() * 0.07));
+		System.out.println("---------------------------------------------------------	");
+		System.out.println("TOTAL                          : " + (order.getTotalPrice() ) * 1.07 );
+		System.out.println("============= Thank you! Please come again! =============");
 	}
 	sc.close();
 	return;
