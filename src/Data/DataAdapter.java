@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import Entity.Menu;
 import Entity.MenuItem;
 import Entity.PromotionalPackage;
+import Entity.Reservation;
 import Entity.Restaurant;
 import Entity.Staff;
 import Entity.Table;
@@ -87,7 +88,7 @@ public class DataAdapter {
 
 	public boolean save(Restaurant restaurant)
 	{
-		PrintWriter writer, writer2;
+		PrintWriter writer = null, writer2 = null;
 		
 		/*
 			Table and reservation
@@ -100,7 +101,8 @@ public class DataAdapter {
 			for(Table table: tables)
 			{
 				writer.println(table);
-				for(Reservation reservation: table.getReservation())
+				//need check getReservation() function - NHAT
+				for(Reservation reservation: table.getReservation("",""))
 					writer2.println(reservation);
 			}
 		}

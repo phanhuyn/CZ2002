@@ -4,7 +4,9 @@
 
 package UI;
 
+import java.util.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
 
 import Controller.MainController;
@@ -34,7 +36,7 @@ public class CreateOrderUI {
 	
 	public void run(){
 		Scanner scan = new Scanner(System.in);
-		String mStaffName, mCustomerName;
+		String mStaffName = null, mCustomerName;
 		int mCustomerId, option = 1, mTableId = 0;
 		ArrayList<MenuItem> menuItems = mMenuController.getMenuItemList();
 		ArrayList<PromotionalPackage> packages = mMenuController.getPackageList();
@@ -67,8 +69,18 @@ public class CreateOrderUI {
 			
 			if(option == 1){
 				System.out.println("CREATE ORDER FORM: ");
-				System.out.print("Please enter staff name: ");
-				mStaffName = scan.next();
+				while(true){
+					System.out.println("List of staff avaialable for service: ");
+					for(Staff staff: mStaffList){
+						System.out.println("- Staff name: " + staff.getName() + ", id: " + staff.getId() );
+					}
+					System.out.print("Please enter the ID of the staff: ");
+					int staffId = scan.nextInt();
+					mStaffName = mStaffList.get(staffId).getName();
+					if(mStaffName!= null){
+						break;
+					}
+				}
 				System.out.print("Please enter customer name: ");
 				mCustomerName = scan.next();
 				System.out.print("Please input customer ID: ");
@@ -185,9 +197,26 @@ public class CreateOrderUI {
 				/*
 				 * get table's number
 				 */
-				System.out.print("Enter table's number: ");
-				mTableId = scan.nextInt();
-				
+				while(true){
+					int numOfPeople = 0;
+					while(numOfPeople <= 0){
+						System.out.print("Please input number of people");
+						numOfPeople = scan.nextInt();
+					}
+					System.out.println("Below is the list of free table: ");
+					Date currentTime = Calendar.getInstance().getTime();
+					Date nextTime = currentTime;
+					nextTime.setMinutes(currentTime.getMinutes()+1);
+					for(Table table : mTableList){
+						if(table.isAvailable(numOfPeople, currentTime, nextTime))
+						System.out.println("Table number: " + table.getId() + ", #pax: " + table.getCapacity());
+					}
+					System.out.print("Enter table's number: ");
+					mTableId = scan.nextInt();
+					if(0<= mTableId && mTableId <= mTableList.size() && mTableList.get(mTableId).isAvailable(numOfPeople, currentTime, nextTime)){
+						break;
+					}
+				}
 				/*
 				 * ask user to confirm making order
 				 */

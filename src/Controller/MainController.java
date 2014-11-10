@@ -33,7 +33,7 @@ public class MainController {
 	}
 	
 	public void reservationOption(){
-		ReservationController reservationController = new ReservationController();
+		ReservationController reservationController = new ReservationController(mRestaurant);
 		ReservationUI reservationUI = new ReservationUI(reservationController);
 		reservationUI.run();
 	}

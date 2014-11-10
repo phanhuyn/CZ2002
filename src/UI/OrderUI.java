@@ -31,8 +31,6 @@ public class OrderUI {
  			System.out.println("2. View Order.");
  			System.out.println("3. Add or Remove item from order.");
  			System.out.println("4. Print Invoice.");
- 			//System.out.println("5. Print Sales Revenue Report by Date.");
- 			//System.out.println("6. Print Sales Revenue Report by Month.");
  			System.out.println("5. Quit.");
  			System.out.print("Select your option: ");
  			choice = sc.nextInt();

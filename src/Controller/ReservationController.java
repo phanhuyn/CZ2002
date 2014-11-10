@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 import Entity.Reservation;
+import Entity.Restaurant;
 import Entity.Table;
 
 public class ReservationController {
