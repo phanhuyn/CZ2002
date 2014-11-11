@@ -31,10 +31,6 @@ public class Table {
 	private ArrayList<Reservation> reservation;
 	
 	/**
-	 * 
-	 */
-	
-	/**
 	 * Constructor.
 	 * @param capacity The capacity of the new table.
 	 */
