@@ -118,7 +118,7 @@ public class DataAdapter {
 				
 				int counter = 0;
 				for(Reservation item: table.getReservation())
-					System.out.println((counter++ > 0 ? "," : "") + item.getId())
+					System.out.println((counter++ > 0 ? "," : "") + item.getId());
 			}
 		}
 		catch(FileNotFoundException e)

@@ -79,7 +79,7 @@ public class OrderUI {
 		System.out.println("================= Loh Yeh Moh Yeh Resto =================");
 		System.out.println("Staff Name      : " + order.getStaff() );
 		System.out.println("Table ID        : " + order.getTableId() );
-		System.out.println("Date(DD/MM/YYYY): " + ( order.getTime() ).get(Calendar.DATE) + "/" + ( order.getTime() ).get(Calendar.MONTH) + "/" + ( order.getTime() ).get(Calendar.YEAR));
+		System.out.println("Date(DD/MM/YYYY): " + ( order.getTime() ).getDate() + "/" + ( order.getTime() ).getMonth() + "/" + ( order.getTime() ).getYear());
 		System.out.println("---------------------------------------------------------");
 		System.out.println("Menu Items                     : " + order.getMenuItemsList() );
 		System.out.println("Promotional Set Packages       : " + order.getPromotionalPackagesList() );
@@ -106,7 +106,7 @@ public class OrderUI {
 			
 		int TotalPrice= 0;
 			
-		ArrayList<Order> order = mOrderController.findOrderByDate(d, m, y);
+		ArrayList<Order> order = mOrderController.findOrderByTime(d, m, y);
 		if(order == null){
 			System.out.println("No order found on that date!");
 			return;
@@ -166,11 +166,11 @@ public class OrderUI {
 			{
 				if(Max < (order.get(i)).getTotalPrice()){
 					Max = (order.get(i)).getTotalPrice();
-					DateMax.set(Calendar.MONTH, ( (order.get(i)).getTime() ).get(Calendar.MONTH));
+					DateMax.set(Calendar.MONTH, ( (order.get(i)).getTime()).getMonth()+1);
 				}
 				else if(Min > order.get(i).getTotalPrice()){
 					Min = (order.get(i)).getTotalPrice();
-					DateMin.set(Calendar.MONTH, ( (order.get(i)).getTime() ).get(Calendar.MONTH));
+					DateMin.set(Calendar.MONTH, ( (order.get(i)).getTime() ).getMonth()+1);
 				}
 				OverallPrice += order.get(i).getTotalPrice();
 			}
