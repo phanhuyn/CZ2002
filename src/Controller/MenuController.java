@@ -1,11 +1,11 @@
 package Controller;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import Entity.Menu;
 import Entity.MenuItem;
-
 import Entity.PromotionalPackage;
 
 public class MenuController {
@@ -55,47 +55,72 @@ public class MenuController {
 	// 1. Create new menu item
 	public void createNewMenuItem() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Input the name of the new menu item: ");
+		System.out.println("Input the name of the new menu item: (Enter -1 to go back)");
 		String name = sc.nextLine();
-		// System.out.println(name);
-
+		try {
+			if (Integer.parseInt(name) == -1){
+				return;
+			}
+		}
+		catch (Exception e){}
+		
 		System.out.println("Input the type of the new menu item: ");
 		String type = sc.nextLine();
-		// System.out.println(type);
 
-		System.out.println("Input the price of the new menu item: ");
-		double price = sc.nextDouble();
+		boolean checkInput = true;
+		double price = 0;
+		do{
+			try {
+				System.out.println("Enter the new price: ");
+				price = sc.nextDouble();
+				checkInput = false;
+			}
+			catch(InputMismatchException e){
+				System.out.print("Please enter a valid value! ");
+				sc.next();
+			}
+		} while(checkInput);
 		sc.nextLine();
-		// System.out.println(price);
 
 		System.out.println("Input the description of the new menu item: ");
 		String description = sc.nextLine();
-		// System.out.println(description);
 
 		mMenu.addMenuItem(new MenuItem(name, type, price, description));
 		System.out.println("Menu item added!");
-
-		// ////TODO ADD EXCEPTION HANDLING!!!!
 	}
 
 	// 2. Update menu item
 	public void updateMenuItem() {
-		System.out.println("Select the item to edit: ");
 		mMenu.print(false, true, false);
-		int choice;
+		System.out.println("Select the item to edit: ");
+		
+		boolean checkInput = true;
+		int choice= 0;
 		Scanner sc = new Scanner(System.in);
 		choice = sc.nextInt();
 		sc.nextLine();
-
 		MenuItem tempOldMenuItem = mMenu.getMenuItemById(choice);
 		tempOldMenuItem.print(true);
-
+		System.out.println();
 		System.out.println("Enter the new name: ");
 		String name = sc.nextLine();
 		System.out.println("Enter the new type: ");
 		String type = sc.nextLine();
-		System.out.println("Enter the new price: ");
-		double price = sc.nextDouble();
+		
+
+		double price = 0;
+		checkInput = true;
+		do{
+			try {
+				System.out.println("Enter the new price: ");
+				price = sc.nextDouble();
+				checkInput = false;
+			}
+			catch(InputMismatchException e){
+				System.out.print("Please enter a valid value! ");
+				sc.next();
+			}
+		} while(checkInput);
 		sc.nextLine();
 		System.out.println("Enter the new description: ");
 		String description = sc.nextLine();

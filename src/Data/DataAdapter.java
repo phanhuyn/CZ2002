@@ -94,27 +94,29 @@ public class DataAdapter {
 			// Load Table
 			tempString = brTable.readLine();
 			ArrayList<Table> tempTableList = restaurant.getTableList();
+			Table tempTable;
 			while (tempString != null) {
 				tempAttribute = tempString.split("\\|", -1);
-				tempTableList.add(new Table(Integer.parseInt(tempAttribute[1])));
+				tempTable = new Table(Integer.parseInt(tempAttribute[1]));
+				tempTable.setId(Integer.parseInt(tempAttribute[0]));
+				tempTableList.add(tempTable);
 				tempString = brTable.readLine();
 			}
 			brTable.close();
 			
 			// Load Reservation
 			tempString = brReservation.readLine();
-			ArrayList<Reservation> tempReservationList = restaurant.getReservationList();
-			Table tempTable;
+			Table tempTable2;
 			Reservation tempReservation;
 			while (tempString != null) {
 				tempAttribute = tempString.split("\\|", -1);
 				Date startDate = new Date(Long.parseLong(tempAttribute[5]));
 				Date endDate = new Date(Long.parseLong(tempAttribute[6]));
-				tempTable = restaurant.getTableById(Integer.parseInt(tempAttribute[0]));
-				tempReservation = new Reservation(tempTable, tempAttribute[2], tempAttribute[3],
+				tempTable2 = restaurant.getTableById(Integer.parseInt(tempAttribute[0]));
+				tempReservation = new Reservation(tempTable2, tempAttribute[2], tempAttribute[3],
 						Integer.parseInt(tempAttribute[4]), startDate, endDate);
-				tempReservationList.add(tempReservation);
-				tempTable.allocate(tempReservation);
+				tempReservation.setId(Integer.parseUnsignedInt(tempAttribute[0]));
+				tempTable2.allocate(tempReservation);
 				tempString = brReservation.readLine();
 			}
 			brReservation.close();
