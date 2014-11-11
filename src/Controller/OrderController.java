@@ -34,7 +34,7 @@ public class OrderController {
 	public ArrayList<Order> findOrderByMonth(int month, int year){
 		ArrayList<Order> matchDayOrderList = new ArrayList<Order>();
 		for(Order order : listOrder){
-			Date date = order.getTime().getTime();
+			Date date = order.getTime();
 			if( date.getMonth() == month && date.getYear() == year){
 				matchDayOrderList.add(order);
 			}
