@@ -51,7 +51,7 @@ public class MainUI {
 		System.out.println("#      3. Order Option          #");
 		System.out.println("#      4. Sale Report Option    #");
 		System.out.println("#      5. Save data             #");
-		System.out.println("#      6. Exit without save     #");
+		System.out.println("#      6. Exit without saving   #");
 		System.out.println("#      7. Save then Exit        #");
 		System.out.println("#################################");
 	}

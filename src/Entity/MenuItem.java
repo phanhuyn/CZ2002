@@ -61,7 +61,6 @@ public class MenuItem implements WriteToTxt {
 
 	@Override
 	public String toString() {
-		
 		return (mMenu.getMenuItemIndexByReference(this)+"|" + mName + "|" + mType + "|" + mPrice + "|" + mDescription);
 	}
 	

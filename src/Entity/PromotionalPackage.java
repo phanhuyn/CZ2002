@@ -39,7 +39,6 @@ public class PromotionalPackage implements WriteToTxt {
 		mItemList.remove(menuItem);
 		double price = 0;
 		for (MenuItem item : mItemList) {
-			//System.out.print(item.getName() + ", ");
 			price += item.getPrice();
 		}
 		if (price < mPrice){
@@ -52,7 +51,6 @@ public class PromotionalPackage implements WriteToTxt {
 		mItemList.add(newItem);
 		double price = 0;
 		for (MenuItem item : mItemList) {
-			System.out.print(item.getName() + ", ");
 			price += item.getPrice();
 		}
 		if (price < mPrice){
