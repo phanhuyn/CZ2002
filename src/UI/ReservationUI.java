@@ -62,8 +62,6 @@ public class ReservationUI {
 			System.out.print("Select your option: ");
 			choice = scan.nextInt(); scan.nextLine();
 		}
-		
-		scan.close();
 	}
 	
 	/**

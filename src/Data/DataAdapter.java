@@ -89,8 +89,6 @@ public class DataAdapter {
 				tempString = brPackage.readLine();
 			}
 			brPackage.close();
-
-			MenuItem.setMenu(menu);
 			PromotionalPackage.setMenu(menu);
 
 			// Load Table
@@ -120,7 +118,18 @@ public class DataAdapter {
 				tempString = brReservation.readLine();
 			}
 			brReservation.close();
-
+			
+            // Load Staff
+			tempString = brStaff.readLine();
+			MenuItem.setMenu(menu);
+			while (tempString != null) {
+				tempAttribute = tempString.split("[|]");
+				Staff staff = new Staff(Integer.parseInt(tempAttribute[0]), tempAttribute[1]);
+				restaurant.addStaff(staff);
+				tempString = brStaff.readLine();
+			}
+			brStaff.close();
+			
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found: " + e.getMessage());
 		} catch (IOException e) {

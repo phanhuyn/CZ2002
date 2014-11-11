@@ -43,5 +43,9 @@ public class Restaurant {
 	public Table getTableById (int id){
 		return mTableList.get(id);
 	}
+	
+	public void addStaff(Staff staff){
+		mStaffList.add(staff);
+	}
 
 }

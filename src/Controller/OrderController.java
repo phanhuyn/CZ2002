@@ -42,16 +42,6 @@ public class OrderController {
 		return matchDayOrderList;
 	}
 	
-	public ArrayList<Order> findOrderByTime(int month, int year){
-		ArrayList<Order> matchDayOrderList = new ArrayList<Order>();
-		for(Order order : listOrder){
-			Date date = order.getTime();
-			if(date.getMonth() == (month-1) && date.getYear() == (year-1900)){
-				matchDayOrderList.add(order);
-			}
-		}
-		return matchDayOrderList;
-	}
 	public Order find(String customerName, int mId) {
 		// TODO Auto-generated method stub
 		for(Order order: listOrder){
