@@ -13,16 +13,11 @@ public class MainUI {
 	}
 
 	public void displayMainFunction() {
-		System.out.println("1. Menu Option");
-		System.out.println("2. Reservation Option");
-		System.out.println("3. Order Option");
-		System.out.println("4. Sale Report Option");
+		printOption();
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter your choice: ");
 		int choice;
 		choice = sc.nextInt();
 		while (choice <= 5) {
-
 			switch (choice) {
 			case 1:
 				mMainController.menuOption();
@@ -39,20 +34,27 @@ public class MainUI {
 			case 5:
 				mMainController.save();
 				break;
-			case 6:
+			case 7:
 				mMainController.save();
-				System.out.println("Programm terminating...");
 				break;
 			}
-			System.out.println("1. Menu Option");
-			System.out.println("2. Reservation Option");
-			System.out.println("3. Order Option");
-			System.out.println("4. Sale Report Option");
-			System.out.println("5. Save data");
-			System.out.println("6. Exit");
-			System.out.println("Enter your choice: ");
-
+			printOption();
 			choice = sc.nextInt();
 		}
+		System.out.println("Programm terminating...");
+	}
+	
+	public void printOption (){
+		System.out.println("#################################");
+		System.out.println("#         MAIN SCREEN           #");
+		System.out.println("#      1. Menu Option           #");
+		System.out.println("#      2. Reservation Option    #");
+		System.out.println("#      3. Order Option          #");
+		System.out.println("#      4. Sale Report Option    #");
+		System.out.println("#      5. Save data             #");
+		System.out.println("#      6. Exit without save     #");
+		System.out.println("#      7. Save then Exit        #");
+		System.out.println("#################################");
+		System.out.println("Enter your choice: ");
 	}
 }

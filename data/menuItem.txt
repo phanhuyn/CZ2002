@@ -5,4 +5,3 @@
 5|Ayam Penyet|Main Course|4.0|This is the description.
 6|Coke|Drink|1.0|Why we need description for coke?
 7|Ice-cream|Dessert|3.0|Flavour of your choice.
-8|New|new|3.0|new
