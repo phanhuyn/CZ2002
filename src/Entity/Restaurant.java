@@ -33,10 +33,6 @@ public class Restaurant {
 	public ArrayList<Staff> getStaffList() {
 		return mStaffList;
 	}
-	
-	public void addStaff(Staff staff){
-		mStaffList.add(staff);
-	}
-	
+
 
 }

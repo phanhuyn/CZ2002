@@ -197,13 +197,13 @@ public class CreateOrderUI {
 				/*
 				 * get table's number
 				 */
-				int numOfPeople = 0;
-				while(numOfPeople <= 0){
-					System.out.print("Please input number of people: ");
-					numOfPeople = scan.nextInt();
-				}
 				while(true){
-					System.out.println("Below is the list of free table, choose the free table: ");
+					int numOfPeople = 0;
+					while(numOfPeople <= 0){
+						System.out.print("Please input number of people");
+						numOfPeople = scan.nextInt();
+					}
+					System.out.println("Below is the list of free table: ");
 					Date currentTime = Calendar.getInstance().getTime();
 					Date nextTime = currentTime;
 					nextTime.setMinutes(currentTime.getMinutes()+1);

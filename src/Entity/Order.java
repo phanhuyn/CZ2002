@@ -31,14 +31,13 @@ public class Order implements WriteToTxt{
 	private int mTableId;
 	private double mTotalPrice;
 	private Date mTime;
-	ArrayList<Integer> quantityMenuItems;
-	ArrayList<Integer> quantityPackages;
+	
 	public static ArrayList<Order> mOrderList = loadFromDb();
 	
 	/*
 	 * constructor for Class 
 	 */
-	public Order(String Staff,ArrayList<MenuItem> Items,ArrayList<PromotionalPackage> packages,int CustomerId, String CustomerName,int TableId){
+	public Order(String Staff,ArrayList<MenuItem> Items,ArrayList<PromotionalPackage> Packages,int CustomerId, String CustomerName,int TableId){
 		mOrderId = mOrderList.size()+1;
 		mStaff = Staff;
 		mCustomerId = CustomerId;
@@ -48,60 +47,19 @@ public class Order implements WriteToTxt{
 		mItems = new ArrayList<MenuItem>();
 		mPackages = new ArrayList<PromotionalPackage>();
 		mTime = Calendar.getInstance().getTime();
-		quantityMenuItems =  new ArrayList<Integer>();
-		quantityPackages = new ArrayList<Integer>();
 		
-		int position;
 		for(int i = 0; i < Items.size(); ++i){
-			position = foundMenuItem(Items.get(i).getName());
-			if(position == -1){
-				mItems.add(Items.get(i));
-				quantityMenuItems.add(1);
-			}
-			else{
-				Integer in = quantityMenuItems.get(i);
-				in++;
-				quantityMenuItems.set(i, in);
-			}
+			mItems.add(Items.get(i));
 		    mTotalPrice+= Items.get(i).getPrice();
 		}
 		
-	
-		for(int i = 0; i < packages.size();++i){
-			position = foundPackage(packages.get(i).getName());
-			if(position == -1){
-				mPackages.add(packages.get(i));
-				quantityPackages.add(1);
-			}
-			else{
-				Integer in = quantityPackages.get(i);
-				in++;
-				quantityPackages.set(i, in);
-			}
-			mTotalPrice+= packages.get(i).getPrice();
+		for(int i = 0; i < Packages.size();++i){
+			mPackages.add(Packages.get(i));
+			mTotalPrice+= Packages.get(i).getPrice();
 		}
-		
+	 
 	}
 	
-	private int foundPackage(String name) {
-		// TODO Auto-generated method stub
-		for(int i =0; i < mPackages.size(); ++i){
-			if(mPackages.get(i).getName().compareTo(name) == 0)
-				return i;
-		}
-		return -1;
-	}
-
-	private int foundMenuItem(String name) {
-		// TODO Auto-generated method stub
-		for(int i =0; i < mItems.size(); ++i){
-			if(mItems.get(i).getName().compareTo(name) == 0)
-				return i;
-		}
-		return -1;
-	}
-	
-
 	public static ArrayList<Order> loadFromDb() {
 		// TODO Auto-generated method stub
 		//DataAdapter mDataApdapter = new DataAdapter();
@@ -200,17 +158,6 @@ public class Order implements WriteToTxt{
 	public String toString() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	public ArrayList<Integer> getQuantityMenuItems() {
-		// TODO Auto-generated method stub
-		
-		return quantityMenuItems;
-	}
-
-	public ArrayList<Integer> getQuantityPackages() {
-		// TODO Auto-generated method stub
-		return quantityPackages;
 	}
 
 
