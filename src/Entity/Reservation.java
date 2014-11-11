@@ -100,7 +100,7 @@ public class Reservation {
 
 	/**
 	 * Returns the full name of the customer.
-	 * @Returns the full name of the customer.
+	 * @return the full name of the customer.
 	 */
 	public String getFullName() {
 		return fullName;
@@ -146,6 +146,15 @@ public class Reservation {
 	public void setNextId(int nextId)
 	{
 		this.nextId = nextId;
+	}
+	
+	/**
+	 * Change the id of this reservation.
+	 * @param id The new id.
+	 */
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 	
 	/**

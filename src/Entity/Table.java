@@ -43,8 +43,9 @@ public class Table {
 	/**
 	 * Check if this particular table is available for that time slot and for that size of pax.
 	 * @param sizeOfPax The minimum capacity required.
-	 * @param start Starting time of the reservation (inclusive).
-	 * @param end Ending time of the reservation (exclusive).
+	 * @param start Starting time of the reservation.
+	 * @param end Ending time of the reservation.
+	 * @return Returns true if this table is available for that time slot and for that size of pax.
 	 */
 	public boolean isAvailable(int sizeOfPax, Date start, Date end) {
 		if (capacity >= sizeOfPax) {
@@ -139,5 +140,14 @@ public class Table {
 	public void setNextId(int nextId)
 	{
 		this.nextId = nextId;
+	}
+	
+	/**
+	 * Change the id of this table.
+	 * @param id The new id.
+	 */
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 }
