@@ -34,8 +34,6 @@ public class DataAdapter {
 				http://stackoverflow.com/questions/14602062/java-string-split-removed-empty-values
 		*/
 		Menu menu = restaurant.getMenu();
-		ArrayList<Table> tableList = new ArrayList<Table>();
-		ArrayList<Staff> staffList = new ArrayList<Staff>();
 		
 		try {
 			// Initiate file reader
@@ -85,9 +83,19 @@ public class DataAdapter {
 				tempString = brPackage.readLine();
 			}
 			brPackage.close();
-
-			MenuItem.setMenu(menu);
 			PromotionalPackage.setMenu(menu);
+			
+            // Load Staff
+			tempString = brStaff.readLine();
+			MenuItem.setMenu(menu);
+			while (tempString != null) {
+				tempAttribute = tempString.split("[|]");
+				Staff staff = new Staff(Integer.parseInt(tempAttribute[0]), tempAttribute[1]);
+				restaurant.addStaff(staff);
+				tempString = brStaff.readLine();
+			}
+			brStaff.close();
+			
 			
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found: " + e.getMessage());
