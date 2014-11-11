@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
-
+import java.text.DecimalFormat;
 import Controller.OrderController;
 import Entity.MenuItem;
 import Entity.Order;
@@ -58,7 +58,7 @@ public class OrderUI {
  	} 
  	
   //Print Invoice
-  public void printInvoice(){
+   public void printInvoice(){
   	Scanner sc = new Scanner(System.in);
 	
 	System.out.print("Enter Customer Name : ");
@@ -74,18 +74,40 @@ public class OrderUI {
 	}
 	else
 	{
+		DecimalFormat  df = new DecimalFormat ("#.##");
+		ArrayList<MenuItem> item = order.getMenuItemsList();
+		ArrayList<PromotionalPackage> set = order.getPromotionalPackagesList();
+		
 		System.out.println("================= Loh Yeh Moh Yeh Resto =================");
 		System.out.println("Staff Name      : " + order.getStaff() );
 		System.out.println("Table ID        : " + order.getTableId() );
-		System.out.println("Date(DD/MM/YYYY): " + ( order.getTime() ).getDate() + "/" + ( order.getTime() ).getMonth() + "/" + ( order.getTime() ).getYear());
+		System.out.println("Date(DD/MM/YYYY): " + ( order.getTime() ).getDate() + "/" + ( order.getTime() ).getMonth() + "/" + ( ( order.getTime() ).getYear() + 1900 ));
 		System.out.println("---------------------------------------------------------");
-		System.out.println("Menu Items                     : " + order.getMenuItemsList() );
-		System.out.println("Promotional Set Packages       : " + order.getPromotionalPackagesList() );
+		
+		if(item.size() > 0){
+			System.out.println("Menu Items  : ");
+			
+				for(int i = 0; i < item.size(); i++ )
+				{
+					System.out.println("    " + (item.get(i)).getName() + "	" + (item.get(i)).getPrice() );
+				}
+		}
+		
+		if(set.size() > 0){
+			System.out.println("---------------------------------------------------------");
+			System.out.println("Promotional Set Packages  : ");
+			
+				for(int i = 0; i < item.size(); i++ )
+				{
+					System.out.println("    " + (set.get(i)).getName() + "	" + (set.get(i)).getPrice() );
+				}
+		}
+		
 		System.out.println("---------------------------------------------------------");
-		System.out.println("SubTotal					   : " + ( order.getTotalPrice() ) );
-		System.out.println("Taxes                          : " + ( order.getTotalPrice() * 0.07));
+		System.out.println("SubTotal               : " + df.format(( order.getTotalPrice() )));
+		System.out.println("Taxes                  : " + df.format(( order.getTotalPrice() * 0.07)));
 		System.out.println("---------------------------------------------------------	");
-		System.out.println("TOTAL                          : " + (order.getTotalPrice() ) * 1.07 );
+		System.out.println("TOTAL                  : " + df.format((order.getTotalPrice() ) * 1.07 ));
 		System.out.println("============= Thank you! Please come again! =============");
 	}
 	sc.close();
