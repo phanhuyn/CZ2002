@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import UI.MainUI;
 import Entity.Menu;
 import Entity.MenuItem;
 import Entity.PromotionalPackage;
@@ -21,7 +22,8 @@ public class MenuController {
 		while (choice <= 8) {
 			printMenuOption();
 			Scanner sc = new Scanner(System.in);
-			choice = sc.nextInt();
+			choice = MainUI.getInt("Select your option: ");
+			
 			switch (choice) {
 			case 1:
 				createNewMenuItem();
@@ -107,20 +109,7 @@ public class MenuController {
 		System.out.println("Enter the new type: ");
 		String type = sc.nextLine();
 		
-
-		double price = 0;
-		checkInput = true;
-		do{
-			try {
-				System.out.println("Enter the new price: ");
-				price = sc.nextDouble();
-				checkInput = false;
-			}
-			catch(InputMismatchException e){
-				System.out.print("Please enter a valid value! ");
-				sc.next();
-			}
-		} while(checkInput);
+		double price = MainUI.getDouble("Enter the new price: ");
 		sc.nextLine();
 		System.out.println("Enter the new description: ");
 		String description = sc.nextLine();
@@ -283,8 +272,6 @@ public class MenuController {
 		System.out.println("#      8. Print Menu (short).   #");
 		System.out.println("#      9. Main Menu.            #");
 		System.out.println("#################################");
-
-		System.out.println("Select your option: ");
 	}
 
 	public ArrayList<MenuItem> getMenuItemList() {
