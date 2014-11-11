@@ -84,6 +84,15 @@ public class ReservationController {
 	}
 	
 	/**
+	 * Allocate that table for this particular Reservation object
+	 * @param Reservation reservation The Reservation object
+	 */
+	public boolean allocate(Reservation reservation)
+	{
+		return reservation.getTable().allocate(reservation);
+	}
+	
+	/**
 	 * Get the customer's existing reservations.
 	 * @param fullName The full name of the customer (case-sensitive).
 	 * @param contactNo The contact number of the customer (case-sensitve).

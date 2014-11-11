@@ -171,6 +171,9 @@ public class ReservationUI {
 		}
 	}
 	
+	/**
+	 * This is for unit testing
+	 */
 	public static void main(String[] args)
 	{
 		ReservationUI ui = new ReservationUI(new ReservationController());
