@@ -20,7 +20,7 @@ public class Reservation {
 	private String contactNo;
 	
 	/**
-	 * The number of seats required.
+	 * The number of seats required by the person.
 	 */
 	private int sizeOfPax;
 	
@@ -30,7 +30,7 @@ public class Reservation {
 	private int id;
 	
 	/**
-	 * The timeslot [start, end).
+	 * The timeslot.
 	 */
 	private Date start, end;
 	
@@ -45,7 +45,7 @@ public class Reservation {
 	private Table table;
 
 	/**
-	 * Constructor.
+	 * The constructor.
 	 * @param table The reference to the booked table.
 	 * @param fullName The full name of the customer.
 	 * @param contactNo The contact number of the customer.
@@ -65,58 +65,58 @@ public class Reservation {
 	}
 	
 	/**
-	 * Check if the timeslot [start, end) clash with this reservation.
-	 * @param start The starting time (inclusive).
-	 * @param end The ending time (exclusive).
+	 * Check if a timeslot clash with this reservation.
+	 * @param start The starting time.
+	 * @param end The ending time.
 	 */
 	public boolean isClash(Date start, Date end) {
 		return !(this.start.after(end) || this.end.before(start));
 	}
 	
 	/**
-	 * Gets starting time.
+	 * Returns the starting time.
 	 */
 	public Date getStartTime() {
 		return start;
 	}
 
 	/**
-	 * Gets ending time.
+	 * Returns ending time.
 	 */
 	public Date getEndTime() {
 		return end;
 	}
 
 	/**
-	 * Gets the size of pax.
+	 * Returns the size of pax.
 	 */
 	public int getSizeOfPax() {
 		return sizeOfPax;
 	}
 
 	/**
-	 * Gets the full name of the customer.
+	 * Returns the full name of the customer.
 	 */
 	public String getFullName() {
 		return fullName;
 	}
 
 	/**
-	 * Gets the contact number of the customer.
+	 * Returns the contact number of the customer.
 	 */
 	public String getContactNo() {
 		return contactNo;
 	}
 
 	/**
-	 * Gets the unique ID of that person.
+	 * Returns the unique ID of that person.
 	 */
 	public int getId() {
 		return id;
 	}
 
 	/**
-	 * Gets the reference to the reserved table.
+	 * Returns the reference to the reserved table.
 	 */
 	public Table getTable() {
 		return table;
@@ -137,5 +137,22 @@ public class Reservation {
 	public void setNextId(int nextId)
 	{
 		this.nextId = nextId;
+	}
+	
+	/**
+	 * IGNORE THIS! It's for unit testing.
+	 */
+	public static void main(String args[])
+	{
+		Table table = new Table(10);
+		Reservation r1 = new Reservation(table, "Hermanto Pythagoras", "99999999", 7,
+		new Date(114, 10, 12, 8, 30, 0), new Date(114, 10, 12, 10, 29, 59));
+		Reservation r2 = new Reservation(table, "Zhu Ge Liang", "99999998", 10,
+		new Date(114, 10, 12, 10, 30, 0), new Date(114, 10, 12, 12, 29, 59));
+		table.allocate(r1);
+		table.allocate(r2);
+		System.out.println(table);
+		System.out.println(r1);
+		System.out.println(r2);
 	}
 }

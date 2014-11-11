@@ -16,23 +16,23 @@ public class Table {
 	private static int nextId = 0;
 	
 	/**
-	 * The capacity of a table.
+	 * The capacity of this table.
 	 */
 	private int capacity;
 	
 	/**
-	 * The unique id of a table.
+	 * The unique id of this table.
 	 */
 	private int id;
 	
 	/**
-	 * List of reservation on this particular table.
+	 * The list of reservations on this table.
 	 */
 	private ArrayList<Reservation> reservation;
 	
 	/**
-	 * Constructor.
-	 * @param capacity The capacity of the new table.
+	 * The constructor.
+	 * @param capacity The capacity of this new table.
 	 */
 	public Table(int capacity) {
 		this.id = nextId++;
@@ -58,7 +58,7 @@ public class Table {
 	}
 	
 	/**
-	 * Get the capacity of this table.
+	 * Returns the capacity of this table.
 	 */
 	public int getCapacity() {
 		return capacity;

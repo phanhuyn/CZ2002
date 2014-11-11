@@ -16,18 +16,18 @@ import Entity.Table;
 
 public class ReservationController {
 	/**
-	 * Restaurant.
+	 * The restaurant.
 	 */
 	private Restaurant restaurant;
 	
 	/**
-	 * List of table.
+	 * The list of table.
 	 */
 	private ArrayList<Table> table;
 	
 	/**
-	 * Constructor.
-	 * @param restaurant This restaurant.
+	 * The constructor.
+	 * @param restaurant The restaurant.
 	 */
 	public ReservationController(Restaurant restaurant)
 	{
@@ -46,11 +46,11 @@ public class ReservationController {
 	}
 	
 	/**
-	 * Returns a table which is able to be reserved during start time until end time.
-	 * If there are multiple tables, the one with smallest capacity is returned.
+	 * Returns a table which is able to be reserved during the starting time until the ending time.
+	 * If there are multiple tables, the one with the smallest capacity of at least sizeOfPax is choosen.
 	 * @param sizeOfPax Number of seats required on the table.
-	 * @param start Starting time of booking (inclusive).
-	 * @param end Ending time of booking (exclusive).
+	 * @param start The starting time of booking.
+	 * @param end The ending time of booking.
 	 */
 	public Table getTable(int sizeOfPax, Date start, Date end) {
 		Table which = null;
@@ -72,9 +72,9 @@ public class ReservationController {
 	 * @param which Reference to the table.
 	 * @param fullName Full name of the customer (case-sensitive).
 	 * @param contactNo Contact number of the customer (case-sensitive).
-	 * @param sizeOfPax The number of seats required.
-	 * @param start Starting time of booking (inclusive).
-	 * @param end Ending time of booking (exclusive).
+	 * @param sizeOfPax Number of seats required.
+	 * @param start Starting time of booking.
+	 * @param end Ending time of booking.
 	 */
 	public boolean allocate(Table which, String fullName, String contactNo,
 			int sizeOfPax, Date start, Date end) {
@@ -98,7 +98,7 @@ public class ReservationController {
 	
 	/**
 	 * Remove a reservation.
-	 * @param which Reference to the table.
+	 * @param which Reference to the reservation.
 	 */
 	public boolean removeReservation(Reservation which) {
 		return which.getTable().removeReservation(which);
