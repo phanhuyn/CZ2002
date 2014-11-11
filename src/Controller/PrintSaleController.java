@@ -1,3 +1,8 @@
+/**
+  @author Stefan
+  @version 1.0
+  @since 2014-11-10
+ */
 package Controller;
 
 import java.util.ArrayList;
@@ -10,39 +15,65 @@ import Entity.Order;
 import Entity.PromotionalPackage;
 
 public class PrintSaleController {
+	
+	/**
+	 * The List of table.
+	 */
+	
 	private ArrayList<Order> listOrder;
+	
+	/**
+	 * The constructor.
+	 * @param listOrder getting the list of order.
+	 */
 	public PrintSaleController(){
 		listOrder = Order.mOrderList;
 	}
 	
-	/*
-	 * this method use to find order that match the day user input
+	/**
+	 * Returns a list of the order that match the date from the user input.
+	 * @param day the date from the user input.
+	 * @param month the month requested from the user.
+	 * @param year the year of the order to be requested.
+	 * @return the list of the order that fits the criteria of the date.
 	 */
 	public ArrayList<Order> findOrderByDate(int day, int month, int year){
 		ArrayList<Order> matchDayOrderList = new ArrayList<Order>();
 		for(Order order : listOrder){
-			Date date = order.getTime();
-			if(date.getDay() == day && date.getMonth() == (month-1) && date.getYear() == (year-1900)){
+			Calendar date = order.getTime();
+			if(date.get(Calendar.DATE) == day && date.get(Calendar.MONTH) == (month-1) && date.get(Calendar.YEAR) == (year)){
 				matchDayOrderList.add(order);
 			}
 		}
 		return matchDayOrderList;
 	}
-	/*
-	 * this method use to find order that match the month user input
+	/**
+	 * returns a list of the order from the month and year according to the user input.
+	 * @param month the month requested from the user.
+	 * @param year the year of the order to be requested.
+	 * @return the list of the order that fits the criteria of the month and year.
 	 */
 	public ArrayList<Order> findOrderByMonth(int month, int year){
 		ArrayList<Order> matchDayOrderList = new ArrayList<Order>();
 		for(Order order : listOrder){
-			Date date = order.getTime();
-			if( date.getMonth() == month && date.getYear() == year){
-				matchDayOrderList.add(order);
+			Calendar date = order.getTime();
+			if(date.get(Calendar.MONTH) == (month-1) && date.get(Calendar.YEAR) == (year)){
+			matchDayOrderList.add(order);
 			}
 		}
 		return matchDayOrderList;
 	}
-
-public void RevenueByDate(ArrayList<Order> order,int d, int m, int y){
+	
+	/**
+	 * this function is called when the staff want to get the report of particular day.
+	 * print the daily report according to the order from the list available.
+	 * @param order the list of the order that match the user input's requirements.
+	 * @param d the date from the user input.
+	 * @param m the month requested from the user.
+	 * @param y the year of the order to be requested.
+	 */
+	
+	public void RevenueByDate(ArrayList<Order> order,int d, int m, int y){
 		int TotalPrice= 0;
 		
 		if(order == null){
@@ -55,27 +86,34 @@ public void RevenueByDate(ArrayList<Order> order,int d, int m, int y){
 			{
 				System.out.println("Customer ID:" + order.get(i).getCustomerId());
 				ArrayList<MenuItem> menuItems = (order.get(i)).getMenuItemsList();
-				ArrayList<PromotionalPackage> packages = (order.get(i)).getPromotionalPackagesList();
-					
+				ArrayList<Integer> quantityMenuItems = (order.get(i)).getQuantityMenuItems();
+				//quantityMenuItems.get(j)+
+				//quantityPackage.get(k) +
 				System.out.println("Menu items: ");
-				for(int j = 0; i < menuItems.size(); ++i)
+				for(int j = 0; j < menuItems.size(); ++j)
 				{
-					System.out.println("- Menu item " + j + " : " + menuItems.get(j).getName() + "       Price:" + (menuItems.get(j).getPrice()));
+					System.out.println((j+1) + ". " + " x "+ (menuItems.get(j)).getName() + "       Price:" + (menuItems.get(j)).getPrice());
 				}
-					
+				
+				ArrayList<PromotionalPackage> packages = (order.get(i)).getPromotionalPackagesList();
+				ArrayList<Integer> quantityPackage = (order.get(i)).getQuantityPackages();
 				System.out.println("Promotional packages: ");
-				for(int j = 0; i < packages.size(); ++i)
+				for(int k = 0; k < packages.size(); ++k)
 				{
-					System.out.println("- PromotionalPackage " + j + " : " + packages.get(j).getName() + "       Price:" + (packages.get(j).getPrice()));
+					System.out.println((k+1) + ". " +  (packages.get(k)).getName() + "       Price:" + (packages.get(k)).getPrice());
 				}
 				TotalPrice += (order.get(i)).getTotalPrice();
 			}
 		}
-		System.out.println("Overall revenue for " + d + m + y + " : " + TotalPrice);  
+		System.out.println("Overall revenue for " + d +" " + m +" "+ y + " : " + TotalPrice);  
 
 }
-
-//Revenue by Month
+	/**
+	 * print the monthly report according to the order from the list available.
+	 * @param order the list of the order that match the user input's requirements.
+	 * @param m the month requested from the user.
+	 * @param y the year of the order to be requested.
+	 */
 public void RevenueByMonth(ArrayList<Order> order){
 	  	double OverallPrice = 0;
 	  	double Max = 0;
@@ -93,18 +131,23 @@ public void RevenueByMonth(ArrayList<Order> order){
 			{
 				if(Max < (order.get(i)).getTotalPrice()){
 					Max = (order.get(i)).getTotalPrice();
-					DateMax.set(Calendar.MONTH, order.get(i).getTime().getMonth()+1);
+					DateMax.set(Calendar.MONTH, ( (order.get(i)).getTime() ).get(Calendar.MONTH));
+					DateMax.set(Calendar.DATE, ( (order.get(i)).getTime() ).get(Calendar.DATE));
+					DateMax.set(Calendar.YEAR, ( (order.get(i)).getTime() ).get(Calendar.YEAR));
 				}
 				else if(Min > order.get(i).getTotalPrice()){
 					Min = (order.get(i)).getTotalPrice();
-					DateMin.set(Calendar.MONTH, order.get(i).getTime().getMonth()+1);
+					DateMin.set(Calendar.MONTH, ( (order.get(i)).getTime() ).get(Calendar.MONTH));
+					DateMin.set(Calendar.DATE, ( (order.get(i)).getTime() ).get(Calendar.DATE));
+					DateMin.set(Calendar.YEAR, ( (order.get(i)).getTime() ).get(Calendar.YEAR));
 				}
-				OverallPrice += order.get(i).getTotalPrice();
+				OverallPrice += (order.get(i)).getTotalPrice();
 			}
 		}
 			
-			System.out.println("Top sale of the month in " + monthNames[ DateMax.get(Calendar.MONTH) ] + "is: "+	Max);
-			System.out.println("Least sale of the month in " + monthNames[ DateMin.get(Calendar.MONTH) ] + "is: " + Min);		
+			System.out.println("Top sale of the month in " + DateMax.get(Calendar.DATE)+" "+monthNames[ DateMax.get(Calendar.MONTH) ] +" " +DateMax.get(Calendar.YEAR)+ " is: "+	Max);
+			System.out.println("Least sale of the month in " + DateMin.get(Calendar.DATE)+" "+monthNames[ DateMin.get(Calendar.MONTH) ] +" " +DateMin.get(Calendar.YEAR)+ " is: " + Min);		
 			System.out.println("Overall Total Price: " + OverallPrice); 
 		} 
 }
+
