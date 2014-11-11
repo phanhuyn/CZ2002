@@ -51,6 +51,7 @@ public class ReservationController {
 	 * @param sizeOfPax Number of seats required on the table.
 	 * @param start The starting time of booking.
 	 * @param end The ending time of booking.
+	 * @return The table that fits the requirements.
 	 */
 	public Table getTable(int sizeOfPax, Date start, Date end) {
 		Table which = null;
@@ -75,6 +76,7 @@ public class ReservationController {
 	 * @param sizeOfPax Number of seats required.
 	 * @param start Starting time of booking.
 	 * @param end Ending time of booking.
+	 * @return Returns true if successful.
 	 */
 	public boolean allocate(Table which, String fullName, String contactNo,
 			int sizeOfPax, Date start, Date end) {
@@ -84,9 +86,10 @@ public class ReservationController {
 	}
 	
 	/**
-	 * Get the customer's existing reservations.
+	 * Returns the customer's existing reservations on all tables.
 	 * @param fullName The full name of the customer (case-sensitive).
 	 * @param contactNo The contact number of the customer (case-sensitve).
+	 * @return List of reservations of that customer.
 	 */
 	public ArrayList<Reservation> getReservation(String fullName,
 			String contactNo) {
@@ -99,6 +102,7 @@ public class ReservationController {
 	/**
 	 * Remove a reservation.
 	 * @param which Reference to the reservation.
+	 * @return Returns true if successful.
 	 */
 	public boolean removeReservation(Reservation which) {
 		return which.getTable().removeReservation(which);

@@ -59,6 +59,7 @@ public class Table {
 	
 	/**
 	 * Returns the capacity of this table.
+	 * @return Returns the capacity of this table.
 	 */
 	public int getCapacity() {
 		return capacity;
@@ -67,6 +68,7 @@ public class Table {
 	/**
 	 * Allocate this table for that reservation's timeslot.
 	 * @param item The reservation details.
+	 * @return Returns true if allocation of reservation is successful
 	 */
 	public boolean allocate(Reservation item) {
 		if (isAvailable(item.getSizeOfPax(), item.getStartTime(),
@@ -77,7 +79,8 @@ public class Table {
 	}
 	
 	/**
-	 * Get the list of reservations of this particular table.
+	 * Returns the list of reservations in this table.
+	 * @return Returns the list of reservations in this table.
 	 */
 	public ArrayList<Reservation> getReservation()
 	{
@@ -88,6 +91,7 @@ public class Table {
 	 * Get the list of reservations of that particular person in this table.
 	 * @param fullName The full name of the person.
 	 * @param contactNo The contact number of that person.
+	 * @return List of reservations of that person.
 	 */
 	public ArrayList<Reservation> getReservation(String fullName,
 			String contactNo) {
@@ -102,13 +106,15 @@ public class Table {
 	/**
 	 * Remove the reservation from this table.
 	 * @param which The reference to that reservation.
+	 * @return Returns true if successful.
 	 */
 	public boolean removeReservation(Reservation which) {
 		return reservation.remove(which);
 	}
 	
 	/**
-	 * Get the unique ID of this table.
+	 * Returns the unique ID of this table.
+	 * @return Returns the id of this table
 	 */
 	public int getId() {
 		return id;
@@ -116,6 +122,7 @@ public class Table {
 	
 	/**
 	 * Returns a string in the format id|capacity|list_of_reservation_id.
+	 * @return Returns a string in the format id|capacity|list_of_reservation_id.
 	 */
 	public String toString()
 	{

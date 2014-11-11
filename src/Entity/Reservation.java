@@ -68,6 +68,7 @@ public class Reservation {
 	 * Check if a timeslot clash with this reservation.
 	 * @param start The starting time.
 	 * @param end The ending time.
+	 * @return Returns true if both timeslot clash.
 	 */
 	public boolean isClash(Date start, Date end) {
 		return !(this.start.after(end) || this.end.before(start));
@@ -75,13 +76,15 @@ public class Reservation {
 	
 	/**
 	 * Returns the starting time.
+	 * @return Returns the starting time.
 	 */
 	public Date getStartTime() {
 		return start;
 	}
 
 	/**
-	 * Returns ending time.
+	 * Returns the ending time.
+	 * @return Returns the ending time.
 	 */
 	public Date getEndTime() {
 		return end;
@@ -89,6 +92,7 @@ public class Reservation {
 
 	/**
 	 * Returns the size of pax.
+	 * @return Returns the size of pax.
 	 */
 	public int getSizeOfPax() {
 		return sizeOfPax;
@@ -96,6 +100,7 @@ public class Reservation {
 
 	/**
 	 * Returns the full name of the customer.
+	 * @Returns the full name of the customer.
 	 */
 	public String getFullName() {
 		return fullName;
@@ -103,6 +108,7 @@ public class Reservation {
 
 	/**
 	 * Returns the contact number of the customer.
+	 * @return Returns the contact number of the customer.
 	 */
 	public String getContactNo() {
 		return contactNo;
@@ -110,6 +116,7 @@ public class Reservation {
 
 	/**
 	 * Returns the unique ID of that person.
+	 * @return Returns the unique ID of that person.
 	 */
 	public int getId() {
 		return id;
@@ -117,6 +124,7 @@ public class Reservation {
 
 	/**
 	 * Returns the reference to the reserved table.
+	 * @return Returns the reference to the reserved table.
 	 */
 	public Table getTable() {
 		return table;
@@ -124,6 +132,7 @@ public class Reservation {
 	
 	/**
 	 * Returns a string in the format id|table_id|fullName|contactNo|sizeOfPax|start|end.
+	 * @return Returns a string in the format id|table_id|fullName|contactNo|sizeOfPax|start|end.
 	 */
 	public String toString()
 	{
