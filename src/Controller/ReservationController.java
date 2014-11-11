@@ -35,6 +35,16 @@ public class ReservationController {
 		this.table = restaurant.getTableList();
 	}
 	
+	// FOR TESTING ONLY
+	// DISABLE THIS PART OF CODE AFTER TESTING
+	public ReservationController()
+	{
+		this.restaurant = null;
+		this.table = new ArrayList<Table>();
+		table.add(new Table(2));
+		table.add(new Table(2));
+	}
+	
 	/**
 	 * Returns a table which is able to be reserved during start time until end time.
 	 * If there are multiple tables, the one with smallest capacity is returned.
@@ -71,6 +81,15 @@ public class ReservationController {
 		Reservation reservation = new Reservation(which, fullName, contactNo,
 				sizeOfPax, start, end);
 		return which.allocate(reservation);
+	}
+	
+	/**
+	 * Allocate that table for this particular Reservation object
+	 * @param Reservation reservation The Reservation object
+	 */
+	public boolean allocate(Reservation reservation)
+	{
+		return reservation.getTable().allocate(reservation);
 	}
 	
 	/**

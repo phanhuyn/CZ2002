@@ -70,7 +70,7 @@ public class Reservation {
 	 * @param end The ending time (exclusive).
 	 */
 	public boolean isClash(Date start, Date end) {
-		return this.start.after(end) || this.end.before(start);
+		return !(this.start.after(end) || this.end.before(start));
 	}
 	
 	/**

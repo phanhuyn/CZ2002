@@ -49,10 +49,10 @@ public class Table {
 	public boolean isAvailable(int sizeOfPax, Date start, Date end) {
 		if (capacity >= sizeOfPax) {
 			for (Reservation item : reservation)
-				if (!item.isClash(start, end))
-					return true;
+				if (item.isClash(start, end))
+					return false;
 
-			return false;
+			return true;
 		} else
 			return false;
 	}
@@ -74,6 +74,14 @@ public class Table {
 			return reservation.add(item);
 
 		return false;
+	}
+	
+	/**
+	 * Get the list of reservations of this particular table.
+	 */
+	public ArrayList<Reservation> getReservation()
+	{
+		return reservation;
 	}
 	
 	/**

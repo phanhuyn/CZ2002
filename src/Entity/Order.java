@@ -30,7 +30,7 @@ public class Order implements WriteToTxt{
 	private String mCustomerName;
 	private int mTableId;
 	private double mTotalPrice;
-	private Date mTime;
+	private Calendar mTime;
 	
 	public static ArrayList<Order> mOrderList = loadFromDb();
 	
@@ -46,7 +46,7 @@ public class Order implements WriteToTxt{
 		mTotalPrice = 0;
 		mItems = new ArrayList<MenuItem>();
 		mPackages = new ArrayList<PromotionalPackage>();
-		mTime = Calendar.getInstance().getTime();
+		mTime = Calendar.getInstance();
 		
 		for(int i = 0; i < Items.size(); ++i){
 			mItems.add(Items.get(i));
@@ -102,7 +102,7 @@ public class Order implements WriteToTxt{
 		return mTotalPrice;
 	}
 	
-	public Date getTime() {
+	public Calendar getTime() {
 		return mTime;
 	}
 	

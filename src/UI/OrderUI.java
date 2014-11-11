@@ -1,10 +1,14 @@
 package UI;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
-import Controller.MenuController;
 import Controller.OrderController;
+import Entity.MenuItem;
 import Entity.Order;
+import Entity.PromotionalPackage;
 import Entity.Restaurant;
 
 public class OrderUI {
@@ -19,10 +23,7 @@ public class OrderUI {
   	mRestaurant = restaurant;
   }
   
-
-
-
-	public void run() {
+  public void run() {
  		int choice = 0;
 			
 		Scanner sc = new Scanner(System.in);
@@ -76,9 +77,9 @@ public class OrderUI {
 	else
 	{
 		System.out.println("================= Loh Yeh Moh Yeh Resto =================");
-		System.out.println("Staff Name : " + order.getStaff() );
-		System.out.println("Table ID   : " + order.getTableId() );
-		System.out.println("Date       : " + order.getTime() );
+		System.out.println("Staff Name      : " + order.getStaff() );
+		System.out.println("Table ID        : " + order.getTableId() );
+		System.out.println("Date(DD/MM/YYYY): " + ( order.getTime() ).get(Calendar.DATE) + "/" + ( order.getTime() ).get(Calendar.MONTH) + "/" + ( order.getTime() ).get(Calendar.YEAR));
 		System.out.println("---------------------------------------------------------");
 		System.out.println("Menu Items                     : " + order.getMenuItemsList() );
 		System.out.println("Promotional Set Packages       : " + order.getPromotionalPackagesList() );
@@ -91,83 +92,92 @@ public class OrderUI {
 	}
 	sc.close();
 	return;
+}
+  
+  //Revenue by Date
+  public void RevenueByDate(){
+	  Scanner scan = new Scanner(System.in);
+		int d, m, y;
+			
+		System.out.println("please enter the Date in the following format DD MM YYYY:");
+		d = scan.nextInt();
+		m = scan.nextInt();
+		y = scan.nextInt();
+			
+		int TotalPrice= 0;
+			
+		ArrayList<Order> order = mOrderController.findOrderByDate(d, m, y);
+		if(order == null){
+			System.out.println("No order found on that date!");
+			return;
+		}
+		else
+		{
+			for(int i = 0 ; i < order.size(); ++i)
+			{
+				System.out.println("Customer ID:" + order.get(i).getCustomerId());
+				ArrayList<MenuItem> menuItems = (order.get(i)).getMenuItemsList();
+				ArrayList<PromotionalPackage> packages = (order.get(i)).getPromotionalPackagesList();
+					
+				System.out.println("Menu items: ");
+				for(int j = 0; i < menuItems.size(); ++i)
+				{
+					System.out.println("- Menu item " + j + " : " + menuItems.get(j).getName() + "       Price:" + (menuItems.get(j).getPrice()));
+				}
+					
+				System.out.println("Promotional packages: ");
+				for(int j = 0; i < packages.size(); ++i)
+				{
+					System.out.println("- PromotionalPackage " + j + " : " + packages.get(j).getName() + "       Price:" + (packages.get(j).getPrice()));
+				}
+				TotalPrice += (order.get(i)).getTotalPrice();
+			}
+		}
+		System.out.println("Overall revenue for " + d + m + y + " : " + TotalPrice);  
+  
   }
-  /*
-  Public void RevenueByDate() {
-	Scanner scan = new Scanner();
-	int d, m, y;
-	
-	System.out.println("please enter the Date in the following format DD MM YYYY:");
-	d = scan.nextInt();
-	m = scan.nextInt();
-	y = scan.nextInt() - baseYear;
+
+  //Revenue by Month
+  public void RevenueByMonth(){
+	  	double OverallPrice = 0;
+	  	double Max = 0;
+	  	double Min = 0;
 		
-	Date date= new date(d,m,y);
-	int TotalPrice= 0;
+		System.out.println("Order Sales: ");
+		Scanner scan = new Scanner(System.in);
+		int m, y;
+			
+		System.out.println("please enter the month in the following format MM YYYY:");
+		m = scan.nextInt();
+		y = scan.nextInt();
+			
+		Calendar DateMax = Calendar.getInstance();
+		Calendar DateMin = Calendar.getInstance();
 		
-	Order order = mOrderController.find(date);
-	if(order == NULL){
-		System.out.println("No order found on that date!");
-		return -1;
-	}
-	else{
-		for(int i = 0 ; i < order.size(); ++i){
-			system.out.println("Customer ID:" + order.get(i).getCustomerId());
-			ArrayList<MenuItem> menuItems = order.getMenuItemsList();
-			ArrayList<PromotionalPackage> packages = order.getPromotionalPackagesList();
-				
-			System.out.println("Menu items: ");
-			for(int j = 0; i < menuItems.size(); ++i){
-				System.out.println("- Menu item " + j + " : " + menuItems.get(j).getName() + "       Price:" + (menuItems.get(j).getPrice());
+		String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+			
+		ArrayList<Order> order = mOrderController.findOrderByMonth(m,y);
+		if(order == null){
+			System.out.println("No order found on that month!");
+			return;
+		}
+		else{
+			for(int i = 0; i < order.size(); ++i)
+			{
+				if(Max < (order.get(i)).getTotalPrice()){
+					Max = (order.get(i)).getTotalPrice();
+					DateMax.set(Calendar.MONTH, ( (order.get(i)).getTime() ).get(Calendar.MONTH));
+				}
+				else if(Min > order.get(i).getTotalPrice()){
+					Min = (order.get(i)).getTotalPrice();
+					DateMin.set(Calendar.MONTH, ( (order.get(i)).getTime() ).get(Calendar.MONTH));
+				}
+				OverallPrice += order.get(i).getTotalPrice();
 			}
-				
-			System.out.println("Promotional packages: ");
-			for(int j = 0; i < packages.size(); ++i){
-				System.out.println("- PromotionalPackage " + j + " : " + packages.get(j).getName() + "       Price:" + (PromotionalPackage.get(j).getPrice());
-			}
-			TotalPrice += order.get(i).getTotalPrice();
 		}
 			
-	}
-	System.out.println("Overall revenue for "+ date +" : "+ TotalPrice);
-  };
-		
- Public void RevenueByMonth() {
-	int OverallPrice,Max,Min = 0;
-	Date dateMin= new Date();
-	Date dateMax= new Date();
-	System.out.println("Order Sales: ");
-	Scanner scan = new Scanner();
-	int m, y;
-		
-	System.out.println("please enter the month in the following format MM YYYY:");
-	m = scan.nextInt();
-	y = scan.nextInt() - baseYear;
-		
-	Date date= new Date(m,y);
-		
-	Order order = mOrderController.find(date);
-	if(order == NULL){
-		System.out.println("No order found on that month!");
-		return -1;
-
-	}
-	else{
-		for(int i = 0; i < order.size(); ++i){
-			if(Max < order.get(i).getTotalPrice()){
-				Max= order.get(i).getTotalPrice();
-				DateMax= order.get(i).getDate();
-			}
-			else if{ Min > order.get(i).getTotalPrice()){
-				Min= order.get(i).getTotalPrice();
-				DateMin= order.get(i).getDate();
-			}
-			OverallPrice +=order.get(i).getTotalPrice();
-		}
-	}
-	
-	System.out.println("Top sale of the month in " + dateMax + "is: "+	Max));
-	System.out.println("Least sale of the month in " + dateMin + "is: " + Min));		
-	System.out.println("Overall Total Price: " + OverallPrice);
-  }*/
+			System.out.println("Top sale of the month in " + monthNames[ DateMax.get(Calendar.MONTH) ] + "is: "+	Max);
+			System.out.println("Least sale of the month in " + monthNames[ DateMin.get(Calendar.MONTH) ] + "is: " + Min);		
+			System.out.println("Overall Total Price: " + OverallPrice); 
+		} 
 }

@@ -132,99 +132,133 @@ public class DataAdapter {
 		return true;
 	}
 
-	public static boolean save(Restaurant restaurant) {
+	public static boolean save (Restaurant restaurant)
+	{
 		PrintWriter writer = null, writer2 = null;
-
+		
 		/*
-		 * Table and reservation
-		 */
-
-		/*try {
+			Table and reservation
+		*/
+		try
+		{
 			ArrayList<Table> tables = restaurant.getTableList();
-			writer = new PrintWriter("data/table.txt");
+			writer  = new PrintWriter("data/table.txt");
 			writer2 = new PrintWriter("data/reservation.txt");
-			for (Table table : tables) {
-				writer.println(table); // need check getReservation() function -
-										// NHAT
-				for (Reservation reservation : table.getReservation("", ""))
-					writer2.println(reservation);
+			for(Table table: tables)
+			{
+				writer.println(table);
+				
+				int counter = 0;
+				for(Reservation item: table.getReservation())
+					System.out.println((counter++ > 0 ? "," : "") + item.getId());
 			}
-		} catch (FileNotFoundException e) {
+		}
+		catch(FileNotFoundException e)
+		{
 			System.out.println("File not found exception: " + e.getMessage());
 			return false;
-		} catch (IOException e) {
+		}
+		catch(IOException e)
+		{
 			System.out.println("I/O exception: " + e.getMessage());
 			return false;
-		} catch (Exception e) {
+		}
+		catch(Exception e)
+		{
 			System.out.println("Other exception: " + e.getMessage());
 			return false;
-		} finally {
-			try {
+		}
+		finally
+		{
+			try
+			{
 				writer.close();
 				writer2.close();
-			} catch (Exception e) {
-				System.out
-						.println("Exception caught while JAVA trying to close PrintWriter!");
-				return false;
 			}
-		}*/
-
-		/*
-		 * Menu Item
-		 */
-		try {
-			ArrayList<MenuItem> menuItemList = restaurant.getMenu()
-					.getListMenuItems();
-			writer = new PrintWriter("data/menuItem.txt");
-			for (MenuItem item : menuItemList)
-				writer.println(item);
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found exception: " + e.getMessage());
-			return false;
-		} catch (IOException e) {
-			System.out.println("I/O exception: " + e.getMessage());
-			return false;
-		} catch (Exception e) {
-			System.out.println("Other exception: " + e.getMessage());
-			return false;
-		} finally {
-			try {
-				writer.close();
-			} catch (Exception e) {
-				System.out
-						.println("Exception caught while JAVA trying to close PrintWriter!");
+			catch(Exception e)
+			{
+				System.out.println("Exception caught while JAVA trying to close PrintWriter!");
 				return false;
 			}
 		}
-
+		
 		/*
-		 * Staff
-		 */
-
-		/*try {
-			ArrayList<Staff> staffs = restaurant.getStaffList();
-			writer = new PrintWriter("data/staff.txt");
-			for (Staff staff : staffs)
-				writer.println(staff);
-		} catch (FileNotFoundException e) {
+			Menu Item
+		*/
+		try
+		{
+			ArrayList<MenuItem> menuItemList = restaurant.getMenu().getListMenuItems();
+			writer = new PrintWriter("data/menuItem.txt");
+			for(MenuItem item: menuItemList)
+				writer.println(item);
+		}
+		catch(FileNotFoundException e)
+		{
 			System.out.println("File not found exception: " + e.getMessage());
 			return false;
-		} catch (IOException e) {
+		}
+		catch(IOException e)
+		{
 			System.out.println("I/O exception: " + e.getMessage());
 			return false;
-		} catch (Exception e) {
+		}
+		catch(Exception e)
+		{
 			System.out.println("Other exception: " + e.getMessage());
 			return false;
-		} finally {
-			try {
+		}
+		finally
+		{
+			try
+			{
 				writer.close();
-			} catch (Exception e) {
-				System.out
-						.println("Exception caught while JAVA trying to close PrintWriter!");
+			}
+			catch(Exception e)
+			{
+				System.out.println("Exception caught while JAVA trying to close PrintWriter!");
 				return false;
 			}
-		}*/
-
+		}
+		
+		/*
+			Staff
+		*/
+		/*
+		try
+		{
+			ArrayList<Staff> staffs = restaurant.getStaffList();
+			writer = new PrintWriter("data/staff.txt");
+			for(Staff staff: staffs)
+				writer.println(staff);
+		}
+		catch(FileNotFoundException e)
+		{
+			System.out.println("File not found exception: " + e.getMessage());
+			return false;
+		}
+		catch(IOException e)
+		{
+			System.out.println("I/O exception: " + e.getMessage());
+			return false;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Other exception: " + e.getMessage());
+			return false;
+		}
+		finally
+		{
+			try
+			{
+				writer.close();
+			}
+			catch(Exception e)
+			{
+				System.out.println("Exception caught while JAVA trying to close PrintWriter!");
+				return false;
+			}
+		}
+		*/
 		return true;
 	}
 

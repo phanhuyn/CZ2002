@@ -31,6 +31,17 @@ public class OrderController {
 		return matchDayOrderList;
 	}
 	
+	public ArrayList<Order> findOrderByMonth(int month, int year){
+		ArrayList<Order> matchDayOrderList = new ArrayList<Order>();
+		for(Order order : listOrder){
+			Date date = order.getTime().getTime();
+			if( date.getMonth() == month && date.getYear() == year){
+				matchDayOrderList.add(order);
+			}
+		}
+		return matchDayOrderList;
+	}
+	
 	public ArrayList<Order> findOrderByTime(int month, int year){
 		ArrayList<Order> matchDayOrderList = new ArrayList<Order>();
 		for(Order order : listOrder){
