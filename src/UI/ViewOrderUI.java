@@ -64,17 +64,22 @@ public class ViewOrderUI {
 					System.out.println("Customer: "+ order.getCustomerName() + "       ID:"+order.getCustomerId());
 					System.out.println("Table: " + order.getTableId());
 					System.out.println("Order list: ");
-					System.out.println("Menu items: ");
 					ArrayList<MenuItem> menuItems = order.getMenuItemsList();
 					ArrayList<Integer> quantityMenuItems = order.getQuantityMenuItems();
+					ArrayList<PromotionalPackage> packages = order.getPromotionalPackagesList();
+					ArrayList<Integer> quantityPackage = order.getQuantityPackages();
+					if(menuItems.size()>0){
+						System.out.println("Menu items: ");
+					}
+					
 					for(int i = 0; i < menuItems.size(); ++i){
 						System.out.println((i+1) + ". " + quantityMenuItems.get(i)+" x "+ menuItems.get(i).getName() + "       Price:" + menuItems.get(i).getPrice());
 					}
-					System.out.println("Promotional packages: ");
-					ArrayList<PromotionalPackage> packages = order.getPromotionalPackagesList();
-					ArrayList<Integer> quantityPackage = order.getQuantityPackages();
+					if(packages.size() > 0){
+						System.out.println("Promotional packages: ");
+					}
 					for(int i = 0; i < packages.size(); ++i){
-						System.out.println((i+1) + ". " + quantityPackage.get(i) + packages.get(i).getName() + "       Price:" + menuItems.get(i).getPrice());
+						System.out.println((i+1) + ". " + quantityPackage.get(i) + " x " + packages.get(i).getName() + "       Price:" + packages.get(i).getPrice());
 					}
 					System.out.println("Total Price: " + order.getTotalPrice());
 				}
