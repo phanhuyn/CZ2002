@@ -217,20 +217,8 @@ public class CreateOrderUI {
 						break;
 					}
 				}
-				/*
-				 * ask user want to set Date for order
-				 */
-				confirm = 0;
-				System.out.print("Enter 1 to set date created order, 0 to use current day by system: ");
-				if(confirm==1){
-					Date date = new Date();
-					System.out.println("Enter day created: ");
-					date.setDate(scan.nextInt());
-					System.out.println("Enter month created: ");
-					date.setMonth(scan.nextInt());
-					System.out.println("Enter month created: ");
-					date.setYear(scan.nextInt());
-				}
+				
+				
 				/*
 				 * ask user to confirm making order
 				 */
@@ -238,19 +226,22 @@ public class CreateOrderUI {
 				System.out.print("Enter 1 to confirm making order, 0 to cancel,: ");
 				confirm = scan.nextInt();
 				if(confirm == 1){
+					/*
+					 * ask user want to set Date for order
+					 */
 					boolean isSetDate = false;
 					Date date = new Date();
 					System.out.print("Enter 1 to set date created order, 0 to use current day by system: ");
 					confirm = scan.nextInt();
-					System.out.print(spacing);
+					System.out.println(spacing);
 					if(confirm==1){
 						isSetDate = true;
 						System.out.println("Enter day created: ");
 						date.setDate(scan.nextInt());
 						System.out.println("Enter month created: ");
-						date.setMonth(scan.nextInt());
-						System.out.println("Enter month created: ");
-						date.setYear(scan.nextInt());
+						date.setMonth(scan.nextInt()-1);
+						System.out.println("Enter year created: ");
+						date.setYear(scan.nextInt()-1900);
 					}
 					mOrderController.createNewOrder(mStaffName, orderMenuItemList, orderPackageList, mCustomerId, mCustomerName, mTableId, isSetDate, date);	
 				}

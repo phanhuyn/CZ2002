@@ -133,13 +133,13 @@ public void RevenueByMonth(ArrayList<Order> order){
 					Max = (order.get(i)).getTotalPrice();
 					DateMax.set(Calendar.MONTH, order.get(i).getTime().getMonth()+1);
 					DateMax.set(Calendar.DATE, order.get(i).getTime().getDate());
-					DateMax.set(Calendar.YEAR, order.get(i).getTime().getYear());
+					DateMax.set(Calendar.YEAR, order.get(i).getTime().getYear()+1900);
 				}
 				else if(Min > order.get(i).getTotalPrice()){
 					Min = (order.get(i)).getTotalPrice();
 					DateMin.set(Calendar.MONTH, order.get(i).getTime().getMonth()+1);
 					DateMin.set(Calendar.DATE, order.get(i).getTime().getDate());
-					DateMin.set(Calendar.YEAR, order.get(i).getTime().getYear());
+					DateMin.set(Calendar.YEAR, order.get(i).getTime().getYear()+1900);
 				}
 				OverallPrice += (order.get(i)).getTotalPrice();
 			}
