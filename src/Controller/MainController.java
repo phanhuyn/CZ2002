@@ -26,8 +26,6 @@ public class MainController {
 	}
 	
 	public void orderOption(){
-		//OrderController orderController = new OrderController();
-		//orderController.run();
 		OrderUI mOrderUI = new OrderUI(mRestaurant);
 		mOrderUI.run();
 	}

@@ -1,3 +1,10 @@
+/**
+ * The controller class which reads and writes the data from and into .txt files
+ * @author Nguyen Phan Huy, Tran Vu Xuan Nhat, Peter
+ * @version 1.0
+ * @since 2014-11-13
+ */
+
 package Data;
 
 import java.io.BufferedReader;
@@ -18,22 +25,27 @@ import Entity.Table;
 
 public class DataAdapter {
 
-	private DataAdapter() {
-	};
 
+	/**
+	 * The list of .txt file containing the data
+	 */
 	private static String[] fileName = { "data/menuItem.txt",
-			"data/package.txt", "data/table.txt", "data/staff.txt", "data/resevation.txt"};
+			"data/package.txt", "data/table.txt", "data/staff.txt", "data/reservation.txt"};
 
+	/**
+	 * The constructor is private since we need only one instance of the class
+	 * The methods of the class are all static, and can be called by the class name
+	 */
+	private DataAdapter() {};
+	
+	/**
+	 * Load all the resources of the restaurant into a restaurant object
+	 * The resources include: menu (menu items and promotional packages), order, reservation, staff
+	 * @param restaurant the reference to the restaurant object to be loaded with resources
+	 * @return
+	 */
 	public static boolean loadRestaurantResource(Restaurant restaurant) {
 
-		// TODO add reservation loading and table loading
-
-		/*
-		 * USE: String.split("\\|", -1) to account for the empty string! More
-		 * information at:
-		 * http://stackoverflow.com/questions/14602062/java-string
-		 * -split-removed-empty-values
-		 */
 		Menu menu = restaurant.getMenu();
 
 		try {
@@ -47,7 +59,7 @@ public class DataAdapter {
 			BufferedReader brStaff = new BufferedReader(new FileReader(
 					fileName[3]));
 			BufferedReader brReservation = new BufferedReader(new FileReader(
-					"data/reservation.txt"));
+					fileName[4]));
 
 			String tempString;
 			String[] tempAttribute;
@@ -141,6 +153,12 @@ public class DataAdapter {
 		return true;
 	}
 
+	/**
+	 * Save all the resources from the restaurant objects to the .txt files
+	 * The resources include: menu (menu items and promotional packages), order, reservation, staff
+	 * @param restaurant the reference to the restaurant object that contains the information to be saved
+	 * @return
+	 */
 	public static boolean save (Restaurant restaurant)
 	{
 		PrintWriter writer = null, writer2 = null;

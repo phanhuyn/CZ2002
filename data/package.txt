@@ -1,3 +1,4 @@
 1|Meal of the month|5.3|Chicken Rice served with Chocolate Cupcake and Ice Lemon Tea|2,3,1
 2|The treat|6.0|Duck Rice with Coke and Ice cream|4,6,7
-3|Big combo|8.0|All the things|1,2,3
+3|Big combo|6.0|All the things|1,2,7
+4|Tea and Rice|4.5|Japanese style|1,2

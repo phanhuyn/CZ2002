@@ -1,3 +1,11 @@
+/**
+	The main UI of the application, responsible for switching between main functionality based on user's choice
+	Provide the methods to take in user's input
+	@author Nguyen Phan Huy
+	@version 1.0
+	@since 2014-11-13
+*/
+
 package UI;
 
 import java.util.InputMismatchException;
@@ -7,12 +15,23 @@ import Controller.MainController;
 
 public class MainUI {
 
+	/**
+	 * The main controller of the application
+	 */
 	private MainController mMainController;
 
+	/**
+	 * Create the MainUI
+	 * @param mainController the reference to the main controller
+	 */
 	public MainUI(MainController mainController) {
 		mMainController = mainController;
 	}
 
+	/**
+	 * Prompt for user's next choice of main functionality
+	 * Call the main controller's function's based on the choice
+	 */
 	public void displayMainFunction() {
 		int choice = 0;
 		Scanner sc = new Scanner(System.in);
@@ -43,6 +62,9 @@ public class MainUI {
 		System.out.println("Programm terminating...");
 	}
 	
+	/**
+	 * Print the list of main functionality
+	 */
 	public void printOption (){
 		System.out.println("#################################");
 		System.out.println("#         MAIN SCREEN           #");
@@ -56,6 +78,12 @@ public class MainUI {
 		System.out.println("#################################");
 	}
 	
+	/**
+	 * Ask for an integer input from the user
+	 * The method includes exception handling in case the user keys in an invalid value
+	 * @param question the information about the integer that the user needs to key in
+	 * @return the integer input from the user 
+	 */
 	public static int getInt (String question){
 		Scanner sc = new Scanner(System.in);
 		boolean checkInput = true;
@@ -74,6 +102,12 @@ public class MainUI {
 		return choice;
 	}
 	
+	/**
+	 * Ask for an double input from the user
+	 * The method includes exception handling in case the user keys in an invalid value
+	 * @param question the information about the double that the user needs to key in
+	 * @return the double input from the user 
+	 */	
 	public static double getDouble (String question){
 		Scanner sc = new Scanner(System.in);
 		double value = 0;

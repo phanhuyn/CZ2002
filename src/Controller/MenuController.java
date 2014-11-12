@@ -1,3 +1,11 @@
+/**
+	The controller of the functions related to menu
+	This controller handling the updating of the menu, including add/remove/update menu item and promotional package
+	@author Nguyen Phan Huy
+	@version 1.0
+	@since 2014-11-13
+*/
+
 package Controller;
 
 import java.util.ArrayList;
@@ -11,12 +19,23 @@ import Entity.PromotionalPackage;
 
 public class MenuController {
 
+	/**
+	 * The menu which the controller will handle
+	 */
 	private Menu mMenu;
 
+	/**
+	 * Create the controller with the reference to the menu it controls
+	 * @param menu the menu of the restaurant
+	 */
 	public MenuController(Menu menu) {
 		mMenu = menu;
 	}
 
+	/**
+	 * Called when the user choose menu option
+	 * Ask for the user's choice of menu options and call the function's based on the choice
+	 */
 	public void run() {
 		int choice = 0;
 		while (choice <= 8) {
@@ -54,7 +73,9 @@ public class MenuController {
 		return;
 	}
 
-	// 1. Create new menu item
+	/**
+	 * Create a new menu item in the menu
+	 */
 	public void createNewMenuItem() {
 		
 		// Ask for new item info
@@ -81,7 +102,9 @@ public class MenuController {
 		System.out.println("Menu item added!");
 	}
 
-	// 2. Update menu item
+	/**
+	 * Update a menu item in the menu
+	 */
 	public void updateMenuItem() {
 		mMenu.print(false, true, false);
 		
@@ -116,7 +139,9 @@ public class MenuController {
 		System.out.println("Item edited.");
 	}
 
-	// 3. Delete Menu Item
+	/**
+	 * Delete a menu item in the menu
+	 */
 	public void deleteMenuItem() {
 
 		mMenu.print(false, true, false);
@@ -148,7 +173,9 @@ public class MenuController {
 		}
 	}
 
-	// 4. Create new Promotional Package.
+	/**
+	 * Create a new promotional package in the menu
+	 */
 	public void createNewPromotionalPackage() {
 		
 		//Ask for package's info
@@ -188,7 +215,9 @@ public class MenuController {
 		System.out.println("Promotional package added!");
 	}
 
-	// 5. Update Promotional Package.
+	/**
+	 * Update a promotional package in the menu
+	 */
 	public void updatePromotionalPackage() {
 
 		mMenu.print(false, false, true);
@@ -238,7 +267,9 @@ public class MenuController {
 				name, price, description, tempMenuItemList));
 	}
 
-	// 6. Delete Promotional Package.
+	/**
+	 * Delete a promotional package in the menu
+	 */
 	public void deletePromotionalPackage() {
 
 		mMenu.print(false, false, true);
@@ -266,6 +297,10 @@ public class MenuController {
 		}
 	}
 	
+	
+	/**
+	 * Print all the available menu options
+	 */
 	public void printMenuOption() {
 		System.out.println("#################################");
 		System.out.println("#           MENU OPTION         #");
@@ -281,12 +316,20 @@ public class MenuController {
 		System.out.println("#################################");
 	}
 
+	/**
+	 * Get the list of all menu items
+	 * @return the list of all menu items in the menu
+	 */
 	public ArrayList<MenuItem> getMenuItemList() {
 		// TODO Auto-generated method stub
 		return mMenu.getListMenuItems();
 		// return null;
 	}
 
+	/**
+	 * Get the list of all promotional packages
+	 * @return the list of all promotional packages
+	 */
 	public ArrayList<PromotionalPackage> getPackageList() {
 		// TODO Auto-generated method stub
 		return mMenu.getListPackages();
