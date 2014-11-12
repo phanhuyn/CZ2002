@@ -35,8 +35,6 @@ public class DataAdapter {
 		 * -split-removed-empty-values
 		 */
 		Menu menu = restaurant.getMenu();
-		ArrayList<Table> tableList = new ArrayList<Table>();
-		ArrayList<Staff> staffList = new ArrayList<Staff>();
 
 		try {
 			// Initialize file reader
@@ -202,6 +200,44 @@ public class DataAdapter {
 			writer = new PrintWriter("data/menuItem.txt");
 			for(MenuItem item: menuItemList)
 				writer.println(item);
+		}
+		catch(FileNotFoundException e)
+		{
+			System.out.println("File not found exception: " + e.getMessage());
+			return false;
+		}
+		catch(IOException e)
+		{
+			System.out.println("I/O exception: " + e.getMessage());
+			return false;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Other exception: " + e.getMessage());
+			return false;
+		}
+		finally
+		{
+			try
+			{
+				writer.close();
+			}
+			catch(Exception e)
+			{
+				System.out.println("Exception caught while JAVA trying to close PrintWriter!");
+				return false;
+			}
+		}
+		
+		/*
+			Promotional Package
+		*/
+		try
+		{
+			ArrayList<PromotionalPackage> packageList = restaurant.getMenu().getListPackages();
+			writer = new PrintWriter("data/package.txt");
+			for(PromotionalPackage packageItem: packageList)
+				writer.println(packageItem);
 		}
 		catch(FileNotFoundException e)
 		{

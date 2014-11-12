@@ -153,8 +153,14 @@ public class MenuController {
 		
 		//Ask for package's info
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Input the name of the new promotional package: ");
+		System.out.println("Input the name of the new promotional package: (Enter -1 to go back)");
 		String name = sc.nextLine();
+		try {
+			if (Integer.parseInt(name) == -1){
+				return;
+			}
+		}
+		catch (Exception e){}
 
 		double price = MainUI.getDouble("Input the price of the new promotional package: ");
 		
@@ -162,98 +168,98 @@ public class MenuController {
 				.println("Input the description of the new promotional package: ");
 		String description = sc.nextLine();
 
-		int tempMenuItemId;
+		// Ask for the list of menu items to add to the package
 		mMenu.print(false, true, false);
 		ArrayList<MenuItem> tempMenuItemList = new ArrayList<MenuItem>();
-
-		System.out
-				.println("Input ONE menu item to add to the package (enter -1 to end): ");
-		tempMenuItemId = sc.nextInt();
-
+		
+		int tempMenuItemId = 0;
 		while (tempMenuItemId != -1) {
-
-			tempMenuItemList.add(mMenu.getMenuItemById(tempMenuItemId));
-
-			System.out
-					.println("Input the list of menu items to add to the package (enter -1 to end): ");
-			tempMenuItemId = sc.nextInt();
+			tempMenuItemId = MainUI.getInt("Input the menu items to add to the package, ONE at a time (enter -1 to end): ");
+			while (tempMenuItemId == 0 || tempMenuItemId < -1 || tempMenuItemId > mMenu.getListMenuItems().size()){
+				System.out.println("Value out of range, please try again!");
+				tempMenuItemId = MainUI.getInt("Input ONE menu item to add to the package (enter -1 to end): ");
+			}
+			if (tempMenuItemId!= -1) tempMenuItemList.add(mMenu.getMenuItemById(tempMenuItemId));
 		}
+		
 		mMenu.addPromotionalPackage(new PromotionalPackage(name, price,
 				description, tempMenuItemList));
+
 		System.out.println("Promotional package added!");
-		// //// ADD EXCEPTION HANDLING!!!!
-		// 1. double menu items 2. input type 3. array out of range for item
 	}
 
 	// 5. Update Promotional Package.
 	public void updatePromotionalPackage() {
 
 		mMenu.print(false, false, true);
-		System.out.println("Select the package to edit: ");
-		int choice;
 		Scanner sc = new Scanner(System.in);
-		choice = sc.nextInt();
-		sc.nextLine();
+
+		// Select the package to update
+		int choice = MainUI.getInt("Select the package to edit: (Enter -1 to go back)");
+		
+		while (choice < -1 || choice > mMenu.getListPackages().size() || choice == 0 ){
+			System.out.println("Value out of range! Please try again!");
+			choice = MainUI.getInt("Select the package to edit: (Enter -1 to go back)");
+		}
+		if (choice == -1 ){
+			return;
+		}
 
 		PromotionalPackage tempOldPackage = mMenu
 				.getPromotionalPackageById(choice);
 
 		tempOldPackage.print(true);
 
+		// Ask for new info of the package
 		System.out.println("Input the new name of the promotional package: ");
 		String name = sc.nextLine();
-		// System.out.println(name);
 
-		System.out.println("Input the new price of the promotional package: ");
-		double price = sc.nextDouble();
-		sc.nextLine();
-		// System.out.println(price);
+		double price = MainUI.getDouble("Input the new price of the promotional package: ");
 
 		System.out
 				.println("Input the new description of the promotional package: ");
 		String description = sc.nextLine();
-		// System.out.println(description);
 
-		int tempMenuItemId;
+		// Ask for the list of menu items to add to the package
 		mMenu.print(false, true, false);
 		ArrayList<MenuItem> tempMenuItemList = new ArrayList<MenuItem>();
-
-		System.out
-				.println("Enter the new list of menu items to add to the package (enter -1 to end): ");
-		tempMenuItemId = sc.nextInt();
-
+		
+		int tempMenuItemId = 0;
 		while (tempMenuItemId != -1) {
-
-			tempMenuItemList.add(mMenu.getMenuItemById(tempMenuItemId));
-
-			System.out
-					.println("Input ONE menu item to add to the package (enter -1 to end): ");
-			tempMenuItemId = sc.nextInt();
+			tempMenuItemId = MainUI.getInt("Input the menu items to add to the package, ONE at a time (enter -1 to end): ");
+			while (tempMenuItemId == 0 || tempMenuItemId < -1 || tempMenuItemId > mMenu.getListMenuItems().size()){
+				System.out.println("Value out of range, please try again!");
+				tempMenuItemId = MainUI.getInt("Input ONE menu item to add to the package (enter -1 to end): ");
+			}
+			if (tempMenuItemId!= -1) tempMenuItemList.add(mMenu.getMenuItemById(tempMenuItemId));
 		}
-
+		
 		mMenu.replacePromotionalPackageById(choice, new PromotionalPackage(
 				name, price, description, tempMenuItemList));
-		// ADD EXCEPTION HANDLING
 	}
 
 	// 6. Delete Promotional Package.
 	public void deletePromotionalPackage() {
 
 		mMenu.print(false, false, true);
-		System.out.println("Select the item to delete: ");
-		int choice;
-		Scanner sc = new Scanner(System.in);
-		choice = sc.nextInt();
-		sc.nextLine();
+		// Select the package to delete
+		
+		int choice = MainUI.getInt("Select the package to delete: (Enter -1 to go back)");
+		
+		while (choice < -1 || choice > mMenu.getListPackages().size() || choice == 0 ){
+			System.out.println("Value out of range! Please try again!");
+			choice = MainUI.getInt("Select the package to delete: (Enter -1 to go back)");
+		}
+		if (choice == -1 ){
+			return;
+		}
 
-		PromotionalPackage packageToDelete = mMenu
-				.getPromotionalPackageById(choice);
+		PromotionalPackage packageToDelete = mMenu.getPromotionalPackageById(choice);
 		packageToDelete.print(true);
-		System.out
-				.println("Are you sure you want to delete this item? (Enter 'y' to confirm)");
+		System.out.println("Are you sure you want to delete this item? (Enter 'y' to confirm)");
 
+		Scanner sc = new Scanner (System.in);
 		String confirm = sc.next();
-		// System.out.println(confirm);
 		if (confirm.charAt(0) == 'y') {
 			mMenu.deletePromotionalPackageById(choice);
 			System.out.println("Package deleted.");
