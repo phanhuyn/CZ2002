@@ -167,8 +167,8 @@ public class Order implements WriteToTxt{
 		mTableId = tableId;
 	}
 
-	public void setTime() {
-		mTime = Calendar.getInstance().getTime();
+	public void setTime(Date date) {
+		mTime = date;
 	}
 	/*
 	 * add methods to add MenuItem or PromotionalPackage to Order

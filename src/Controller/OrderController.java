@@ -35,7 +35,7 @@ public class OrderController {
 		ArrayList<Order> matchDayOrderList = new ArrayList<Order>();
 		for(Order order : listOrder){
 			Date date = order.getTime();
-			if( date.getMonth() == month && date.getYear() == year){
+			if( date.getMonth() == (month-1) && date.getYear() == (year-1900)){
 				matchDayOrderList.add(order);
 			}
 		}
@@ -59,9 +59,12 @@ public class OrderController {
 	public void createNewOrder(String mStaffName,
 			ArrayList<MenuItem> orderMenuItemList,
 			ArrayList<PromotionalPackage> orderPackageList, int mCustomerId,
-			String mCustomerName, int mTableId) {
+			String mCustomerName, int mTableId, boolean isSetDate, Date date) {
 		// TODO Auto-generated method stub
 		Order order = new Order(mStaffName, orderMenuItemList, orderPackageList, mCustomerId, mCustomerName, mTableId);
+		if(isSetDate){
+			order.setTime(date);
+		}
 		listOrder.add(order);
 		System.out.println("Order is made, below is the information: ");
 		System.out.println("Order ID: " + order.getId());

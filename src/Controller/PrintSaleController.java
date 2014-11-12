@@ -40,8 +40,8 @@ public class PrintSaleController {
 	public ArrayList<Order> findOrderByDate(int day, int month, int year){
 		ArrayList<Order> matchDayOrderList = new ArrayList<Order>();
 		for(Order order : listOrder){
-			Calendar date = order.getTime();
-			if(date.get(Calendar.DATE) == day && date.get(Calendar.MONTH) == (month-1) && date.get(Calendar.YEAR) == (year)){
+			Date date = order.getTime();
+			if(date.getDay() == day && date.getMonth() == (month-1) && date.getYear() == (year-1900)){
 				matchDayOrderList.add(order);
 			}
 		}
@@ -56,9 +56,9 @@ public class PrintSaleController {
 	public ArrayList<Order> findOrderByMonth(int month, int year){
 		ArrayList<Order> matchDayOrderList = new ArrayList<Order>();
 		for(Order order : listOrder){
-			Calendar date = order.getTime();
-			if(date.get(Calendar.MONTH) == (month-1) && date.get(Calendar.YEAR) == (year)){
-			matchDayOrderList.add(order);
+			Date date = order.getTime();
+			if( date.getMonth() == (month-1) && date.getYear() == (year-1900)){
+				matchDayOrderList.add(order);
 			}
 		}
 		return matchDayOrderList;
@@ -131,15 +131,15 @@ public void RevenueByMonth(ArrayList<Order> order){
 			{
 				if(Max < (order.get(i)).getTotalPrice()){
 					Max = (order.get(i)).getTotalPrice();
-					DateMax.set(Calendar.MONTH, ( (order.get(i)).getTime() ).get(Calendar.MONTH));
-					DateMax.set(Calendar.DATE, ( (order.get(i)).getTime() ).get(Calendar.DATE));
-					DateMax.set(Calendar.YEAR, ( (order.get(i)).getTime() ).get(Calendar.YEAR));
+					DateMax.set(Calendar.MONTH, order.get(i).getTime().getMonth()+1);
+					DateMax.set(Calendar.DATE, order.get(i).getTime().getDate());
+					DateMax.set(Calendar.YEAR, order.get(i).getTime().getYear());
 				}
 				else if(Min > order.get(i).getTotalPrice()){
 					Min = (order.get(i)).getTotalPrice();
-					DateMin.set(Calendar.MONTH, ( (order.get(i)).getTime() ).get(Calendar.MONTH));
-					DateMin.set(Calendar.DATE, ( (order.get(i)).getTime() ).get(Calendar.DATE));
-					DateMin.set(Calendar.YEAR, ( (order.get(i)).getTime() ).get(Calendar.YEAR));
+					DateMin.set(Calendar.MONTH, order.get(i).getTime().getMonth()+1);
+					DateMin.set(Calendar.DATE, order.get(i).getTime().getDate());
+					DateMin.set(Calendar.YEAR, order.get(i).getTime().getYear());
 				}
 				OverallPrice += (order.get(i)).getTotalPrice();
 			}

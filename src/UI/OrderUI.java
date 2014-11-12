@@ -5,7 +5,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 import java.text.DecimalFormat;
+
 import Controller.OrderController;
+import Controller.PrintSaleController;
 import Entity.MenuItem;
 import Entity.Order;
 import Entity.PromotionalPackage;
@@ -125,6 +127,7 @@ public class OrderUI {
 	d = scan.nextInt();
 	m = scan.nextInt();
 	y = scan.nextInt();
+	PrintSaleController mPrintSaleController = new PrintSaleController();
 	ArrayList<Order> order = mPrintSaleController.findOrderByDate(d, m, y);
 	mPrintSaleController.RevenueByDate(order,d,m,y);
 	scan.close();
@@ -142,6 +145,7 @@ public class OrderUI {
 	System.out.println("please enter the month in the following format MM YYYY:");
 	m = scan.nextInt();
 	y = scan.nextInt();
+	PrintSaleController mPrintSaleController = new PrintSaleController();
 	ArrayList<Order> order = mPrintSaleController.findOrderByMonth(m,y);
 	mPrintSaleController.RevenueByMonth(order);
 	scan.close();
