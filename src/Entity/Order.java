@@ -51,7 +51,7 @@ public class Order implements WriteToTxt{
 		quantityMenuItems =  new ArrayList<Integer>();
 		quantityPackages = new ArrayList<Integer>();
 		
-		int position;
+		int position ;
 		for(int i = 0; i < Items.size(); ++i){
 			position = foundMenuItem(Items.get(i).getName());
 			if(position == -1){
@@ -59,9 +59,9 @@ public class Order implements WriteToTxt{
 				quantityMenuItems.add(1);
 			}
 			else{
-				Integer in = quantityMenuItems.get(i);
+				Integer in = quantityMenuItems.get(position);
 				in++;
-				quantityMenuItems.set(i, in);
+				quantityMenuItems.set(position, in);
 			}
 		    mTotalPrice+= Items.get(i).getPrice();
 		}
@@ -74,9 +74,9 @@ public class Order implements WriteToTxt{
 				quantityPackages.add(1);
 			}
 			else{
-				Integer in = quantityPackages.get(i);
+				Integer in = quantityPackages.get(position);
 				in++;
-				quantityPackages.set(i, in);
+				quantityPackages.set(position, in);
 			}
 			mTotalPrice+= packages.get(i).getPrice();
 		}
