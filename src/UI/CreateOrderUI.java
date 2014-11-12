@@ -32,19 +32,23 @@ public class CreateOrderUI {
 		mStaffList = restaurant.getStaffList();
 		mTableList = restaurant.getTableList();
 		
+		mOrderController.setListTable(mTableList);
 	}
 	
 	public void run(){
 		Scanner scan = new Scanner(System.in);
-		String mStaffName = null, mCustomerName;
-		int mCustomerId, option = 1, mTableId = 0;
+		int option = 1;
+		
 		ArrayList<MenuItem> menuItems = mMenuController.getMenuItemList();
 		ArrayList<PromotionalPackage> packages = mMenuController.getPackageList();
-		ArrayList<MenuItem> orderMenuItemList = new ArrayList<MenuItem>();
-		ArrayList<PromotionalPackage> orderPackageList = new ArrayList<PromotionalPackage>();
+		
 		while(true){
-			/*
-			 * Let user input information of new order
+			String mStaffName = null, mCustomerName;
+			int mCustomerId, mTableId = 0;
+			ArrayList<MenuItem> orderMenuItemList = new ArrayList<MenuItem>();
+			ArrayList<PromotionalPackage> orderPackageList = new ArrayList<PromotionalPackage>();
+			 /*
+			  *  Let user input information of new order
 			 */
 			/*
 			 * option = 1: create another order

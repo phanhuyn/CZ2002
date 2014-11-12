@@ -88,7 +88,7 @@ public class OrderUI {
 		DecimalFormat  df = new DecimalFormat ("#.##");
 		ArrayList<MenuItem> item = order.getMenuItemsList();
 		ArrayList<PromotionalPackage> set = order.getPromotionalPackagesList();
-		
+		mOrderController.deallocateTable(order);
 		System.out.println("================= Loh Yeh Moh Yeh Resto =================");
 		System.out.println("Staff Name      : " + order.getStaff() );
 		System.out.println("Table ID        : " + order.getTableId() );
