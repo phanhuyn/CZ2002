@@ -107,4 +107,36 @@ public class ReservationController {
 	public boolean removeReservation(Reservation which) {
 		return which.getTable().removeReservation(which);
 	}
+	
+	/**
+	 * Clears all expired Reservations
+	 */
+	public void cleanUp()
+	{
+		Date now = new Date();
+		for(Table table: this.table)
+			table.cleanUp(now);
+	}
+	
+	/**
+	 * THIS IS UNIT TESTING! DON'T BOTHER!
+	 */
+	public static void main(String[] args)
+	{
+		ReservationController mgr = new ReservationController();
+		
+		mgr.table.get(0).allocate(new Reservation(mgr.table.get(0), "P", "9", 2,
+		new Date(114, 10, 10, 8, 30), new Date(114, 10, 10, 10, 29)));
+		
+		mgr.table.get(1).allocate(new Reservation(mgr.table.get(0), "P", "9", 2,
+		new Date(114, 10, 10, 8, 30), new Date(114, 10, 10, 10, 29)));
+		
+		System.out.println(mgr.table.get(0));
+		System.out.println(mgr.table.get(1));
+		
+		mgr.cleanUp();
+		
+		System.out.println(mgr.table.get(0));
+		System.out.println(mgr.table.get(1));
+	}
 }

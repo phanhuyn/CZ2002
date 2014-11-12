@@ -150,4 +150,19 @@ public class Table {
 	{
 		this.id = id;
 	}
+	
+	/**
+	 * Clears all expired reservations
+	 */
+	public void cleanUp(Date now)
+	{
+		for(int i = 0, size = reservation.size(); i < size; )
+			if(now.after(reservation.get(i).getEndTime()))
+			{
+				reservation.remove(i);
+				size--;
+			}
+			else
+				i++;
+	}
 }
