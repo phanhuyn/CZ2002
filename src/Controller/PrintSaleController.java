@@ -116,10 +116,17 @@ public class PrintSaleController {
 	 */
 public void RevenueByMonth(ArrayList<Order> order){
 	  	double OverallPrice = 0;
-	  	double Max = 0;
-	  	double Min = 0;
+	  	double Max = order.get(0).getTotalPrice();
+	  	double Min = order.get(0).getTotalPrice();
 		Calendar DateMax = Calendar.getInstance();
 		Calendar DateMin = Calendar.getInstance();
+		DateMax.set(Calendar.MONTH, order.get(0).getTime().getMonth()+1);
+		DateMax.set(Calendar.DATE, order.get(0).getTime().getDate());
+		DateMax.set(Calendar.YEAR, order.get(0).getTime().getYear()+1900);
+		DateMin.set(Calendar.MONTH, order.get(0).getTime().getMonth()+1);
+		DateMin.set(Calendar.DATE, order.get(0).getTime().getDate());
+		DateMin.set(Calendar.YEAR, order.get(0).getTime().getYear()+1900);
+		
 		String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 			
 		if(order == null){
@@ -127,7 +134,7 @@ public void RevenueByMonth(ArrayList<Order> order){
 			return;
 		}
 		else{
-			for(int i = 0; i < order.size(); ++i)
+			for(int i = 1; i < order.size(); ++i)
 			{
 				if(Max < (order.get(i)).getTotalPrice()){
 					Max = (order.get(i)).getTotalPrice();
