@@ -196,24 +196,4 @@ public class Menu {
 		// TODO Auto-generated method stub
 		return mPromotionalPackageList;
 	}
-
-	public MenuItem getMenuItemByName(String name) {
-		// TODO Auto-generated method stub
-		for(MenuItem item: mMenuItemList){
-			if(item.getName().compareTo(name) == 0){
-				return item;
-			}
-		}
-		return null;
-	}
-
-	public PromotionalPackage getPromotionalPackageByName(String name) {
-		// TODO Auto-generated method stub
-		for(PromotionalPackage mPackage: mPromotionalPackageList){
-			if(mPackage.getName().compareTo(name) == 0){
-				return mPackage;
-			}
-		}
-		return null;
-	}
 }

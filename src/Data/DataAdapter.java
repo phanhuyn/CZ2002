@@ -1,3 +1,10 @@
+/**
+ * The controller class which reads and writes the data from and into .txt files
+ * @author Nguyen Phan Huy, Tran Vu Xuan Nhat, Peter
+ * @version 1.0
+ * @since 2014-11-13
+ */
+
 package Data;
 
 import java.io.BufferedReader;
@@ -10,7 +17,6 @@ import java.util.Date;
 
 import Entity.Menu;
 import Entity.MenuItem;
-import Entity.Order;
 import Entity.PromotionalPackage;
 import Entity.Reservation;
 import Entity.Restaurant;
@@ -19,22 +25,27 @@ import Entity.Table;
 
 public class DataAdapter {
 
-	private DataAdapter() {
-	};
 
+	/**
+	 * The list of .txt file containing the data
+	 */
 	private static String[] fileName = { "data/menuItem.txt",
-			"data/package.txt", "data/table.txt", "data/staff.txt", "data/resevation.txt", "data/order.txt"};
+			"data/package.txt", "data/table.txt", "data/staff.txt", "data/reservation.txt"};
 
+	/**
+	 * The constructor is private since we need only one instance of the class
+	 * The methods of the class are all static, and can be called by the class name
+	 */
+	private DataAdapter() {};
+	
+	/**
+	 * Load all the resources of the restaurant into a restaurant object
+	 * The resources include: menu (menu items and promotional packages), order, reservation, staff
+	 * @param restaurant the reference to the restaurant object to be loaded with resources
+	 * @return
+	 */
 	public static boolean loadRestaurantResource(Restaurant restaurant) {
 
-		// TODO add reservation loading and table loading
-
-		/*
-		 * USE: String.split("\\|", -1) to account for the empty string! More
-		 * information at:
-		 * http://stackoverflow.com/questions/14602062/java-string
-		 * -split-removed-empty-values
-		 */
 		Menu menu = restaurant.getMenu();
 
 		try {
@@ -49,8 +60,7 @@ public class DataAdapter {
 					fileName[3]));
 			BufferedReader brReservation = new BufferedReader(new FileReader(
 					fileName[4]));
-			BufferedReader brOrder = new BufferedReader(new FileReader(
-					fileName[5]));
+
 			String tempString;
 			String[] tempAttribute;
 
@@ -64,8 +74,7 @@ public class DataAdapter {
 				tempString = brMenuItem.readLine();
 			}
 			brMenuItem.close();
-			MenuItem.setMenu(menu);
-			
+
 			// Load PromotionalPackage
 			tempString = brPackage.readLine();
 			String[] tempItemId;
@@ -124,6 +133,7 @@ public class DataAdapter {
 			
             // Load Staff
 			tempString = brStaff.readLine();
+			MenuItem.setMenu(menu);
 			while (tempString != null) {
 				tempAttribute = tempString.split("[|]");
 				Staff staff = new Staff(Integer.parseInt(tempAttribute[0]), tempAttribute[1]);
@@ -131,48 +141,6 @@ public class DataAdapter {
 				tempString = brStaff.readLine();
 			}
 			brStaff.close();
-			
-			//Load order
-			tempString = brOrder.readLine();
-			int orderId,customerId, tableId;
-			String staff, customerName;
-			long time;
-			ArrayList<Order> orderList = restaurant.getOrderList();
-			ArrayList<MenuItem> menuItemList =  new ArrayList<MenuItem>();
-			ArrayList<PromotionalPackage> packageList = new ArrayList<PromotionalPackage>();
-			ArrayList<Integer> quantityMenuItem = new ArrayList<Integer>();
-			ArrayList<Integer> quantityPackage = new ArrayList<Integer>();
-			while(tempString!= null){
-				tempAttribute = tempString.split("|");
-				orderId = Integer.parseInt(tempAttribute[0]);
-				staff = tempAttribute[1];
-				customerName = tempAttribute[2];
-				customerId = Integer.parseInt(tempAttribute[3]);
-				tableId = Integer.parseInt(tempAttribute[4]);
-				time = Long.parseLong(tempAttribute[5]);
-				int  itemPos = 6;
-				if(tempAttribute[itemPos++] == "MenuItem"){
-					while(tempAttribute[itemPos] != "PromotionalPackage"){
-						MenuItem item = menu.getMenuItemByName(tempAttribute[itemPos++]);
-						if(item != null){
-							menuItemList.add(item);
-							quantityMenuItem.add(Integer.parseInt(tempAttribute[itemPos++]));
-						}
-					}
-					while(itemPos < tempAttribute.length){
-						PromotionalPackage pPackage = menu.getPromotionalPackageByName(tempAttribute[itemPos++]);
-						if(pPackage != null){
-							packageList.add(pPackage);
-							quantityPackage.add(Integer.parseInt(tempAttribute[itemPos++]));
-						}
-					}
-				}
-				Date date = new Date();
-				date.setTime(time);
-				Order order = new Order(staff, menuItemList, quantityMenuItem, packageList, quantityPackage, customerId, customerName,tableId);
-				order.setTime(date);
-			}
-			
 			
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found: " + e.getMessage());
@@ -185,6 +153,12 @@ public class DataAdapter {
 		return true;
 	}
 
+	/**
+	 * Save all the resources from the restaurant objects to the .txt files
+	 * The resources include: menu (menu items and promotional packages), order, reservation, staff
+	 * @param restaurant the reference to the restaurant object that contains the information to be saved
+	 * @return
+	 */
 	public static boolean save (Restaurant restaurant)
 	{
 		PrintWriter writer = null, writer2 = null;

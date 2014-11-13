@@ -5,18 +5,12 @@
 
 package Entity;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import Data.DataAdapter;
 import Data.WriteToTxt;
-// TODO: Auto-generated Javadoc
-
-/**
- * The Class Order.
- */
 public class Order implements WriteToTxt{
 	/*
 	 * mStaffI indicates staff that who created order
@@ -28,60 +22,25 @@ public class Order implements WriteToTxt{
 	 * mTotalPrice is the total price that need to pay for the order
 	 * mTime indicates the time that user make order
 	 */
-	/** The order id. */
 	private int mOrderId;
-	
-	/** The staff. */
 	private String mStaff;
-	
-	/** The menu items. */
 	private ArrayList<MenuItem> mItems;
-	
-	/** The promotional packages. */
 	private ArrayList<PromotionalPackage> mPackages;
-	
-	/** The customer id. */
 	private int mCustomerId;
-	
-	/** The customer name. */
 	private String mCustomerName;
-	
-	/** The table id. */
 	private int mTableId;
-	
-	/** The total price. */
 	private double mTotalPrice;
-	
-	/** The time. */
 	private Date mTime;
-	
-	/** The quantity menu items. */
 	ArrayList<Integer> quantityMenuItems;
-	
-	/** The quantity packages. */
 	ArrayList<Integer> quantityPackages;
-	
-	/** The m order list. */
-	public static ArrayList<Order> mOrderList;
+	public static ArrayList<Order> mOrderList = loadFromDb();
 	
 	/*
 	 * constructor for Class 
 	 */
-	/**
-	 * Instantiates a new order.
-	 *
-	 * @param staff The name of the staff
-	 * @param items The list of menu items
-	 * @param quantityMemuItemList the list of quantity of menu items
-	 * @param packages the packages
-	 * @param quantityPackageList the quantity package list
-	 * @param CustomerId the customer id
-	 * @param CustomerName the customer name
-	 * @param TableId the table id
-	 */
-	public Order(String staff,ArrayList<MenuItem> items,ArrayList<Integer> quantityMenuItemList,ArrayList<PromotionalPackage> packages,ArrayList<Integer> quantityPackageList,int CustomerId, String CustomerName,int TableId){
+	public Order(String Staff,ArrayList<MenuItem> Items,ArrayList<PromotionalPackage> packages,int CustomerId, String CustomerName,int TableId){
 		mOrderId = mOrderList.size()+1;
-		mStaff = staff;
+		mStaff = Staff;
 		mCustomerId = CustomerId;
 		mTableId = TableId;
 		mCustomerName = CustomerName;
@@ -92,147 +51,99 @@ public class Order implements WriteToTxt{
 		quantityMenuItems =  new ArrayList<Integer>();
 		quantityPackages = new ArrayList<Integer>();
 		
-		int position = -1;
-		for(int i = 0; i < items.size(); ++i){
-			position = findMenuItem(items.get(i).getName());
+		int position ;
+		for(int i = 0; i < Items.size(); ++i){
+			position = foundMenuItem(Items.get(i).getName());
 			if(position == -1){
-				mItems.add(items.get(i));
-				quantityMenuItems.add(quantityMenuItemList.get(i));
+				mItems.add(Items.get(i));
+				quantityMenuItems.add(1);
 			}
 			else{
-				quantityMenuItems.set(position, quantityMenuItems.get(position) + quantityMenuItemList.get(i));
+				Integer in = quantityMenuItems.get(position);
+				in++;
+				quantityMenuItems.set(position, in);
 			}
-			mTotalPrice+= items.get(i).getPrice()*quantityMenuItemList.get(i);
+		    mTotalPrice+= Items.get(i).getPrice();
 		}
 		
-		position = -1;
+	
 		for(int i = 0; i < packages.size();++i){
-			position = findPackage(packages.get(i).getName());
+			position = foundPackage(packages.get(i).getName());
 			if(position == -1){
 				mPackages.add(packages.get(i));
-				quantityPackages.add(quantityPackageList.get(i));
+				quantityPackages.add(1);
 			}
-			else{;
-				quantityPackages.set(position, quantityPackages.get(position)+ quantityPackageList.get(i));
+			else{
+				Integer in = quantityPackages.get(position);
+				in++;
+				quantityPackages.set(position, in);
 			}
-			mTotalPrice+= packages.get(i).getPrice()*quantityPackageList.get(i);
+			mTotalPrice+= packages.get(i).getPrice();
 		}
 		
 	}
 	
-	/**
-	 * Find package.
-	 *
-	 * @param name of package to search for in order
-	 * @return the int
-	 */
-	private int findPackage(String name) {
+	private int foundPackage(String name) {
 		// TODO Auto-generated method stub
-		for(int i = 0; i<mPackages.size(); ++i){
-			if(mPackages.get(i).getName().compareTo(name) == 0){
+		for(int i =0; i < mPackages.size(); ++i){
+			if(mPackages.get(i).getName().compareTo(name) == 0)
 				return i;
-			}
 		}
 		return -1;
 	}
-	
-	/**
-	 * Find menu item.
-	 *
-	 * @param name the name
-	 * @return the int
-	 */
-	private int findMenuItem(String name) {
+
+	private int foundMenuItem(String name) {
 		// TODO Auto-generated method stub
-		for(int i = 0; i<mItems.size(); ++i){
-			if(mItems.get(i).getName().compareTo(name) == 0){
+		for(int i =0; i < mItems.size(); ++i){
+			if(mItems.get(i).getName().compareTo(name) == 0)
 				return i;
-			}
 		}
 		return -1;
 	}
 	
 
+	public static ArrayList<Order> loadFromDb() {
+		// TODO Auto-generated method stub
+		//DataAdapter mDataApdapter = new DataAdapter();
+		//return mDataAdapter.loadDataFromDb("Order");
+		return new ArrayList<Order>();
+	}
+
 	/*
 	 * Accessor methods of Class 
-	 */
-	/**
-	 * Gets the id.
-	 *
-	 * @return the id
 	 */
 	public int getId() {
 		return mOrderId;
 	}
 
-	/**
-	 * Gets the staff.
-	 *
-	 * @return the staff
-	 */
 	public String getStaff(){
 		return mStaff;
 	}
 	
-	/**
-	 * Gets the menu items list.
-	 *
-	 * @return the menu items list
-	 */
 	public ArrayList<MenuItem> getMenuItemsList(){
 		return mItems;
 	}
 	
-	/**
-	 * Gets the promotional packages list.
-	 *
-	 * @return the promotional packages list
-	 */
 	public ArrayList<PromotionalPackage> getPromotionalPackagesList(){
 		return mPackages;
 	}
 	
-	/**
-	 * Gets the customer id.
-	 *
-	 * @return the customer id
-	 */
 	public int getCustomerId(){
 		return mCustomerId;
 	}
 	
-	/**
-	 * Gets the table id.
-	 *
-	 * @return the table id
-	 */
 	public int getTableId(){
 		return mTableId;
 	}
 	
-	/**
-	 * Gets the customer name.
-	 *
-	 * @return the customer name
-	 */
 	public String getCustomerName(){
 		return mCustomerName;
 	}
 
-	/**
-	 * Gets the total price.
-	 *
-	 * @return the total price
-	 */
 	public double getTotalPrice() {
 		return mTotalPrice;
 	}
 	
-	/**
-	 * Gets the time.
-	 *
-	 * @return the time
-	 */
 	public Date getTime() {
 		return mTime;
 	}
@@ -241,203 +152,62 @@ public class Order implements WriteToTxt{
 	 * Mutator methods for Class
 	 */
 
-	/**
-	 * Sets the staff in charge.
-	 *
-	 * @param staff the new staff in charge
-	 */
 	public void setStaffInCharge(String staff){
 		mStaff = staff;
 	}
 	
-	/**
-	 * Sets the customer id.
-	 *
-	 * @param customerId the new customer id
-	 */
 	public void setCustomerId(int customerId){
 		mCustomerId = customerId;
 	}
 	
-	/**
-	 * Sets the customer name.
-	 *
-	 * @param customerName the new customer name
-	 */
 	public void setCustomerName(String customerName){
 		mCustomerName = customerName;
 	}
-	
-	/**
-	 * Sets the table id.
-	 *
-	 * @param tableId the new table id
-	 */
 	public void setTableId(int tableId){
 		mTableId = tableId;
 	}
 
-	/**
-	 * Sets the time.
-	 *
-	 * @param date the new time
-	 */
 	public void setTime(Date date) {
 		mTime = date;
 	}
 	/*
 	 * add methods to add MenuItem or PromotionalPackage to Order
 	 */
-	/**
-	 * Adds the menu item.
-	 *
-	 * @param item the item
-	 * @param quantity the quantity
-	 */
-	public void addMenuItem(MenuItem item, int quantity){
-		int position = -1;
-		for(int i = 0; i < mItems.size(); ++i){
-			if(mItems.get(i).getName().compareTo(item.getName()) == 0){
-				position = i;
-			}
-		}
-		if(position == -1){
-			mItems.add(item);
-			quantityMenuItems.add(quantity);
-		}
-		else{
-			quantityMenuItems.set(position, quantityMenuItems.get(position)+quantity);
-		}
+	public void addMenuItem(MenuItem item){
+		mItems.add(item);
 	}
 		
-	/**
-	 * Adds the promotional package.
-	 *
-	 * @param pPackage the package
-	 * @param quantity the quantity
-	 */
-	public void addPromotionalPackage(PromotionalPackage pPackage, int quantity){
-		int position = -1;
-		for(int i = 0; i < mPackages.size(); ++i){
-			if(mPackages.get(i).getName().compareTo(pPackage.getName()) == 0){
-				position = i;
-			}
-		}
-		if(position == -1){
-			mPackages.add(pPackage);
-			quantityPackages.add(quantity);
-		}
-		else{
-			quantityPackages.set(position,quantityPackages.get(position)+quantity);
-		}
+	public void addPromotionalPackage(PromotionalPackage pPackage){
+		mPackages.add(pPackage);
 	}
 	
 
-	/**
-	 * Re calculate price.
-	 */
 	public void reCalculatePrice() {
 		// TODO Auto-generated method stub
 		mTotalPrice = 0;
 		for(int i = 0; i < mItems.size(); ++i){
-		    mTotalPrice+= mItems.get(i).getPrice()*quantityMenuItems.get(i);
+			mItems.add(mItems.get(i));
+		    mTotalPrice+= mItems.get(i).getPrice();
 		}
 		
 		for(int i = 0; i < mPackages.size();++i){
-			mTotalPrice+= mPackages.get(i).getPrice()*quantityPackages.get(i);
+			mPackages.add(mPackages.get(i));
+			mTotalPrice+= mPackages.get(i).getPrice();
 		}
 	}
-	
-	/**
-	 * Removes the menu item.
-	 *
-	 * @param itemName the item name
-	 * @param quantity the quantity
-	 * @return true, if successful
-	 */
-	public boolean removeMenuItem(String itemName, int quantity){
-		int position = -1;
-		for(int i = 0; i < mItems.size(); ++i){
-			if(mItems.get(i).getName().compareTo(itemName) == 0){
-				position = i;
-				break;
-			}
-		}
-		if(quantity > quantityMenuItems.get(position) || quantity < 1){
-			return false;
-		}
-		if(quantityMenuItems.get(position) <= 1){
-			mItems.remove(position);
-			quantityMenuItems.remove(position);
-		}
-		else{
-			quantityMenuItems.set(position, quantityMenuItems.get(position)-1);
-		}
-		return true;
-	}
-	
-	/**
-	 * Removes the package.
-	 *
-	 * @param packageName the package name
-	 * @param quantity the quantity
-	 * @return true, if successful
-	 */
-	public boolean removePackage(String packageName, int quantity){
-		int position = -1;
-		for(int i = 0; i < mPackages.size(); ++i){
-			if(mPackages.get(i).getName().compareTo(packageName) == 0){
-				position = i;
-				break;
-			}
-		}
-		if(quantity > quantityPackages.get(position) || quantity < 1){
-			return false;
-		}
-		if(quantityPackages.get(position) <= 1){
-			mPackages.remove(position);
-			quantityPackages.remove(position);
-		}
-		else{
-			quantityPackages.set(position,quantityPackages.get(position)-1);
-		}
-		return true;
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		String text =  mOrderId + "|" + mStaff + "|" + mCustomerName +"|" + mCustomerId + "|" + mTableId + "|" +mTime.getTime() +"|";
-		text += "MenuItem";
-		for(int i= 0; i < mItems.size(); ++i){
-			text += "|" +mItems.get(i).getName() + "|" + quantityMenuItems.get(i) ;
-		}
-		text+="|PromotionalPackage";
-		for(int i = 0; i < mPackages.size(); ++i){
-			text+= "|"+mPackages.get(i).getName() + "|" + quantityPackages.get(i) ;
-		}
 		return null;
 	}
 
-	/**
-	 * Gets the quantity menu items.
-	 *
-	 * @return the quantity menu items
-	 */
 	public ArrayList<Integer> getQuantityMenuItems() {
 		// TODO Auto-generated method stub
 		
 		return quantityMenuItems;
 	}
 
-	/**
-	 * Gets the list of quantity of promotional packages.
-	 *
-	 * @return the list of quantity of promotional packages
-	 */
 	public ArrayList<Integer> getQuantityPackages() {
 		// TODO Auto-generated method stub
 		return quantityPackages;

@@ -7,12 +7,11 @@ public class Restaurant {
 	private Menu mMenu;
 	private ArrayList<Table> mTableList;
 	private ArrayList<Staff> mStaffList;
-	private ArrayList<Order> mOrderList;
+
 	public Restaurant() {
 		mMenu = new Menu();
 		mTableList = new ArrayList<Table>();
 		mStaffList = new ArrayList<Staff>();
-		mOrderList = new ArrayList<Order>();
 	}
 
 	public Menu getMenu() {
@@ -42,12 +41,5 @@ public class Restaurant {
 	public void addStaff(Staff staff){
 		mStaffList.add(staff);
 	}
-	
-	public ArrayList<Order> getOrderList() {
-		return mOrderList;
-	}
 
-	public void setOrderList(ArrayList<Order> orderList) {
-		mOrderList = orderList;
-	}
 }

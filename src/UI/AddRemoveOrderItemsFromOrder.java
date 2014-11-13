@@ -6,7 +6,6 @@
 package UI;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import Controller.MenuController;
@@ -28,7 +27,7 @@ public class AddRemoveOrderItemsFromOrder {
 	
 	public void run(){
 		Scanner scan = new Scanner(System.in);
-		int option = 1,quantity;
+		int option = 1;
 		while(true){
 			if(option == 0){
 				/*
@@ -55,12 +54,7 @@ public class AddRemoveOrderItemsFromOrder {
 						int mId;
 						String mCustomerName;
 						System.out.print("Enter order's ID: ");
-						try{
-							mId = scan.nextInt();
-						}catch(InputMismatchException e){
-							System.out.println("INVALID INPUT");
-							continue;
-						}
+						mId = scan.nextInt();
 						System.out.print("Enter customer's name: ");
 						mCustomerName = scan.next();
 						Order order = mOrderController.find(mCustomerName,mId);
@@ -79,7 +73,8 @@ public class AddRemoveOrderItemsFromOrder {
 							int continueSelect = 1, choice2 = 0, confirm = 0;
 							ArrayList<MenuItem> menuItems = mMenuController.getMenuItemList();
 							ArrayList<PromotionalPackage> packages = mMenuController.getPackageList();
-							System.out.println(spacing);
+							ArrayList<MenuItem> orderMenuItemList = order.getMenuItemsList();
+							ArrayList<PromotionalPackage> orderPackageList = order.getPromotionalPackagesList();
 							/*
 							 * Loop for user to adding menu items
 							 */
@@ -102,15 +97,9 @@ public class AddRemoveOrderItemsFromOrder {
 								else{
 									i = choice2;
 								}
-								if(i > menuItems.size()){
+								if(i > orderMenuItemList.size()){
 									System.out.println("No item found with your selection.");
 									continueSelect = 1;
-									continue;
-								}
-								System.out.println("Input the quantity you want to add");
-								quantity = scan.nextInt();
-								if(!(0< quantity && quantity <= 99)){
-									System.out.println("Invalid quantity!!");
 									continue;
 								}
 								/*
@@ -123,7 +112,7 @@ public class AddRemoveOrderItemsFromOrder {
 								 */
 								if(confirm == 1){
 									MenuItem mItem = new MenuItem(menuItems.get(i-1).getName(), menuItems.get(i-1).getType(),menuItems.get(i-1).getPrice(),menuItems.get(i-1).getDescription());
-									order.addMenuItem(mItem,quantity);
+									orderMenuItemList.add(mItem);
 
 								}
 								/*
@@ -160,15 +149,9 @@ public class AddRemoveOrderItemsFromOrder {
 								else{
 									i = choice2;
 								}
-								if(i > packages.size()){
+								if(i > orderPackageList.size()){
 									System.out.println("No item found with your selection.");
 									continueSelect = 1;
-									continue;
-								}
-								System.out.println("Input the quantity you want to add");
-								quantity = scan.nextInt();
-								if(!(0< quantity && quantity <= 99)){
-									System.out.println("Invalid quantity!!");
 									continue;
 								}
 								/*
@@ -181,7 +164,7 @@ public class AddRemoveOrderItemsFromOrder {
 								 */
 								if(confirm == 1){
 									PromotionalPackage mPackage = new PromotionalPackage(packages.get(i-1).getName(),packages.get(i-1).getPrice(),packages.get(i-1).getDescription(),packages.get(i-1).getItemList());
-									order.addPromotionalPackage(mPackage,quantity);
+									orderPackageList.add(mPackage);
 
 								}
 								/*
@@ -198,10 +181,8 @@ public class AddRemoveOrderItemsFromOrder {
 							 */
 							order.reCalculatePrice();
 							System.out.println("End adding item to order");
+							System.out.println(spacing);
 						}
-						System.out.println(spacing);
-						mOrderController.showOrder(order);
-						
 					}
 					else if(choice == 2){
 						/*
@@ -230,22 +211,19 @@ public class AddRemoveOrderItemsFromOrder {
 							int continueSelect = 1, choice2 = 0, confirm = 0;
 							ArrayList<MenuItem> orderMenuItemList = order.getMenuItemsList();
 							ArrayList<PromotionalPackage> orderPackageList = order.getPromotionalPackagesList();
-							System.out.println(spacing);
+							
 							/*
-							 * Loop for user to removing menu items, reset quantity to remove to 0 at beginning 
+							 * Loop for user to removing menu items
 							 */
 							while(continueSelect != 0){
-								quantity = 0;
 								if(orderMenuItemList.size() == 0){
 									System.out.println("Menu item list is empty!");
 									break;
 								}
-								
 								System.out.println("Below is the list of menu items in order, please enter the number of item you want to remove respectively: ");
 								int i ;
-								ArrayList<Integer> quantityMenuItems = order.getQuantityMenuItems();
 								for(i = 1; i < orderMenuItemList.size() + 1; ++i){
-									System.out.println(i + ". " + quantityMenuItems.get(i-1)+ " x " + orderMenuItemList.get(i-1).getName() + "       Price: " + orderMenuItemList.get(i-1).getPrice());
+									System.out.println(i + ". " + orderMenuItemList.get(i-1).getName() + "       Price: " + orderMenuItemList.get(i-1).getPrice());
 								}
 								System.out.println();
 								System.out.println("0. Cancel removing menu item to order.");
@@ -265,12 +243,6 @@ public class AddRemoveOrderItemsFromOrder {
 									continueSelect = 1;
 									continue;
 								}
-								System.out.println("Input the quantity you want to remove");
-								quantity = scan.nextInt();
-								if(!(0< quantity && quantity <= quantityMenuItems.get(i-1))){
-									System.out.println("Invalid quantity!!");
-									continue;
-								}
 								/*
 								 * ask for confirmation of selecting menu item
 								 */
@@ -280,12 +252,7 @@ public class AddRemoveOrderItemsFromOrder {
 								 * if user confirms, remove this item from order
 								 */
 								if(confirm == 1){
-									if(order.removeMenuItem(orderMenuItemList.get(i-1).getName(),quantity)){
-										System.out.println("Remove successfully!");
-									}
-									else{
-										System.out.println("Fail to remove");
-									}
+									orderMenuItemList.remove(i-1);
 
 								}
 								/*
@@ -305,16 +272,14 @@ public class AddRemoveOrderItemsFromOrder {
 							 * Loop for user to removing promotional packages
 							 */
 							while(continueSelect != 0){
-								quantity = 0;
 								if(orderPackageList.size() == 0){
 									System.out.println("Promotional package list is empty!");
 									break;
 								}
-								ArrayList<Integer> quantityPackages = order.getQuantityPackages();
 								System.out.println("Below is the list of promotional packages in order, please enter the number respectively: ");
 								int i ;
 								for(i = 1; i < orderPackageList.size() + 1; ++i){
-									System.out.println(i + ". " +quantityPackages.get(i-1)+ " x " + orderPackageList.get(i-1).getName() + "       Price: " + orderPackageList.get(i-1).getPrice());
+									System.out.println(i + ". " +orderPackageList.get(i-1).getName() + "       Price: " + orderPackageList.get(i-1).getPrice());
 								}
 								System.out.println();
 								System.out.println("0. Cancel selecting promotional packages.");
@@ -334,29 +299,16 @@ public class AddRemoveOrderItemsFromOrder {
 									continueSelect = 1;
 									continue;
 								}
-								
-								System.out.println("Input the quantity you want to remove");
-								quantity = scan.nextInt();
-								if(!(0< quantity && quantity <= quantityPackages.get(i-1))){
-									System.out.println("Invalid quantity!!");
-									continue;
-								}
 								/*
 								 * ask for confirmation of selecting promotional package
 								 */
-								
 								System.out.print("Enter 1 to confirm, 0 to cancel: ");
 								confirm = scan.nextInt();
 								/*
 								 * if user confirms, remove this package from order
 								 */
 								if(confirm == 1){
-									if(order.removePackage(orderPackageList.get(i-1).getName(),quantity)){
-										System.out.println("Remove successfully!");
-									}
-									else{
-										System.out.println("Fail to remove");
-									}
+									orderPackageList.remove(i-1);
 								}
 								/*
 								 * ask user to continue removing promotional packages or not
@@ -371,15 +323,9 @@ public class AddRemoveOrderItemsFromOrder {
 							 * end removing item from order
 							 */
 							order.reCalculatePrice();
-							System.out.println("End removing item from order");
+							System.out.println("Endvremoving item from order");
+							System.out.println(spacing);
 						}
-						
-						/*
-						 * show order after all changes
-						 */
-						System.out.println(spacing);
-						mOrderController.showOrder(order);
-
 					}
 					
 					System.out.println();
