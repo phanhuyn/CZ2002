@@ -1,3 +1,11 @@
+/**
+	Read and write data from the .txt files
+	@author Nguyen Phan Huy (loadRestaurantResource() for Menu, Reservation and Table),
+	 Peter (save() method), Tran Vu Xuan Nhat (loadRestaurantResource() for Staff and Order
+	@version 1.0
+	@since 2014-11-13
+*/
+
 package Data;
 
 import java.io.BufferedReader;
@@ -25,6 +33,12 @@ public class DataAdapter {
 	private static String[] fileName = { "data/menuItem.txt",
 			"data/package.txt", "data/table.txt", "data/staff.txt", "data/reservation.txt", "data/order.txt"};
 
+	/**
+	* Load all the resources of the restaurant into a restaurant object
+	* The resources include: menu (menu items and promotional packages), order, reservation, staff
+	* @param restaurant the reference to the restaurant object to be loaded with resources
+	* @return
+	*/
 	public static boolean loadRestaurantResource(Restaurant restaurant) {
 
 		// TODO add reservation loading and table loading
@@ -189,6 +203,12 @@ public class DataAdapter {
 		return true;
 	}
 
+	/**
+	* Save all the resources from the restaurant objects to the .txt files
+	* The resources include: menu (menu items and promotional packages), order, reservation, staff
+	* @param restaurant the reference to the restaurant object that contains the information to be saved
+	* @return
+	*/
 	public static boolean save (Restaurant restaurant)
 	{
 		PrintWriter writer = null, writer2 = null;
