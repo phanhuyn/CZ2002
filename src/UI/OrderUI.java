@@ -55,14 +55,8 @@ public class OrderUI {
  			}
  			if(choice == 4){
  					printInvoice(); 
- 			}
- 			if(choice == 5){
-					DailyReport(); 
 			}
- 			if(choice == 6){
-					MonthlyReport(); 
-			}
- 			if(choice == 7) 
+ 			if(choice == 5) 
  				break;
  		}
  		return;
@@ -125,39 +119,4 @@ public class OrderUI {
 	return;
 }
   
-	/**
- 	* this function is called when the staff want to get the report of particular day.
- 	*/
-  public void DailyReport(){
-	Scanner scan = new Scanner(System.in);
-	int d, m, y;
-			
-	System.out.println("please enter the Date in the following format DD MM YYYY:");
-	d = scan.nextInt();
-	m = scan.nextInt();
-	y = scan.nextInt();
-	PrintSaleController mPrintSaleController = new PrintSaleController();
-	ArrayList<Order> order = mPrintSaleController.findOrderByDate(d, m, y);
-	mPrintSaleController.RevenueByDate(order,d,m,y);
-	scan.close();
-	return;
-		
-  }
-	/**
-	 * this function is called when the staff want to get the report of particular month.
-	 */
-  public void MonthlyReport(){
-	System.out.println("Order Sales: ");
-	Scanner scan = new Scanner(System.in);
-	int m, y;
-			
-	System.out.println("please enter the month in the following format MM YYYY:");
-	m = scan.nextInt();
-	y = scan.nextInt();
-	PrintSaleController mPrintSaleController = new PrintSaleController();
-	ArrayList<Order> order = mPrintSaleController.findOrderByMonth(m,y);
-	mPrintSaleController.RevenueByMonth(order);
-	scan.close();
-	return;
-  }
 }

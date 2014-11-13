@@ -26,10 +26,69 @@ public class PrintSaleController {
 	 * The constructor.
 	 * @param listOrder getting the list of order.
 	 */
-	public PrintSaleController(){
+	
+	public PrintSaleController(ArrayList<Order> listOrder){
 		listOrder = Order.mOrderList;
 	}
 	
+	/**
+	 * This function is called when reservation option is selected.
+	 */
+	public void run(){
+		int choice = 0;
+		
+		Scanner sc = new Scanner(System.in);
+ 		while (choice <= 3){
+ 			System.out.println("1. Print Daily Report.");
+ 			System.out.println("2. Print Monthly Report.");
+ 			System.out.println("3. Quit.");
+ 			System.out.print("Select your option: ");
+ 			choice = sc.nextInt();
+ 			if(choice == 1){
+					DailyReport(); 
+			}
+ 			if(choice == 2){
+					MonthlyReport(); 
+			}
+ 			if(choice == 3) 
+ 				break;
+ 		}
+ 		return;
+ 	} 
+	
+	/**
+ 	* this function is called when the staff want to get the report of particular day.
+ 	*/
+	public void DailyReport(){
+		Scanner scan = new Scanner(System.in);
+	  	int d, m, y;
+			
+		System.out.println("please enter the Date in the following format DD MM YYYY:");
+		d = scan.nextInt();
+		m = scan.nextInt();
+		y = scan.nextInt();
+		ArrayList<Order> order = findOrderByDate(d, m, y);
+		RevenueByDate(order,d,m,y);
+		scan.close();
+		return;
+		
+  }
+	/**
+	 * this function is called when the staff want to get the report of particular month.
+	 */
+ 	public void MonthlyReport(){
+ 		System.out.println("Order Sales: ");
+ 		Scanner scan = new Scanner(System.in);
+ 		int m, y;
+			
+ 		System.out.println("please enter the month in the following format MM YYYY:");
+ 		m = scan.nextInt();
+ 		y = scan.nextInt();
+ 		ArrayList<Order> order = findOrderByMonth(m,y);
+		RevenueByMonth(order);
+		scan.close();
+		return;
+  }
 	/**
 	 * Returns a list of the order that match the date from the user input.
 	 * @param day the date from the user input.
@@ -37,6 +96,7 @@ public class PrintSaleController {
 	 * @param year the year of the order to be requested.
 	 * @return the list of the order that fits the criteria of the date.
 	 */
+
 	public ArrayList<Order> findOrderByDate(int day, int month, int year){
 		ArrayList<Order> matchDayOrderList = new ArrayList<Order>();
 		for(Order order : listOrder){
@@ -109,8 +169,6 @@ public class PrintSaleController {
 	/**
 	 * print the monthly report according to the order from the list available.
 	 * @param order the list of the order that match the user input's requirements.
-	 * @param m the month requested from the user.
-	 * @param y the year of the order to be requested.
 	 */
 public void RevenueByMonth(ArrayList<Order> order){
 	  	double OverallPrice = order.get(0).getTotalPrice();
