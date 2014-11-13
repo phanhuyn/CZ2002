@@ -10,11 +10,31 @@ import java.util.Date;
 import java.util.Calendar;
 import java.util.Scanner;
 
+import UI.MainUI;
 import Entity.MenuItem;
 import Entity.Order;
 import Entity.PromotionalPackage;
 
 public class PrintSaleController {
+	
+	public void run(){
+		int choice = 0;
+		while (choice <= 2) {
+			printSaleOption();
+			Scanner sc = new Scanner(System.in);
+			choice = MainUI.getInt("Select your option: ");
+			
+			switch (choice) {
+			case 1:
+				DailyReport();
+				break;
+			case 2:
+				MonthlyReport();
+				break;
+			}
+		}
+		return;
+	}
 	
 	/**
 	 * The List of table.
@@ -26,7 +46,7 @@ public class PrintSaleController {
 	 * The constructor.
 	 * @param listOrder getting the list of order.
 	 */
-	public PrintSaleController(){
+	public PrintSaleController(ArrayList<Order> listOrder){
 		listOrder = Order.mOrderList;
 	}
 	
@@ -109,10 +129,8 @@ public class PrintSaleController {
 	/**
 	 * print the monthly report according to the order from the list available.
 	 * @param order the list of the order that match the user input's requirements.
-	 * @param m the month requested from the user.
-	 * @param y the year of the order to be requested.
 	 */
-public void RevenueByMonth(ArrayList<Order> order){
+	public void RevenueByMonth(ArrayList<Order> order){
 	  	double OverallPrice = order.get(0).getTotalPrice();
 	  	double Max = order.get(0).getTotalPrice();
 	  	double Min = order.get(0).getTotalPrice();
@@ -155,5 +173,50 @@ public void RevenueByMonth(ArrayList<Order> order){
 			System.out.println("Least sale of the month in " + DateMin.get(Calendar.DATE)+" "+monthNames[ DateMin.get(Calendar.MONTH) ] +" " +DateMin.get(Calendar.YEAR)+ " is: " + Min);		
 			System.out.println("Overall Revenue: " + OverallPrice); 
 		} 
+/**
+ * Print the list of main functionality
+ */
+	public void printSaleOption (){
+		System.out.println("#################################");
+		System.out.println("#         Print Sale Option     #");
+		System.out.println("#      1. Daily Report          #");
+		System.out.println("#      2. Monthly Report        #");
+		System.out.println("#      3. Return to Main Menu   #");
+		System.out.println("#################################");
+	}
+	
+	/**
+ 	* this function is called when the staff want to get the report of particular day.
+ 	*/
+  public void DailyReport(){
+	Scanner scan = new Scanner(System.in);
+	int d, m, y;
+			
+	System.out.println("please enter the Date in the following format DD MM YYYY:");
+	d = scan.nextInt();
+	m = scan.nextInt();
+	y = scan.nextInt();
+	ArrayList<Order> order = findOrderByDate(d, m, y);
+	RevenueByDate(order,d,m,y);
+	scan.close();
+	return;
+		
+  }
+	/**
+	 * this function is called when the staff want to get the report of particular month.
+	 */
+  public void MonthlyReport(){
+	System.out.println("Order Sales: ");
+	Scanner scan = new Scanner(System.in);
+	int m, y;
+			
+	System.out.println("please enter the month in the following format MM YYYY:");
+	m = scan.nextInt();
+	y = scan.nextInt();
+	ArrayList<Order> order = findOrderByMonth(m,y);
+	RevenueByMonth(order);
+	scan.close();
+	return;
+  }
 }
 
