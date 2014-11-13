@@ -93,9 +93,15 @@ public class ReservationUI {
 				Date today = new Date();
 				
 				if(today.getDate() == d && today.getMonth() == M && today.getYear() == y)
+				{
 					System.out.println("You may not reserve a table on the same day!");
+					return;
+				}
 				else if(today.after(start))
+				{
 					System.out.println("Error! Please input the date properly!");
+					return;
+				}
 				else
 					break;
 			} while(true);
