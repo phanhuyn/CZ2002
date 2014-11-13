@@ -18,12 +18,13 @@ public class OrderUI {
   private Restaurant mRestaurant;
   private String customerName;
   private int orderID;
-  private final String spacing = "***********************************";
+  private final String spacing = "######################################";
   
   //constructor
   public OrderUI(Restaurant restaurant) {
   	mOrderController = new OrderController();
   	mRestaurant = restaurant;
+  	Order.mOrderList = restaurant.getOrderList();
   }
   
   public void run() {
@@ -31,13 +32,16 @@ public class OrderUI {
 			
 		Scanner sc = new Scanner(System.in);
  		while (choice <= 7){
- 			System.out.println("1. Create Order");
- 			System.out.println("2. View Order.");
- 			System.out.println("3. Add or Remove item from order.");
- 			System.out.println("4. Print Invoice.");
- 			System.out.println("5. Print Daily Report.");
- 			System.out.println("6. Print Monthly Report.");
- 			System.out.println("7. Quit.");
+ 			System.out.println(spacing);
+ 			System.out.println("#              ORDER                 #");
+ 			System.out.println("#    1. Create Order                 #");
+ 			System.out.println("#    2. View Order                   #");
+ 			System.out.println("#    3. Add or Remove item from order#");
+ 			System.out.println("#    4. Print Invoice.               #");
+ 			System.out.println("#    5. Print Daily Report.          #");
+ 			System.out.println("#    6. Print Monthly Report.        #");
+ 			System.out.println("#    7. Quit.                        #");
+ 			System.out.println(spacing);
  			System.out.print("Select your option: ");
  			choice = sc.nextInt();
  			if(choice == 1) {

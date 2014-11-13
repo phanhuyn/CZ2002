@@ -44,9 +44,11 @@ public class CreateOrderUI {
 		
 		while(true){
 			String mStaffName = null, mCustomerName;
-			int mCustomerId, mTableId = 0;
+			int mCustomerId, mTableId = 0,quantity = 1;
 			ArrayList<MenuItem> orderMenuItemList = new ArrayList<MenuItem>();
 			ArrayList<PromotionalPackage> orderPackageList = new ArrayList<PromotionalPackage>();
+			ArrayList<Integer> quantityMenuItem = new ArrayList<Integer>();
+			ArrayList<Integer> quantityPackage = new ArrayList<Integer>();
 			 /*
 			  *  Let user input information of new order
 			 */
@@ -121,6 +123,12 @@ public class CreateOrderUI {
 						continueSelect = 1;
 						continue;
 					}
+					System.out.println("Input the quantity of this item you want");
+					quantity = scan.nextInt();
+					if(!(0< quantity && quantity <= 99)){
+						System.out.println("Invalid quantity!!");
+						continue;
+					}
 					/*
 					 * ask for confirmation of selecting menu item
 					 */
@@ -132,6 +140,7 @@ public class CreateOrderUI {
 					if(confirm == 1){
 						MenuItem mItem = new MenuItem(menuItems.get(i-1).getName(), menuItems.get(i-1).getType(),menuItems.get(i-1).getPrice(),menuItems.get(i-1).getDescription());
 						orderMenuItemList.add(mItem);
+						quantityMenuItem.add(quantity);
 					}
 					/*
 					 * ask user to continue selecting menu item or not
@@ -149,6 +158,7 @@ public class CreateOrderUI {
 				 * Loop for user to select promotional packages
 				 */
 				while(continueSelect != 0){
+					quantity = 1;
 					if(packages.size() == 0){
 						System.out.println("No promotional packages in the menu");
 						break;
@@ -176,6 +186,12 @@ public class CreateOrderUI {
 						continueSelect = 1;
 						continue;
 					}
+					System.out.println("Input the quantity of this item you want");
+					quantity = scan.nextInt();
+					if(!(0< quantity && quantity <= 99)){
+						System.out.println("Invalid quantity!!");
+						continue;
+					}
 					/*
 					 * ask for confirmation of selecting promotional package
 					 */
@@ -187,6 +203,7 @@ public class CreateOrderUI {
 					if(confirm == 1){
 						PromotionalPackage mPackage = new PromotionalPackage(packages.get(i-1).getName(),packages.get(i-1).getPrice(),packages.get(i-1).getDescription(),packages.get(i-1).getItemList());
 						orderPackageList.add(mPackage);
+						quantityPackage.add(quantity);
 					}
 					/*
 					 * ask user to continue selecting promotional packages or not
@@ -247,7 +264,7 @@ public class CreateOrderUI {
 						System.out.println("Enter year created: ");
 						date.setYear(scan.nextInt()-1900);
 					}
-					mOrderController.createNewOrder(mStaffName, orderMenuItemList, orderPackageList, mCustomerId, mCustomerName, mTableId, isSetDate, date);	
+					mOrderController.createNewOrder(mStaffName, orderMenuItemList,quantityMenuItem, orderPackageList, quantityPackage,mCustomerId, mCustomerName, mTableId, isSetDate, date);	
 				}
 				
 				/*
