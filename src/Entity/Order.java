@@ -15,8 +15,9 @@ import Data.WriteToTxt;
 // TODO: Auto-generated Javadoc
 
 /**
- * The Class Order a particular order used in application
- * @author Tran Vu Xuan Nhat 
+ * The Class Order a particular order used in application.
+ *
+ * @author Tran Vu Xuan Nhat
  */
 public class Order implements WriteToTxt{
 	/*
@@ -78,6 +79,7 @@ public class Order implements WriteToTxt{
 	 * @param TableId the table id
 	 */
 	public Order(String staff,ArrayList<MenuItem> items,ArrayList<Integer> quantityMenuItemList,ArrayList<PromotionalPackage> packages,ArrayList<Integer> quantityPackageList,int CustomerId, String CustomerName,int TableId){
+		
 		mStaff = staff;
 		mCustomerId = CustomerId;
 		mTableId = TableId;
@@ -172,7 +174,7 @@ public class Order implements WriteToTxt{
 	}
 	
 	/**
-	 * Gets the menu items list of the order
+	 * Gets the menu items list of the order.
 	 *
 	 * @return Returns the menu items list of the order
 	 */
@@ -181,7 +183,7 @@ public class Order implements WriteToTxt{
 	}
 	
 	/**
-	 * Gets the promotional packages list of the order
+	 * Gets the promotional packages list of the order.
 	 *
 	 * @return Returns the promotional packages list of the order
 	 */
@@ -217,7 +219,7 @@ public class Order implements WriteToTxt{
 	}
 
 	/**
-	 * Gets the total price customer need to paid
+	 * Gets the total price customer need to paid.
 	 *
 	 * @return Returns the total price customer need to paid
 	 */
@@ -226,7 +228,7 @@ public class Order implements WriteToTxt{
 	}
 	
 	/**
-	 * Gets the time order is made
+	 * Gets the time order is made.
 	 *
 	 * @return Returns the time order is made
 	 */
@@ -237,7 +239,17 @@ public class Order implements WriteToTxt{
 	/*
 	 * Mutator methods for Class
 	 */
+	/**
+	 * Sets the id of the order.
+	 *
+	 * @param orderId the new id
+	 */
+	public void setId(int orderId) {
+		// TODO Auto-generated method stub
+		mOrderId = orderId;
+	}
 
+	
 	/**
 	 * Sets the staff in charge.
 	 *
@@ -275,7 +287,7 @@ public class Order implements WriteToTxt{
 	}
 
 	/**
-	 * Sets the time order is made
+	 * Sets the time order is made.
 	 *
 	 * @param date the new time order is made
 	 */
@@ -292,7 +304,7 @@ public class Order implements WriteToTxt{
 		// TODO Auto-generated method stub
 		mTotalPrice = totalPrice;
 	}
-
+	
 	/*
 	 * add methods to add MenuItem or PromotionalPackage to Order
 	 */
@@ -418,7 +430,7 @@ public class Order implements WriteToTxt{
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		String text =  mOrderId + "|" + mStaff + "|" + mCustomerName +"|" + mCustomerId + "|" + mTableId + "|" +mTime.getTime() +"|";
+		String text =  mOrderId + "|" + mStaff + "|" + mCustomerName +"|" + mCustomerId + "|" + mTableId + "|" +mTime.getTime() +"|"+mTotalPrice+"|";
 		text += "MenuItem";
 		for(int i= 0; i < mItems.size(); ++i){
 			text += "|" +mItems.get(i).getName() + "|" + quantityMenuItems.get(i) ;
@@ -427,7 +439,7 @@ public class Order implements WriteToTxt{
 		for(int i = 0; i < mPackages.size(); ++i){
 			text+= "|"+mPackages.get(i).getName() + "|" + quantityPackages.get(i) ;
 		}
-		return null;
+		return text;
 	}
 
 	/**

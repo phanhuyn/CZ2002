@@ -90,6 +90,7 @@ public class OrderController {
 		// TODO Auto-generated method stub
 		//create the order
 		Order order = new Order(mStaffName, orderMenuItemList, quantityMenuItems, orderPackageList, quantityPackage, mCustomerId, mCustomerName, mTableId);
+		order.setId(listOrder.size()+1);
 		//check if date is set manual
 		if(isSetDate){
 			order.setTime(date);
