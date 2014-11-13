@@ -61,9 +61,6 @@ public class Order implements WriteToTxt{
 	/** The quantity packages. */
 	ArrayList<Integer> quantityPackages;
 	
-	/** The m order list. */
-	public static ArrayList<Order> mOrderList = new ArrayList<Order>();
-	
 	/*
 	 * constructor for Class 
 	 */
@@ -72,7 +69,7 @@ public class Order implements WriteToTxt{
 	 *
 	 * @param staff The name of the staff
 	 * @param items The list of menu items
-	 * @param quantityMemuItemList the list of quantity of menu items
+	 * @param quantityMenuItemList the quantity menu item list
 	 * @param packages the packages
 	 * @param quantityPackageList the quantity package list
 	 * @param CustomerId the customer id
@@ -80,7 +77,7 @@ public class Order implements WriteToTxt{
 	 * @param TableId the table id
 	 */
 	public Order(String staff,ArrayList<MenuItem> items,ArrayList<Integer> quantityMenuItemList,ArrayList<PromotionalPackage> packages,ArrayList<Integer> quantityPackageList,int CustomerId, String CustomerName,int TableId){
-		mOrderId = mOrderList.size()+1;
+		//mOrderId = mOrderList.size()+1;
 		mStaff = staff;
 		mCustomerId = CustomerId;
 		mTableId = TableId;
@@ -285,6 +282,17 @@ public class Order implements WriteToTxt{
 	public void setTime(Date date) {
 		mTime = date;
 	}
+	
+	/**
+	 * Sets the total price.
+	 *
+	 * @param totalPrice the new total price
+	 */
+	public void setTotalPrice(double totalPrice) {
+		// TODO Auto-generated method stub
+		mTotalPrice = totalPrice;
+	}
+
 	/*
 	 * add methods to add MenuItem or PromotionalPackage to Order
 	 */
@@ -443,6 +451,7 @@ public class Order implements WriteToTxt{
 		return quantityPackages;
 	}
 
+	
 
 
 }

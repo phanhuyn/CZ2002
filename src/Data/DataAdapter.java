@@ -138,7 +138,6 @@ public class DataAdapter {
 			String staff, customerName;
 			long time;
 			ArrayList<Order> orderList = restaurant.getOrderList();
-			Order.mOrderList = orderList;
 			ArrayList<MenuItem> menuItemList =  new ArrayList<MenuItem>();
 			ArrayList<PromotionalPackage> packageList = new ArrayList<PromotionalPackage>();
 			ArrayList<Integer> quantityMenuItem = new ArrayList<Integer>();

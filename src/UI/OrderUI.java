@@ -22,7 +22,7 @@ public class OrderUI {
   
   //constructor
   public OrderUI(Restaurant restaurant) {
-  	mOrderController = new OrderController();
+  	mOrderController = new OrderController(restaurant);
   	mRestaurant = restaurant;
   	ArrayList<Table> listTable = mRestaurant.getTableList();
   	mOrderController.setListTable(listTable);
@@ -49,11 +49,11 @@ public class OrderUI {
  					sc.nextLine();
  			}
  			if(choice ==  2){
- 					ViewOrderUI mViewOrderUI = new ViewOrderUI();
+ 					ViewOrderUI mViewOrderUI = new ViewOrderUI(mRestaurant);
  					mViewOrderUI.run();
  			}
  			if(choice == 3)	{
- 					AddRemoveOrderItemsFromOrder mAddRemoveOrderItemsFromOrder = new AddRemoveOrderItemsFromOrder(mRestaurant.getMenu());
+ 					AddRemoveOrderItemsFromOrder mAddRemoveOrderItemsFromOrder = new AddRemoveOrderItemsFromOrder(mRestaurant);
  					mAddRemoveOrderItemsFromOrder.run();
  			}
  			if(choice == 4){
@@ -72,9 +72,9 @@ public class OrderUI {
 	System.out.print("Enter Customer Name : ");
 	customerName = sc.next();
 
-	orderID = MainUI.getInt("Enter Order ID : ");
+	int tableID = MainUI.getInt("Enter table ID : ");
 
-	Order order = mOrderController.find(customerName, orderID) ;
+	Order order = mOrderController.find(customerName, tableID) ;
 	if(order == null)
 	{
 		System.out.println("No order found!");

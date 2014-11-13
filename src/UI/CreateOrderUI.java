@@ -27,12 +27,10 @@ public class CreateOrderUI {
 	private final String spacing = "***********************************";
 	
 	public CreateOrderUI(Restaurant restaurant){
-		mOrderController = new OrderController();
+		mOrderController = new OrderController(restaurant);
 		mMenuController = new MenuController(restaurant.getMenu());
 		mStaffList = restaurant.getStaffList();
-		mTableList = restaurant.getTableList();
-		
-		mOrderController.setListTable(mTableList);
+		mTableList = mOrderController.getTableList();
 	}
 	
 	public void run(){
@@ -80,7 +78,11 @@ public class CreateOrderUI {
 					for(Staff staff: mStaffList){
 						System.out.println("- Staff name: " + staff.getName() + ", id: " + staff.getId() );
 					}
-					int staffId = MainUI.getInt("Please enter the ID of the staff: ");
+					int staffId = -1;
+					while(staffId  < 0 || staffId >1){
+						staffId = MainUI.getInt("Please enter the ID of the staff: ");
+					}
+
 					mStaffName = mStaffList.get(staffId).getName();
 					if(mStaffName!= null){
 						break;
@@ -120,6 +122,9 @@ public class CreateOrderUI {
 						continueSelect = 1;
 						continue;
 					}
+					/*
+					 * ask user input the quantity of menu item
+					 */
 					quantity = MainUI.getInt("Input the quantity of this item you want");
 					if(!(0< quantity && quantity <= 99)){
 						System.out.println("Invalid quantity!!");
@@ -179,6 +184,9 @@ public class CreateOrderUI {
 						continueSelect = 1;
 						continue;
 					}
+					/*
+					 * ask user input the quantity of package
+					 */
 					quantity = MainUI.getInt("Input the quantity of this package you want");
 					if(!(0< quantity && quantity <= 99)){
 						System.out.println("Invalid quantity!!");
@@ -227,7 +235,10 @@ public class CreateOrderUI {
 					}
 				}
 				
-				
+				int hasMembership = -1;
+				while(hasMembership != 0 && hasMembership != 1){
+					hasMembership = MainUI.getInt("Enter 1 if customer has membership, else enter 0: ");
+				}
 				/*
 				 * ask user to confirm making order
 				 */
@@ -250,7 +261,7 @@ public class CreateOrderUI {
 						System.out.println("Enter year created: ");
 						date.setYear(scan.nextInt()-1900);
 					}
-					mOrderController.createNewOrder(mStaffName, orderMenuItemList,quantityMenuItem, orderPackageList, quantityPackage,mCustomerId, mCustomerName, mTableId, isSetDate, date);	
+					mOrderController.createNewOrder(mStaffName, orderMenuItemList,quantityMenuItem, orderPackageList, quantityPackage,mCustomerId, mCustomerName, mTableId, isSetDate, date, hasMembership);	
 				}
 				
 				/*
