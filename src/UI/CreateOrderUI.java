@@ -71,32 +71,51 @@ public class CreateOrderUI {
 			
 			if(option == 1){
 				System.out.println("CREATE ORDER FORM: ");
+				/*
+				* get table's number
+				*/
+				boolean noTableAvailable = true;
+				int numOfPeople = 0;
+				Date currentTime = Calendar.getInstance().getTime();
+				Date nextTime =  Calendar.getInstance().getTime();
+				nextTime.setHours(currentTime.getHours()+1);
+				for(Table table: mTableList){
+					if(table.isAvailable(numOfPeople, currentTime, nextTime)){
+						if(noTableAvailable)
+							noTableAvailable = false;
+					}
+				}
+				if(noTableAvailable){
+					System.out.println("No table free at this moment");
+					break;
+				}
+				boolean noTableEnoughPax = true;
+				numOfPeople = MainUI.getInt("Please input number of people: ");
+				noTableEnoughPax = true;
+				for(Table table : mTableList){
+					if(table.getCapacity() >= numOfPeople){
+						noTableEnoughPax = false;
+						break;
+					}
+				}
+				if(noTableEnoughPax){
+					System.out.println("No table can serve such many people at that time!\n");
+					break;
+				}
+					
 				while(true){
-					/*
-					 * get table's number
-					 */
-					int numOfPeople = 0;
-					while(numOfPeople <= 0){
-						numOfPeople = MainUI.getInt("Please input number of people: ");
-					}
-					while(true){
-						boolean noTableAvailabe = true;
-						System.out.println("Below is the list of free table, choose the free table: ");
-						Date currentTime = Calendar.getInstance().getTime();
-						Date nextTime =  Calendar.getInstance().getTime();
-						nextTime.setHours(currentTime.getHours()+1);
-						for(Table table : mTableList){
-							if(table.isAvailable(numOfPeople, currentTime, nextTime)){
+					System.out.println("Below is the list of free table, choose by enter tablee's number: ");
+					for(Table table : mTableList){
+						if(table.isAvailable(numOfPeople, currentTime, nextTime)){
 								System.out.println("Table number: " + table.getId() + ", #pax: " + table.getCapacity());
-								if(noTableAvailabe)
-									noTableAvailabe = false;
-							}
-						}
-						mTableId = MainUI.getInt("Enter table's number: ");
-						if(0<= mTableId && mTableId <= mTableList.size() && mTableList.get(mTableId).isAvailable(numOfPeople, currentTime, nextTime)){
-							break;
 						}
 					}
+					mTableId = MainUI.getInt("Enter table's number: ");
+					if(0<= mTableId && mTableId <= mTableList.size() && mTableList.get(mTableId).isAvailable(numOfPeople, currentTime, nextTime)){
+						break;
+					}
+				}
+				while(true){
 					System.out.println("List of staff avaialable for service: ");
 					for(Staff staff: mStaffList){
 						System.out.println("- Staff name: " + staff.getName() + ", id: " + staff.getId() );
@@ -105,12 +124,12 @@ public class CreateOrderUI {
 					while(staffId  < 0 || staffId >1){
 						staffId = MainUI.getInt("Please enter the ID of the staff: ");
 					}
-
 					mStaffName = mStaffList.get(staffId).getName();
 					if(mStaffName!= null){
 						break;
 					}
 				}
+				
 				System.out.print("Please enter customer name: ");
 				mCustomerName = scan.next();
 				mCustomerId = MainUI.getInt("Please input customer ID: ");
