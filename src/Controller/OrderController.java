@@ -51,6 +51,7 @@ public class OrderController {
 		if(isSetDate){
 			order.setTime(date);
 		}
+		date = order.getTime();
 		//allocate table for the order, time slot will be 1 hour
 		Table mTable = null;
 		for(Table table: listTable){
