@@ -145,7 +145,7 @@ public class CreateOrderUI {
 					System.out.println("Below is the list of menu items, please enter the number respectively: ");
 					int i;
 					for(i = 1; i < menuItems.size() + 1; ++i){
-						System.out.println(i + ". " + menuItems.get(i-1).getName() + "       Price: " + menuItems.get(i-1).getPrice());
+						System.out.println(String.format("%d. %-35s %s: %3.1f",i,menuItems.get(i-1).getName(),"Price",menuItems.get(i-1).getPrice()));
 					}
 					System.out.println();
 					System.out.println("0. Cancel selecting menu items.");
@@ -207,7 +207,7 @@ public class CreateOrderUI {
 					System.out.println("Below is the list of promotional packages, please enter the number respectively: ");
 					int i ;
 					for(i = 1; i < packages.size() + 1; ++i){
-						System.out.println(i + ". " +packages.get(i-1).getName() + "       Price: " + packages.get(i-1).getPrice());
+						System.out.println(String.format("%d. %-35s %s: %3.1f",i,packages.get(i-1).getName(),"Price",packages.get(i-1).getPrice()));
 					}
 					System.out.println();
 					System.out.println("0. Cancel selecting promotional packages.");
