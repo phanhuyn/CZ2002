@@ -96,10 +96,6 @@ public class DataAdapter {
 				PromotionalPackage tempPromotionalPackage = new PromotionalPackage(
 						tempAttribute[1], Double.parseDouble(tempAttribute[2]),
 						tempAttribute[3], tempPackageMenuItem);
-				for (int i = 0; i < tempItemId.length; i++) {
-					menu.getMenuItemById(Integer.parseInt(tempItemId[i]))
-							.attach(tempPromotionalPackage);
-				}
 				menu.addPromotionalPackage(tempPromotionalPackage);
 				tempString = brPackage.readLine();
 			}
