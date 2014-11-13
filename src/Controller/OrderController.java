@@ -60,12 +60,12 @@ public class OrderController {
 		return listOrder;
 	}
 	public void createNewOrder(String mStaffName,
-			ArrayList<MenuItem> orderMenuItemList,
-			ArrayList<PromotionalPackage> orderPackageList, int mCustomerId,
+			ArrayList<MenuItem> orderMenuItemList,ArrayList<Integer> quantityMenuItems,
+			ArrayList<PromotionalPackage> orderPackageList,ArrayList<Integer> quantityPackage, int mCustomerId,
 			String mCustomerName, int mTableId, boolean isSetDate, Date date) {
 		// TODO Auto-generated method stub
 		//create the order
-		Order order = new Order(mStaffName, orderMenuItemList, orderPackageList, mCustomerId, mCustomerName, mTableId);
+		Order order = new Order(mStaffName, orderMenuItemList, quantityMenuItems, orderPackageList, quantityPackage, mCustomerId, mCustomerName, mTableId);
 		//check if date is set manual
 		if(isSetDate){
 			order.setTime(date);
@@ -87,6 +87,34 @@ public class OrderController {
 			
 		listOrder.add(order);
 		
+		showOrder(order);
+	}
+	
+	public void setListTable(ArrayList<Table> mTableList){
+		listTable = mTableList;
+	}
+
+	public void deallocateTable(Order order) {
+		// TODO Auto-generated method stub
+		Table mTable = null;
+		for(Table table: listTable){
+			if(table.getId() == order.getTableId()){
+				mTable = table;
+				break;
+			}
+		}
+		Reservation which = null;
+		for(Reservation reservation : mTable.getReservation(order.getCustomerName(),order.getCustomerName())){
+			if(reservation.getStartTime() == order.getTime()){
+				which = reservation;
+				break;
+			}
+		}
+		mTable.removeReservation(which);
+		
+	}
+	
+	public void showOrder(Order order){
 		System.out.println("Order is made, below is the information: ");
 		System.out.println("Order ID: " + order.getId());
 		System.out.println("Staff created order: " + order.getStaff());
@@ -112,29 +140,5 @@ public class OrderController {
 			System.out.println((i+1) + ". " + quantityPackage.get(i) + " x " + packages.get(i).getName() + "       Price:" + packages.get(i).getPrice());
 		}
 		System.out.println("Total Price: " + order.getTotalPrice());
-	}
-	
-	public void setListTable(ArrayList<Table> mTableList){
-		listTable = mTableList;
-	}
-
-	public void deallocateTable(Order order) {
-		// TODO Auto-generated method stub
-		Table mTable = null;
-		for(Table table: listTable){
-			if(table.getId() == order.getTableId()){
-				mTable = table;
-				break;
-			}
-		}
-		Reservation which = null;
-		for(Reservation reservation : mTable.getReservation(order.getCustomerName(),order.getCustomerName())){
-			if(reservation.getStartTime() == order.getTime()){
-				which = reservation;
-				break;
-			}
-		}
-		mTable.removeReservation(which);
-		
 	}
 }
