@@ -1,6 +1,4 @@
-/*
- * Author: Tran Vu Xuan Nhat
- */
+
 
 package UI;
 
@@ -74,6 +72,31 @@ public class CreateOrderUI {
 			if(option == 1){
 				System.out.println("CREATE ORDER FORM: ");
 				while(true){
+					/*
+					 * get table's number
+					 */
+					int numOfPeople = 0;
+					while(numOfPeople <= 0){
+						numOfPeople = MainUI.getInt("Please input number of people: ");
+					}
+					while(true){
+						boolean noTableAvailabe = true;
+						System.out.println("Below is the list of free table, choose the free table: ");
+						Date currentTime = Calendar.getInstance().getTime();
+						Date nextTime =  Calendar.getInstance().getTime();
+						nextTime.setHours(currentTime.getHours()+1);
+						for(Table table : mTableList){
+							if(table.isAvailable(numOfPeople, currentTime, nextTime)){
+								System.out.println("Table number: " + table.getId() + ", #pax: " + table.getCapacity());
+								if(noTableAvailabe)
+									noTableAvailabe = false;
+							}
+						}
+						mTableId = MainUI.getInt("Enter table's number: ");
+						if(0<= mTableId && mTableId <= mTableList.size() && mTableList.get(mTableId).isAvailable(numOfPeople, currentTime, nextTime)){
+							break;
+						}
+					}
 					System.out.println("List of staff avaialable for service: ");
 					for(Staff staff: mStaffList){
 						System.out.println("- Staff name: " + staff.getName() + ", id: " + staff.getId() );
@@ -213,27 +236,7 @@ public class CreateOrderUI {
 				 * end selecting promotional packages
 				 */
 				
-				/*
-				 * get table's number
-				 */
-				int numOfPeople = 0;
-				while(numOfPeople <= 0){
-					numOfPeople = MainUI.getInt("Please input number of people: ");
-				}
-				while(true){
-					System.out.println("Below is the list of free table, choose the free table: ");
-					Date currentTime = Calendar.getInstance().getTime();
-					Date nextTime = currentTime;
-					nextTime.setHours(currentTime.getHours()+1);
-					for(Table table : mTableList){
-						if(table.isAvailable(numOfPeople, currentTime, nextTime))
-						System.out.println("Table number: " + table.getId() + ", #pax: " + table.getCapacity());
-					}
-					mTableId = MainUI.getInt("Enter table's number: ");
-					if(0<= mTableId && mTableId <= mTableList.size() && mTableList.get(mTableId).isAvailable(numOfPeople, currentTime, nextTime)){
-						break;
-					}
-				}
+				
 				
 				int hasMembership = -1;
 				while(hasMembership != 0 && hasMembership != 1){
@@ -249,7 +252,7 @@ public class CreateOrderUI {
 					 * ask user want to set Date for order
 					 */
 					boolean isSetDate = false;
-					Date date = new Date();
+					Date date = Calendar.getInstance().getTime();
 					confirm = MainUI.getInt("Enter 1 to set date created order, 0 to use current day by system: ");
 					System.out.println(spacing);
 					if(confirm==1){

@@ -59,7 +59,8 @@ public class OrderController {
 				break;
 			}
 		}
-		Date end = new Date(date.getTime() + 1 * 60000L - 1L);
+		Date end = Calendar.getInstance().getTime();
+		end.setHours(end.getHours()+1);
 		mTable.allocate(new Reservation(mTable, mCustomerName, mCustomerName, mTableId, date, end));
 		/*
 		 * discount for membership customer

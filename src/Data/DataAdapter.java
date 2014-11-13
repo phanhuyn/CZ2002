@@ -137,6 +137,7 @@ public class DataAdapter {
 			int orderId,customerId, tableId;
 			String staff, customerName;
 			long time;
+			double totalPrice;
 			ArrayList<Order> orderList = restaurant.getOrderList();
 			ArrayList<MenuItem> menuItemList =  new ArrayList<MenuItem>();
 			ArrayList<PromotionalPackage> packageList = new ArrayList<PromotionalPackage>();
@@ -150,9 +151,9 @@ public class DataAdapter {
 				customerId = Integer.parseInt(tempAttribute[3]);
 				tableId = Integer.parseInt(tempAttribute[4]);
 				time = Long.parseLong(tempAttribute[5]);
-				int  itemPos = 6;
-				if(tempAttribute[itemPos].compareTo("MenuItem")==0){
-					itemPos++;
+				totalPrice = Double.parseDouble(tempAttribute[6]);
+				int  itemPos = 7;
+				if(tempAttribute[itemPos++].compareTo("MenuItem")==0){
 					while(tempAttribute[itemPos].compareTo("PromotionalPackage") != 0){
 						MenuItem item = menu.getMenuItemByName(tempAttribute[itemPos++]);
 						if(item != null){
@@ -172,6 +173,7 @@ public class DataAdapter {
 				date.setTime(time);
 				Order order = new Order(staff, menuItemList, quantityMenuItem, packageList, quantityPackage, customerId, customerName,tableId);
 				order.setTime(date);
+				order.setTotalPrice(totalPrice);
 				orderList.add(order);
 				tempString = brOrder.readLine();
 			}
