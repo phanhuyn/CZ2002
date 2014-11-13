@@ -49,7 +49,7 @@ public class MainUI {
 				mMainController.orderOption();
 				break;
 			case 4:
-				mMainController.orderOption();
+				mMainController.printSaleOption();
 				break;
 			case 5:
 				mMainController.save();

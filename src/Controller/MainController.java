@@ -30,6 +30,11 @@ public class MainController {
 		mOrderUI.run();
 	}
 	
+	public void printSaleOption(){
+		PrintSaleController printsaleController = new PrintSaleController(mRestaurant.getOrderList());
+		printsaleController.run();
+	}
+	
 	public void reservationOption(){
 		ReservationController reservationController = new ReservationController(mRestaurant);
 		ReservationUI reservationUI = new ReservationUI(reservationController);
