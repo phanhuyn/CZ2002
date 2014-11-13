@@ -17,6 +17,11 @@ import Entity.PromotionalPackage;
 
 public class PrintSaleController {
 	
+	/**
+	 * Called when the user choose print sale option.
+	 * Ask for the user's choice for the report and call the particular function.
+	 */
+	
 	public void run(){
 		int choice = 0;
 		while (choice <= 2) {
