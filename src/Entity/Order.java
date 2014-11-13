@@ -62,7 +62,7 @@ public class Order implements WriteToTxt{
 	ArrayList<Integer> quantityPackages;
 	
 	/** The m order list. */
-	public static ArrayList<Order> mOrderList;
+	public static ArrayList<Order> mOrderList = new ArrayList<Order>();
 	
 	/*
 	 * constructor for Class 

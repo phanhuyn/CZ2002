@@ -80,8 +80,7 @@ public class CreateOrderUI {
 					for(Staff staff: mStaffList){
 						System.out.println("- Staff name: " + staff.getName() + ", id: " + staff.getId() );
 					}
-					System.out.print("Please enter the ID of the staff: ");
-					int staffId = scan.nextInt();
+					int staffId = MainUI.getInt("Please enter the ID of the staff: ");
 					mStaffName = mStaffList.get(staffId).getName();
 					if(mStaffName!= null){
 						break;
@@ -89,8 +88,7 @@ public class CreateOrderUI {
 				}
 				System.out.print("Please enter customer name: ");
 				mCustomerName = scan.next();
-				System.out.print("Please input customer ID: ");
-				mCustomerId = scan.nextInt();
+				mCustomerId = MainUI.getInt("Please input customer ID: ");
 				int continueSelect = 1, choice = 0, confirm = 0;
 				/*
 				 * Loop for user to select menu items
@@ -107,8 +105,7 @@ public class CreateOrderUI {
 					}
 					System.out.println();
 					System.out.println("0. Cancel selecting menu items.");
-					System.out.print("Your choice: ");
-					choice = scan.nextInt();
+					choice = MainUI.getInt("Your choice: ");
 					/*
 					 * if user want to cancel selection
 					 */
@@ -123,8 +120,7 @@ public class CreateOrderUI {
 						continueSelect = 1;
 						continue;
 					}
-					System.out.println("Input the quantity of this item you want");
-					quantity = scan.nextInt();
+					quantity = MainUI.getInt("Input the quantity of this item you want");
 					if(!(0< quantity && quantity <= 99)){
 						System.out.println("Invalid quantity!!");
 						continue;
@@ -132,8 +128,7 @@ public class CreateOrderUI {
 					/*
 					 * ask for confirmation of selecting menu item
 					 */
-					System.out.print("Enter 1 to confirm, 0 to cancel: ");
-					confirm = scan.nextInt();
+					confirm = MainUI.getInt("Enter 1 to confirm, 0 to cancel: ");
 					/*
 					 * if user confirms, add this item to order
 					 */
@@ -145,8 +140,7 @@ public class CreateOrderUI {
 					/*
 					 * ask user to continue selecting menu item or not
 					 */
-					System.out.print("Enter 1 to continue select other menu items, else enter 0 to cancel: ");
-					continueSelect =  scan.nextInt();
+					continueSelect =  MainUI.getInt("Enter 1 to continue select other menu items, else enter 0 to cancel: ");
 				}
 				/*
 				 * end selecting menu items
@@ -170,8 +164,7 @@ public class CreateOrderUI {
 					}
 					System.out.println();
 					System.out.println("0. Cancel selecting promotional packages.");
-					System.out.print("Your choice: ");
-					choice = scan.nextInt();
+					choice = MainUI.getInt("Your choice: ");
 					/*
 					 * if user want to cancel selection
 					 */
@@ -186,8 +179,7 @@ public class CreateOrderUI {
 						continueSelect = 1;
 						continue;
 					}
-					System.out.println("Input the quantity of this item you want");
-					quantity = scan.nextInt();
+					quantity = MainUI.getInt("Input the quantity of this package you want");
 					if(!(0< quantity && quantity <= 99)){
 						System.out.println("Invalid quantity!!");
 						continue;
@@ -195,8 +187,7 @@ public class CreateOrderUI {
 					/*
 					 * ask for confirmation of selecting promotional package
 					 */
-					System.out.print("Enter 1 to confirm, 0 to cancel: ");
-					confirm = scan.nextInt();
+					confirm = MainUI.getInt("Enter 1 to confirm, 0 to cancel: ");
 					/*
 					 * if user confirms, add this package to order
 					 */
@@ -208,8 +199,7 @@ public class CreateOrderUI {
 					/*
 					 * ask user to continue selecting promotional packages or not
 					 */
-					System.out.print("Enter 1 to continue select other promotional packages, else enter 0 to cancel: ");
-					continueSelect =  scan.nextInt();
+					continueSelect =  MainUI.getInt("Enter 1 to continue select other menu items, else enter 0 to cancel: ");
 				}
 				/*
 				 * end selecting promotional packages
@@ -220,20 +210,18 @@ public class CreateOrderUI {
 				 */
 				int numOfPeople = 0;
 				while(numOfPeople <= 0){
-					System.out.print("Please input number of people: ");
-					numOfPeople = scan.nextInt();
+					numOfPeople = MainUI.getInt("Please input number of people: ");
 				}
 				while(true){
 					System.out.println("Below is the list of free table, choose the free table: ");
 					Date currentTime = Calendar.getInstance().getTime();
 					Date nextTime = currentTime;
-					nextTime.setMinutes(currentTime.getMinutes()+1);
+					nextTime.setHours(currentTime.getHours()+1);
 					for(Table table : mTableList){
 						if(table.isAvailable(numOfPeople, currentTime, nextTime))
 						System.out.println("Table number: " + table.getId() + ", #pax: " + table.getCapacity());
 					}
-					System.out.print("Enter table's number: ");
-					mTableId = scan.nextInt();
+					mTableId = MainUI.getInt("Enter table's number: ");
 					if(0<= mTableId && mTableId <= mTableList.size() && mTableList.get(mTableId).isAvailable(numOfPeople, currentTime, nextTime)){
 						break;
 					}
@@ -244,16 +232,14 @@ public class CreateOrderUI {
 				 * ask user to confirm making order
 				 */
 				confirm = 0;
-				System.out.print("Enter 1 to confirm making order, 0 to cancel,: ");
-				confirm = scan.nextInt();
+				confirm = MainUI.getInt("Enter 1 to confirm making order, 0 to cancel,: ");
 				if(confirm == 1){
 					/*
 					 * ask user want to set Date for order
 					 */
 					boolean isSetDate = false;
 					Date date = new Date();
-					System.out.print("Enter 1 to set date created order, 0 to use current day by system: ");
-					confirm = scan.nextInt();
+					confirm = MainUI.getInt("Enter 1 to set date created order, 0 to use current day by system: ");
 					System.out.println(spacing);
 					if(confirm==1){
 						isSetDate = true;
@@ -277,8 +263,7 @@ public class CreateOrderUI {
 					System.out.println("Choose the option");
 					System.out.println("1. Create other order.");
 					System.out.println("0. Back to main screen.");
-					System.out.print("Your option: ");
-					option = scan.nextInt();
+					option = MainUI.getInt("Your option: ");
 				}
 			}
 		}

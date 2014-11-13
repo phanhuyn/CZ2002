@@ -34,7 +34,6 @@ public class OrderController {
 		return null;
 	}
 	
-	
 	public ArrayList<Order> getListOrder(){
 		return listOrder;
 	}

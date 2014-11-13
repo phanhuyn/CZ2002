@@ -23,7 +23,7 @@ public class DataAdapter {
 	};
 
 	private static String[] fileName = { "data/menuItem.txt",
-			"data/package.txt", "data/table.txt", "data/staff.txt", "data/resevation.txt", "data/order.txt"};
+			"data/package.txt", "data/table.txt", "data/staff.txt", "data/reservation.txt", "data/order.txt"};
 
 	public static boolean loadRestaurantResource(Restaurant restaurant) {
 
@@ -138,12 +138,13 @@ public class DataAdapter {
 			String staff, customerName;
 			long time;
 			ArrayList<Order> orderList = restaurant.getOrderList();
+			Order.mOrderList = orderList;
 			ArrayList<MenuItem> menuItemList =  new ArrayList<MenuItem>();
 			ArrayList<PromotionalPackage> packageList = new ArrayList<PromotionalPackage>();
 			ArrayList<Integer> quantityMenuItem = new ArrayList<Integer>();
 			ArrayList<Integer> quantityPackage = new ArrayList<Integer>();
 			while(tempString!= null){
-				tempAttribute = tempString.split("|");
+				tempAttribute = tempString.split("[|]");
 				orderId = Integer.parseInt(tempAttribute[0]);
 				staff = tempAttribute[1];
 				customerName = tempAttribute[2];
@@ -151,8 +152,9 @@ public class DataAdapter {
 				tableId = Integer.parseInt(tempAttribute[4]);
 				time = Long.parseLong(tempAttribute[5]);
 				int  itemPos = 6;
-				if(tempAttribute[itemPos++] == "MenuItem"){
-					while(tempAttribute[itemPos] != "PromotionalPackage"){
+				if(tempAttribute[itemPos].compareTo("MenuItem")==0){
+					itemPos++;
+					while(tempAttribute[itemPos].compareTo("PromotionalPackage") != 0){
 						MenuItem item = menu.getMenuItemByName(tempAttribute[itemPos++]);
 						if(item != null){
 							menuItemList.add(item);
@@ -171,6 +173,8 @@ public class DataAdapter {
 				date.setTime(time);
 				Order order = new Order(staff, menuItemList, quantityMenuItem, packageList, quantityPackage, customerId, customerName,tableId);
 				order.setTime(date);
+				orderList.add(order);
+				tempString = brOrder.readLine();
 			}
 			
 			

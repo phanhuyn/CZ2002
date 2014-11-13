@@ -12,6 +12,7 @@ import Entity.MenuItem;
 import Entity.Order;
 import Entity.PromotionalPackage;
 import Entity.Restaurant;
+import Entity.Table;
 
 public class OrderUI {
   private OrderController mOrderController;
@@ -24,7 +25,8 @@ public class OrderUI {
   public OrderUI(Restaurant restaurant) {
   	mOrderController = new OrderController();
   	mRestaurant = restaurant;
-  	Order.mOrderList = restaurant.getOrderList();
+  	ArrayList<Table> listTable = mRestaurant.getTableList();
+  	mOrderController.setListTable(listTable);
   }
   
   public void run() {
@@ -125,7 +127,6 @@ public class OrderUI {
 		System.out.println("TOTAL                  : " + df.format((order.getTotalPrice() ) * 1.07 ));
 		System.out.println("============= Thank you! Please come again! =============");
 	}
-	sc.close();
 	return;
 }
   
