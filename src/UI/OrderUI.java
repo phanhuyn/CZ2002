@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
-import java.text.DecimalFormat;
 
 import Controller.OrderController;
 import Controller.PrintSaleController;
@@ -18,7 +17,7 @@ public class OrderUI {
   private OrderController mOrderController;
   private Restaurant mRestaurant;
   private String customerName;
-  private int orderID;
+  private int TableID;
   private final String spacing = "######################################";
   
   //constructor
@@ -73,16 +72,15 @@ public class OrderUI {
 	System.out.print("Enter Customer Name : ");
 	customerName = sc.next();
 
-	orderID = MainUI.getInt("Enter Order ID : ");
+	TableID = MainUI.getInt("Enter Table ID : ");
 
-	Order order = mOrderController.find(customerName, orderID) ;
+	Order order = mOrderController.find(customerName, TableID) ;
 	if(order == null)
 	{
 		System.out.println("No order found!");
 	}
 	else
 	{
-		DecimalFormat  df = new DecimalFormat ("#.##");
 		ArrayList<MenuItem> item = order.getMenuItemsList();
 		ArrayList<Integer> quantityMenuItems = order.getQuantityMenuItems();
 		ArrayList<PromotionalPackage> set = order.getPromotionalPackagesList();
@@ -99,7 +97,7 @@ public class OrderUI {
 			
 			for(int i = 0; i < item.size(); i++ )
 			{
-				System.out.println("    "  + (quantityMenuItems.get(i)) + "x " + (item.get(i)).getName() + "	" + ( (quantityMenuItems.get(i)) * (item.get(i)).getPrice() ));
+				System.out.printf("    %dx %-30s $%3.2f\n"  , (quantityMenuItems.get(i)) , (item.get(i)).getName() , ( (quantityMenuItems.get(i)) * (item.get(i)).getPrice() ));
 			}
 		}
 		
@@ -109,16 +107,16 @@ public class OrderUI {
 			
 			for(int i = 0; i < set.size(); i++ )
 			{
-				System.out.println("    " + (quantityPackages.get(i)) + "x " + (set.get(i)).getName() + "	" + ( (quantityPackages.get(i)) * (set.get(i)).getPrice() ));
+				System.out.printf("    %dx %-30s $%3.2f\n" , (quantityPackages.get(i)) , (set.get(i)).getName() , ( (quantityPackages.get(i)) * (set.get(i)).getPrice() ));
 			}
 		}
 		
 		System.out.println("---------------------------------------------------------");
-		System.out.println("SubTotal               : " + df.format(( order.getTotalPrice() )));
-		System.out.println("Taxes                  : " + df.format(( order.getTotalPrice() * 0.07)));
+		System.out.printf("SubTotal    :                         $%.2f\n" ,( order.getTotalPrice() ));
+		System.out.printf("Taxes       :                         $%.2f\n" ,( order.getTotalPrice() * 0.07));
 		System.out.println("---------------------------------------------------------	");
-		System.out.println("TOTAL                  : " + df.format((order.getTotalPrice() ) * 1.07 ));
-		System.out.println("============= Thank you! Please come again! =============");
+		System.out.printf("TOTAL       :                         $%.2f\n" , (order.getTotalPrice() ) * 1.07 );
+		System.out.println("\n============= Thank you! Please come again! =============\n");
 		
 		mOrderController.deallocateTable(order);
 	}
