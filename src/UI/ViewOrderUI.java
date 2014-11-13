@@ -14,13 +14,30 @@ import Entity.Order;
 import Entity.PromotionalPackage;
 import Entity.Restaurant;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ViewOrderUI display the old order 
+ */
 public class ViewOrderUI {
+	
+	/** The order controller. */
 	private OrderController mOrderController;
+	
+	/** The spacing. */
 	private final String spacing = "***********************************";
-	public ViewOrderUI(){
-		mOrderController = new OrderController();
+	
+	/**
+	 * Instantiates a new view order ui.
+	 *
+	 * @param restaurant the restaurant
+	 */
+	public ViewOrderUI(Restaurant restaurant){
+		mOrderController = new OrderController(restaurant);
 	}
 	
+	/**
+	 * Run. display the option for view order
+	 */
 	public void run(){
 		Scanner scan = new Scanner(System.in);
 		int option = 1;
@@ -43,12 +60,12 @@ public class ViewOrderUI {
 				 * let user input name of customer to find order respectively
 				 */
 				String mCustomerName;
-				int mId = 0;
+				int mTableId = 0;
 				System.out.print("Please input customer's name: ");
 				mCustomerName = scan.next();
-				System.out.print("Please input order's ID: ");
-				mId = scan.nextInt();
-				Order order = mOrderController.find(mCustomerName,mId);
+				System.out.print("Please input table's ID: ");
+				mTableId = scan.nextInt();
+				Order order = mOrderController.find(mCustomerName,mTableId);
 				if(order == null){
 					/*
 					 * No order matches customer 

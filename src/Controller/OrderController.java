@@ -5,29 +5,32 @@
 package Controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import Entity.MenuItem;
 import Entity.Order;
 import Entity.PromotionalPackage;
 import Entity.Reservation;
+import Entity.Restaurant;
 import Entity.Table;
 
 public class OrderController {
 	private ArrayList<Order> listOrder;
 	private ArrayList<Table> listTable;
-	public OrderController(){
-		listOrder = Order.mOrderList;
+	public OrderController(Restaurant restaurant){
+		listOrder = restaurant.getOrderList();
+		listTable = restaurant.getTableList();
 	}
-	
+
 	/*
 	 * this method use to find order that match the day user input
 	 */
 	
-	public Order find(String customerName, int mId) {
+	public Order find(String customerName, int mTableId) {
 		// TODO Auto-generated method stub
 		for(Order order: listOrder){
-			if(order.getCustomerName().compareTo(customerName) == 0 && order.getId()==mId){
+			if(order.getCustomerName().compareTo(customerName) == 0 && order.getTableId()==mTableId){
 		        return order;		
 			}
 		}
@@ -40,7 +43,7 @@ public class OrderController {
 	public void createNewOrder(String mStaffName,
 			ArrayList<MenuItem> orderMenuItemList,ArrayList<Integer> quantityMenuItems,
 			ArrayList<PromotionalPackage> orderPackageList,ArrayList<Integer> quantityPackage, int mCustomerId,
-			String mCustomerName, int mTableId, boolean isSetDate, Date date) {
+			String mCustomerName, int mTableId, boolean isSetDate, Date date, int hasMembership) {
 		// TODO Auto-generated method stub
 		//create the order
 		Order order = new Order(mStaffName, orderMenuItemList, quantityMenuItems, orderPackageList, quantityPackage, mCustomerId, mCustomerName, mTableId);
@@ -56,13 +59,15 @@ public class OrderController {
 				break;
 			}
 		}
-		Date end = new Date();
-		end.setDate(date.getDate());
-		end.setMonth(date.getMonth());
-		end.setYear(date.getYear());
-		end.setHours(date.getHours() + 1);
+		Date end = Calendar.getInstance().getTime();
+		end.setHours(end.getHours()+1);
 		mTable.allocate(new Reservation(mTable, mCustomerName, mCustomerName, mTableId, date, end));
-			
+		/*
+		 * discount for membership customer
+		 */
+		if(hasMembership == 1){
+			order.setTotalPrice(order.getTotalPrice()*0.9);
+		}
 		listOrder.add(order);
 		
 		showOrder(order);
@@ -118,5 +123,10 @@ public class OrderController {
 			System.out.println((i+1) + ". " + quantityPackage.get(i) + " x " + packages.get(i).getName() + "       Price:" + packages.get(i).getPrice());
 		}
 		System.out.println("Total Price: " + order.getTotalPrice());
+	}
+
+	public ArrayList<Table> getTableList() {
+		// TODO Auto-generated method stub
+		return listTable;
 	}
 }

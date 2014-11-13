@@ -15,7 +15,8 @@ import Data.WriteToTxt;
 // TODO: Auto-generated Javadoc
 
 /**
- * The Class Order.
+ * The Class Order a particular order used in application
+ * @author Tran Vu Xuan Nhat 
  */
 public class Order implements WriteToTxt{
 	/*
@@ -61,9 +62,6 @@ public class Order implements WriteToTxt{
 	/** The quantity packages. */
 	ArrayList<Integer> quantityPackages;
 	
-	/** The m order list. */
-	public static ArrayList<Order> mOrderList = new ArrayList<Order>();
-	
 	/*
 	 * constructor for Class 
 	 */
@@ -72,7 +70,7 @@ public class Order implements WriteToTxt{
 	 *
 	 * @param staff The name of the staff
 	 * @param items The list of menu items
-	 * @param quantityMemuItemList the list of quantity of menu items
+	 * @param quantityMenuItemList the quantity menu item list
 	 * @param packages the packages
 	 * @param quantityPackageList the quantity package list
 	 * @param CustomerId the customer id
@@ -80,7 +78,6 @@ public class Order implements WriteToTxt{
 	 * @param TableId the table id
 	 */
 	public Order(String staff,ArrayList<MenuItem> items,ArrayList<Integer> quantityMenuItemList,ArrayList<PromotionalPackage> packages,ArrayList<Integer> quantityPackageList,int CustomerId, String CustomerName,int TableId){
-		mOrderId = mOrderList.size()+1;
 		mStaff = staff;
 		mCustomerId = CustomerId;
 		mTableId = TableId;
@@ -124,7 +121,7 @@ public class Order implements WriteToTxt{
 	 * Find package.
 	 *
 	 * @param name of package to search for in order
-	 * @return the int
+	 * @return Returns the position of the package in the package list of the order. If not found, return -1
 	 */
 	private int findPackage(String name) {
 		// TODO Auto-generated method stub
@@ -139,8 +136,8 @@ public class Order implements WriteToTxt{
 	/**
 	 * Find menu item.
 	 *
-	 * @param name the name
-	 * @return the int
+	 * @param name of menu item to search for in order
+	 * @return Returns the position of the menu item in the menu item list of the order. If not found, return -1
 	 */
 	private int findMenuItem(String name) {
 		// TODO Auto-generated method stub
@@ -157,36 +154,36 @@ public class Order implements WriteToTxt{
 	 * Accessor methods of Class 
 	 */
 	/**
-	 * Gets the id.
+	 * Gets the id of order.
 	 *
-	 * @return the id
+	 * @return Returns the id of order
 	 */
 	public int getId() {
 		return mOrderId;
 	}
 
 	/**
-	 * Gets the staff.
+	 * Gets the name of the staff in charge of this order.
 	 *
-	 * @return the staff
+	 * @return Returns the name of the staff in charge of this order.
 	 */
 	public String getStaff(){
 		return mStaff;
 	}
 	
 	/**
-	 * Gets the menu items list.
+	 * Gets the menu items list of the order
 	 *
-	 * @return the menu items list
+	 * @return Returns the menu items list of the order
 	 */
 	public ArrayList<MenuItem> getMenuItemsList(){
 		return mItems;
 	}
 	
 	/**
-	 * Gets the promotional packages list.
+	 * Gets the promotional packages list of the order
 	 *
-	 * @return the promotional packages list
+	 * @return Returns the promotional packages list of the order
 	 */
 	public ArrayList<PromotionalPackage> getPromotionalPackagesList(){
 		return mPackages;
@@ -195,7 +192,7 @@ public class Order implements WriteToTxt{
 	/**
 	 * Gets the customer id.
 	 *
-	 * @return the customer id
+	 * @return Returns the customer id
 	 */
 	public int getCustomerId(){
 		return mCustomerId;
@@ -204,7 +201,7 @@ public class Order implements WriteToTxt{
 	/**
 	 * Gets the table id.
 	 *
-	 * @return the table id
+	 * @return Returns the table id
 	 */
 	public int getTableId(){
 		return mTableId;
@@ -213,25 +210,25 @@ public class Order implements WriteToTxt{
 	/**
 	 * Gets the customer name.
 	 *
-	 * @return the customer name
+	 * @return Returns the customer name
 	 */
 	public String getCustomerName(){
 		return mCustomerName;
 	}
 
 	/**
-	 * Gets the total price.
+	 * Gets the total price customer need to paid
 	 *
-	 * @return the total price
+	 * @return Returns the total price customer need to paid
 	 */
 	public double getTotalPrice() {
 		return mTotalPrice;
 	}
 	
 	/**
-	 * Gets the time.
+	 * Gets the time order is made
 	 *
-	 * @return the time
+	 * @return Returns the time order is made
 	 */
 	public Date getTime() {
 		return mTime;
@@ -244,7 +241,7 @@ public class Order implements WriteToTxt{
 	/**
 	 * Sets the staff in charge.
 	 *
-	 * @param staff the new staff in charge
+	 * @param staff the new staff name in charge
 	 */
 	public void setStaffInCharge(String staff){
 		mStaff = staff;
@@ -271,28 +268,39 @@ public class Order implements WriteToTxt{
 	/**
 	 * Sets the table id.
 	 *
-	 * @param tableId the new table id
+	 * @param tableId the new table id for order
 	 */
 	public void setTableId(int tableId){
 		mTableId = tableId;
 	}
 
 	/**
-	 * Sets the time.
+	 * Sets the time order is made
 	 *
-	 * @param date the new time
+	 * @param date the new time order is made
 	 */
 	public void setTime(Date date) {
 		mTime = date;
 	}
+	
+	/**
+	 * Sets the total price.
+	 *
+	 * @param totalPrice the new total price
+	 */
+	public void setTotalPrice(double totalPrice) {
+		// TODO Auto-generated method stub
+		mTotalPrice = totalPrice;
+	}
+
 	/*
 	 * add methods to add MenuItem or PromotionalPackage to Order
 	 */
 	/**
 	 * Adds the menu item.
 	 *
-	 * @param item the item
-	 * @param quantity the quantity
+	 * @param item the item to be added
+	 * @param quantity the quantity of the item to be added
 	 */
 	public void addMenuItem(MenuItem item, int quantity){
 		int position = -1;
@@ -313,8 +321,8 @@ public class Order implements WriteToTxt{
 	/**
 	 * Adds the promotional package.
 	 *
-	 * @param pPackage the package
-	 * @param quantity the quantity
+	 * @param pPackage the package to be added
+	 * @param quantity the quantity of pPackage to be added
 	 */
 	public void addPromotionalPackage(PromotionalPackage pPackage, int quantity){
 		int position = -1;
@@ -353,7 +361,7 @@ public class Order implements WriteToTxt{
 	 *
 	 * @param itemName the item name
 	 * @param quantity the quantity
-	 * @return true, if successful
+	 * @return Return true, if successful
 	 */
 	public boolean removeMenuItem(String itemName, int quantity){
 		int position = -1;
@@ -443,6 +451,7 @@ public class Order implements WriteToTxt{
 		return quantityPackages;
 	}
 
+	
 
 
 }

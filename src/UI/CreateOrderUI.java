@@ -1,6 +1,4 @@
-/*
- * Author: Tran Vu Xuan Nhat
- */
+
 
 package UI;
 
@@ -27,12 +25,10 @@ public class CreateOrderUI {
 	private final String spacing = "***********************************";
 	
 	public CreateOrderUI(Restaurant restaurant){
-		mOrderController = new OrderController();
+		mOrderController = new OrderController(restaurant);
 		mMenuController = new MenuController(restaurant.getMenu());
 		mStaffList = restaurant.getStaffList();
-		mTableList = restaurant.getTableList();
-		
-		mOrderController.setListTable(mTableList);
+		mTableList = mOrderController.getTableList();
 	}
 	
 	public void run(){
@@ -76,11 +72,40 @@ public class CreateOrderUI {
 			if(option == 1){
 				System.out.println("CREATE ORDER FORM: ");
 				while(true){
+					/*
+					 * get table's number
+					 */
+					int numOfPeople = 0;
+					while(numOfPeople <= 0){
+						numOfPeople = MainUI.getInt("Please input number of people: ");
+					}
+					while(true){
+						boolean noTableAvailabe = true;
+						System.out.println("Below is the list of free table, choose the free table: ");
+						Date currentTime = Calendar.getInstance().getTime();
+						Date nextTime =  Calendar.getInstance().getTime();
+						nextTime.setHours(currentTime.getHours()+1);
+						for(Table table : mTableList){
+							if(table.isAvailable(numOfPeople, currentTime, nextTime)){
+								System.out.println("Table number: " + table.getId() + ", #pax: " + table.getCapacity());
+								if(noTableAvailabe)
+									noTableAvailabe = false;
+							}
+						}
+						mTableId = MainUI.getInt("Enter table's number: ");
+						if(0<= mTableId && mTableId <= mTableList.size() && mTableList.get(mTableId).isAvailable(numOfPeople, currentTime, nextTime)){
+							break;
+						}
+					}
 					System.out.println("List of staff avaialable for service: ");
 					for(Staff staff: mStaffList){
 						System.out.println("- Staff name: " + staff.getName() + ", id: " + staff.getId() );
 					}
-					int staffId = MainUI.getInt("Please enter the ID of the staff: ");
+					int staffId = -1;
+					while(staffId  < 0 || staffId >1){
+						staffId = MainUI.getInt("Please enter the ID of the staff: ");
+					}
+
 					mStaffName = mStaffList.get(staffId).getName();
 					if(mStaffName!= null){
 						break;
@@ -120,6 +145,9 @@ public class CreateOrderUI {
 						continueSelect = 1;
 						continue;
 					}
+					/*
+					 * ask user input the quantity of menu item
+					 */
 					quantity = MainUI.getInt("Input the quantity of this item you want");
 					if(!(0< quantity && quantity <= 99)){
 						System.out.println("Invalid quantity!!");
@@ -179,6 +207,9 @@ public class CreateOrderUI {
 						continueSelect = 1;
 						continue;
 					}
+					/*
+					 * ask user input the quantity of package
+					 */
 					quantity = MainUI.getInt("Input the quantity of this package you want");
 					if(!(0< quantity && quantity <= 99)){
 						System.out.println("Invalid quantity!!");
@@ -205,29 +236,12 @@ public class CreateOrderUI {
 				 * end selecting promotional packages
 				 */
 				
-				/*
-				 * get table's number
-				 */
-				int numOfPeople = 0;
-				while(numOfPeople <= 0){
-					numOfPeople = MainUI.getInt("Please input number of people: ");
-				}
-				while(true){
-					System.out.println("Below is the list of free table, choose the free table: ");
-					Date currentTime = Calendar.getInstance().getTime();
-					Date nextTime = currentTime;
-					nextTime.setHours(currentTime.getHours()+1);
-					for(Table table : mTableList){
-						if(table.isAvailable(numOfPeople, currentTime, nextTime))
-						System.out.println("Table number: " + table.getId() + ", #pax: " + table.getCapacity());
-					}
-					mTableId = MainUI.getInt("Enter table's number: ");
-					if(0<= mTableId && mTableId <= mTableList.size() && mTableList.get(mTableId).isAvailable(numOfPeople, currentTime, nextTime)){
-						break;
-					}
-				}
 				
 				
+				int hasMembership = -1;
+				while(hasMembership != 0 && hasMembership != 1){
+					hasMembership = MainUI.getInt("Enter 1 if customer has membership, else enter 0: ");
+				}
 				/*
 				 * ask user to confirm making order
 				 */
@@ -238,7 +252,7 @@ public class CreateOrderUI {
 					 * ask user want to set Date for order
 					 */
 					boolean isSetDate = false;
-					Date date = new Date();
+					Date date = Calendar.getInstance().getTime();
 					confirm = MainUI.getInt("Enter 1 to set date created order, 0 to use current day by system: ");
 					System.out.println(spacing);
 					if(confirm==1){
@@ -250,7 +264,7 @@ public class CreateOrderUI {
 						System.out.println("Enter year created: ");
 						date.setYear(scan.nextInt()-1900);
 					}
-					mOrderController.createNewOrder(mStaffName, orderMenuItemList,quantityMenuItem, orderPackageList, quantityPackage,mCustomerId, mCustomerName, mTableId, isSetDate, date);	
+					mOrderController.createNewOrder(mStaffName, orderMenuItemList,quantityMenuItem, orderPackageList, quantityPackage,mCustomerId, mCustomerName, mTableId, isSetDate, date, hasMembership);	
 				}
 				
 				/*

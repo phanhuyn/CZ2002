@@ -15,15 +15,16 @@ import Entity.Menu;
 import Entity.MenuItem;
 import Entity.Order;
 import Entity.PromotionalPackage;
+import Entity.Restaurant;
 
 public class AddRemoveOrderItemsFromOrder {
 	private OrderController mOrderController;
 	private MenuController mMenuController;
-	private final String spacing = "***********************************";
+	private final String spacing = "######################################";
 	
-	public AddRemoveOrderItemsFromOrder(Menu menu){
-		mOrderController = new OrderController();
-		mMenuController = new MenuController(menu);
+	public AddRemoveOrderItemsFromOrder(Restaurant restaurant){
+		mOrderController = new OrderController(restaurant);
+		mMenuController = new MenuController(restaurant.getMenu());
 	}
 	
 	public void run(){
