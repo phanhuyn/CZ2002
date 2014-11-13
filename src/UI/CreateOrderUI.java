@@ -187,7 +187,7 @@ public class CreateOrderUI {
 					/*
 					 * ask user to continue selecting menu item or not
 					 */
-					continueSelect =  MainUI.getInt("Enter 1 to continue select other menu items, else enter 0 to cancel: ");
+					continueSelect =  MainUI.getInt("Enter 1 to continue select other promotional packages, else enter 0 to cancel: ");
 				}
 				/*
 				 * end selecting menu items
