@@ -1,1 +1,1 @@
-0|NHAT|HUY|1|1|12312342|MenuItem|Chicken Rice with Thai Sald|2|PromotionalPackage|The treat|1
+0|NHAT|HUY|1|1|12312342|12.3|MenuItem|Chicken Rice with Thai Sald|2|PromotionalPackage|The treat|1
