@@ -75,8 +75,7 @@ public class OrderUI {
 	System.out.print("Enter Customer Name : ");
 	customerName = sc.next();
 
-	System.out.print("Enter Order ID : ");
-	orderID = sc.nextInt();
+	orderID = MainUI.getInt("Enter Order ID : ");
 
 	Order order = mOrderController.find(customerName, orderID) ;
 	if(order == null)
@@ -87,8 +86,10 @@ public class OrderUI {
 	{
 		DecimalFormat  df = new DecimalFormat ("#.##");
 		ArrayList<MenuItem> item = order.getMenuItemsList();
+		ArrayList<Integer> quantityMenuItems = order.getQuantityMenuItems();
 		ArrayList<PromotionalPackage> set = order.getPromotionalPackagesList();
-		mOrderController.deallocateTable(order);
+		ArrayList<Integer> quantityPackages = order.getQuantityPackages();
+		
 		System.out.println("================= Loh Yeh Moh Yeh Resto =================");
 		System.out.println("Staff Name      : " + order.getStaff() );
 		System.out.println("Table ID        : " + order.getTableId() );
@@ -98,20 +99,20 @@ public class OrderUI {
 		if(item.size() > 0){
 			System.out.println("Menu Items  : ");
 			
-				for(int i = 0; i < item.size(); i++ )
-				{
-					System.out.println("    " + (item.get(i)).getName() + "	" + (item.get(i)).getPrice() );
-				}
+			for(int i = 0; i < item.size(); i++ )
+			{
+				System.out.println("    "  + (quantityMenuItems.get(i)) + "x " + (item.get(i)).getName() + "	" + ( (quantityMenuItems.get(i)) * (item.get(i)).getPrice() ));
+			}
 		}
 		
 		if(set.size() > 0){
 			System.out.println("---------------------------------------------------------");
 			System.out.println("Promotional Set Packages  : ");
 			
-				for(int i = 0; i < item.size(); i++ )
-				{
-					System.out.println("    " + (set.get(i)).getName() + "	" + (set.get(i)).getPrice() );
-				}
+			for(int i = 0; i < set.size(); i++ )
+			{
+				System.out.println("    " + (quantityPackages.get(i)) + "x " + (set.get(i)).getName() + "	" + ( (quantityPackages.get(i)) * (set.get(i)).getPrice() ));
+			}
 		}
 		
 		System.out.println("---------------------------------------------------------");
@@ -120,6 +121,8 @@ public class OrderUI {
 		System.out.println("---------------------------------------------------------	");
 		System.out.println("TOTAL                  : " + df.format((order.getTotalPrice() ) * 1.07 ));
 		System.out.println("============= Thank you! Please come again! =============");
+		
+		mOrderController.deallocateTable(order);
 	}
 	sc.close();
 	return;
