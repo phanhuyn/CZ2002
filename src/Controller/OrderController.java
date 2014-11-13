@@ -23,27 +23,6 @@ public class OrderController {
 	/*
 	 * this method use to find order that match the day user input
 	 */
-	public ArrayList<Order> findOrderByTime(int day, int month, int year){
-		ArrayList<Order> matchDayOrderList = new ArrayList<Order>();
-		for(Order order : listOrder){
-			Date date = order.getTime();
-			if(date.getDay() == day && date.getMonth() == (month-1) && date.getYear() == (year-1900)){
-				matchDayOrderList.add(order);
-			}
-		}
-		return matchDayOrderList;
-	}
-	
-	public ArrayList<Order> findOrderByMonth(int month, int year){
-		ArrayList<Order> matchDayOrderList = new ArrayList<Order>();
-		for(Order order : listOrder){
-			Date date = order.getTime();
-			if( date.getMonth() == (month-1) && date.getYear() == (year-1900)){
-				matchDayOrderList.add(order);
-			}
-		}
-		return matchDayOrderList;
-	}
 	
 	public Order find(String customerName, int mId) {
 		// TODO Auto-generated method stub
