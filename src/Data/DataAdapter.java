@@ -149,11 +149,11 @@ public class DataAdapter {
 			long time;
 			double totalPrice;
 			ArrayList<Order> orderList = restaurant.getOrderList();
-			ArrayList<MenuItem> menuItemList =  new ArrayList<MenuItem>();
-			ArrayList<PromotionalPackage> packageList = new ArrayList<PromotionalPackage>();
-			ArrayList<Integer> quantityMenuItem = new ArrayList<Integer>();
-			ArrayList<Integer> quantityPackage = new ArrayList<Integer>();
 			while(tempString!= null){
+				ArrayList<MenuItem> menuItemList =  new ArrayList<MenuItem>();
+				ArrayList<PromotionalPackage> packageList = new ArrayList<PromotionalPackage>();
+				ArrayList<Integer> quantityMenuItem = new ArrayList<Integer>();
+				ArrayList<Integer> quantityPackage = new ArrayList<Integer>();
 				tempAttribute = tempString.split("[|]");
 				orderId = Integer.parseInt(tempAttribute[0]);
 				staff = tempAttribute[1];
@@ -371,6 +371,43 @@ public class DataAdapter {
 			}
 		}
 		*/
+		/*
+		 * order
+		 */
+		try{
+			ArrayList<Order> orderList = restaurant.getOrderList();
+			writer = new PrintWriter("data/order.txt");
+			for(Order order: orderList){
+				writer.println(order);	
+			}
+		}
+		catch(FileNotFoundException e)
+		{
+			System.out.println("File not found exception: " + e.getMessage());
+			return false;
+		}
+		catch(IOException e)
+		{
+			System.out.println("I/O exception: " + e.getMessage());
+			return false;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Other exception: " + e.getMessage());
+			return false;
+		}
+		finally
+		{
+			try
+			{
+				writer.close();
+			}
+			catch(Exception e)
+			{
+				System.out.println("Exception caught while JAVA trying to close PrintWriter!");
+				return false;
+			}
+		}
 		return true;
 	}
 }
