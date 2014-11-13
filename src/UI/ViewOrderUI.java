@@ -16,27 +16,28 @@ import Entity.Restaurant;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ViewOrderUI display the old order 
+ * The Class ViewOrderUI display the old order
+ * @author Tran Vu Xuan Nhat 
  */
 public class ViewOrderUI {
 	
 	/** The order controller. */
 	private OrderController mOrderController;
 	
-	/** The spacing. */
+	/** The constant spacing. */
 	private final String spacing = "***********************************";
 	
 	/**
-	 * Instantiates a new view order ui.
+	 * Instantiates a new ViewOrderUI.
 	 *
-	 * @param restaurant the restaurant
+	 * @param restaurant the data of restaurant
 	 */
 	public ViewOrderUI(Restaurant restaurant){
 		mOrderController = new OrderController(restaurant);
 	}
 	
 	/**
-	 * Run. display the option for view order
+	 * Run the user interface
 	 */
 	public void run(){
 		Scanner scan = new Scanner(System.in);

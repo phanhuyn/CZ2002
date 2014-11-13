@@ -17,16 +17,35 @@ import Entity.Order;
 import Entity.PromotionalPackage;
 import Entity.Restaurant;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AddRemoveOrderItemsFromOrder.
+ * @author Tran Vu Xuan Nhat
+ */
 public class AddRemoveOrderItemsFromOrder {
+	
+	/** The order controller. */
 	private OrderController mOrderController;
+	
+	/** The menu controller. */
 	private MenuController mMenuController;
+	
+	/** The constant spacing. */
 	private final String spacing = "######################################";
 	
+	/**
+	 * Instantiates a new AddRemoveOrderItemsFromOrder.
+	 *
+	 * @param restaurant the data of restaurant
+	 */
 	public AddRemoveOrderItemsFromOrder(Restaurant restaurant){
 		mOrderController = new OrderController(restaurant);
 		mMenuController = new MenuController(restaurant.getMenu());
 	}
 	
+	/**
+	 * Run the user interface.
+	 */
 	public void run(){
 		Scanner scan = new Scanner(System.in);
 		int option = 1,quantity;

@@ -13,14 +13,33 @@ import Entity.PromotionalPackage;
 import Entity.Restaurant;
 import Entity.Table;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class OrderUI.
+ */
 public class OrderUI {
+  
+  /** The order controller. */
   private OrderController mOrderController;
+  
+  /** The restaurant. */
   private Restaurant mRestaurant;
+  
+  /** The customer name. */
   private String customerName;
+  
+  /** The order id. */
   private int orderID;
+  
+  /** The constant spacing. */
   private final String spacing = "######################################";
   
   //constructor
+  /**
+   * Instantiates a new OrderUI.
+   *
+   * @param restaurant the data of restaurant
+   */
   public OrderUI(Restaurant restaurant) {
   	mOrderController = new OrderController(restaurant);
   	mRestaurant = restaurant;
@@ -28,6 +47,9 @@ public class OrderUI {
   	mOrderController.setListTable(listTable);
   }
   
+  /**
+   * Run the user interface
+   */
   public void run() {
  		int choice = 0;
 			
@@ -66,7 +88,10 @@ public class OrderUI {
  	} 
  	
   //Print Invoice
-   public void printInvoice(){
+   /**
+   * Prints the invoice.
+   */
+  public void printInvoice(){
   	Scanner sc = new Scanner(System.in);
 	
 	System.out.print("Enter Customer Name : ");

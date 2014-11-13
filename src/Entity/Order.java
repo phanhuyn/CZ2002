@@ -342,7 +342,7 @@ public class Order implements WriteToTxt{
 	
 
 	/**
-	 * Re calculate price.
+	 * Recalculate price after adding or removing item from order.
 	 */
 	public void reCalculatePrice() {
 		// TODO Auto-generated method stub
@@ -361,7 +361,7 @@ public class Order implements WriteToTxt{
 	 *
 	 * @param itemName the item name
 	 * @param quantity the quantity
-	 * @return Return true, if successful
+	 * @return Return true, if remove menu item successful, else return false
 	 */
 	public boolean removeMenuItem(String itemName, int quantity){
 		int position = -1;
@@ -389,7 +389,7 @@ public class Order implements WriteToTxt{
 	 *
 	 * @param packageName the package name
 	 * @param quantity the quantity
-	 * @return true, if successful
+	 * @return Returns true, if remove package successful,else return false
 	 */
 	public boolean removePackage(String packageName, int quantity){
 		int position = -1;
@@ -433,7 +433,7 @@ public class Order implements WriteToTxt{
 	/**
 	 * Gets the quantity menu items.
 	 *
-	 * @return the quantity menu items
+	 * @return Returns the quantity menu items
 	 */
 	public ArrayList<Integer> getQuantityMenuItems() {
 		// TODO Auto-generated method stub
@@ -444,7 +444,7 @@ public class Order implements WriteToTxt{
 	/**
 	 * Gets the list of quantity of promotional packages.
 	 *
-	 * @return the list of quantity of promotional packages
+	 * @return Returns the list of quantity of promotional packages
 	 */
 	public ArrayList<Integer> getQuantityPackages() {
 		// TODO Auto-generated method stub

@@ -17,13 +17,33 @@ import Entity.Restaurant;
 import Entity.Staff;
 import Entity.Table;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CreateOrderUI.
+ * @author Tran Vu Xuan Nhat
+ */
 public class CreateOrderUI {
-	private OrderController mOrderController;
-	private MenuController mMenuController;
-	private ArrayList<Staff> mStaffList;
-	private ArrayList<Table> mTableList;
-	private final String spacing = "***********************************";
 	
+	/** The order controller. */
+	private OrderController mOrderController;
+	
+	/** The menu controller. */
+	private MenuController mMenuController;
+	
+	/** The staff list. */
+	private ArrayList<Staff> mStaffList;
+	
+	/** The table list. */
+	private ArrayList<Table> mTableList;
+	
+	/** The constant spacing. */
+	private final String spacing = "######################################";
+	
+	/**
+	 * Instantiates a new class CreateOrderUI
+	 *
+	 * @param restaurant the data of therestaurant
+	 */
 	public CreateOrderUI(Restaurant restaurant){
 		mOrderController = new OrderController(restaurant);
 		mMenuController = new MenuController(restaurant.getMenu());
@@ -31,6 +51,9 @@ public class CreateOrderUI {
 		mTableList = mOrderController.getTableList();
 	}
 	
+	/**
+	 * Run the user interface.
+	 */
 	public void run(){
 		Scanner scan = new Scanner(System.in);
 		int option = 1;

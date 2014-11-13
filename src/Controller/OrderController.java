@@ -15,9 +15,24 @@ import Entity.Reservation;
 import Entity.Restaurant;
 import Entity.Table;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class OrderController.
+ * @author Tran Vu Xuan Nhat
+ */
 public class OrderController {
+	
+	/** The list of order. */
 	private ArrayList<Order> listOrder;
+	
+	/** The list of table in restaurant. */
 	private ArrayList<Table> listTable;
+	
+	/**
+	 * Instantiates a new order controller.
+	 *
+	 * @param restaurant the data of restaurant
+	 */
 	public OrderController(Restaurant restaurant){
 		listOrder = restaurant.getOrderList();
 		listTable = restaurant.getTableList();
@@ -27,6 +42,13 @@ public class OrderController {
 	 * this method use to find order that match the day user input
 	 */
 	
+	/**
+	 * Find the order by customer name and id of the table.
+	 *
+	 * @param customerName the customer name
+	 * @param mTableId the table id
+	 * @return Returns the order found
+	 */
 	public Order find(String customerName, int mTableId) {
 		// TODO Auto-generated method stub
 		for(Order order: listOrder){
@@ -37,9 +59,30 @@ public class OrderController {
 		return null;
 	}
 	
+	/**
+	 * Gets the list of order.
+	 *
+	 * @return Returns the list of order
+	 */
 	public ArrayList<Order> getListOrder(){
 		return listOrder;
 	}
+	
+	/**
+	 * Creates the new order.
+	 *
+	 * @param mStaffName the staff name
+	 * @param orderMenuItemList the order menu item list
+	 * @param quantityMenuItems the quantity menu items
+	 * @param orderPackageList the order package list
+	 * @param quantityPackage the quantity package
+	 * @param mCustomerId the customer id
+	 * @param mCustomerName the customer name
+	 * @param mTableId the table id
+	 * @param isSetDate the boolean value states that date of making order is set automatically
+	 * @param date the date input manually
+	 * @param hasMembership the boolean value state that customer has membership
+	 */
 	public void createNewOrder(String mStaffName,
 			ArrayList<MenuItem> orderMenuItemList,ArrayList<Integer> quantityMenuItems,
 			ArrayList<PromotionalPackage> orderPackageList,ArrayList<Integer> quantityPackage, int mCustomerId,
@@ -74,10 +117,20 @@ public class OrderController {
 		showOrder(order);
 	}
 	
+	/**
+	 * Sets the list of table.
+	 *
+	 * @param mTableList the new list of table
+	 */
 	public void setListTable(ArrayList<Table> mTableList){
 		listTable = mTableList;
 	}
 
+	/**
+	 * Deallocate table after print invoice.
+	 *
+	 * @param order the order linked to table to be deallocate
+	 */
 	public void deallocateTable(Order order) {
 		// TODO Auto-generated method stub
 		Table mTable = null;
@@ -98,6 +151,11 @@ public class OrderController {
 		
 	}
 	
+	/**
+	 * Show normal order.
+	 *
+	 * @param order the order to be showed
+	 */
 	public void showOrder(Order order){
 		System.out.println("Order is made, below is the information: ");
 		System.out.println("Order ID: " + order.getId());
@@ -126,6 +184,11 @@ public class OrderController {
 		System.out.println("Total Price: " + order.getTotalPrice());
 	}
 
+	/**
+	 * Gets the table list.
+	 *
+	 * @return Returns the table list
+	 */
 	public ArrayList<Table> getTableList() {
 		// TODO Auto-generated method stub
 		return listTable;
