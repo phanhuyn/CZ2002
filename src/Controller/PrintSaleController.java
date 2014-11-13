@@ -129,11 +129,11 @@ public class PrintSaleController {
 				}
 				TotalPrice += (order.get(i)).getTotalPrice();
 				System.out.println("------------------------------------------------------------");
-				System.out.println("Total Price				: $" +order.get(i).getTotalPrice());
+				System.out.printf("Total Price				:  $%.2f\n" ,order.get(i).getTotalPrice());
 			}
 		}
 		System.out.println("------------------------------------------------------------");
-		System.out.println("Overall revenue for " + d +" " + m +" "+ y + "		: $" + TotalPrice);  
+		System.out.printf("Overall revenue for " + d +" " + m +" "+ y + "		:  $%.2f\n",TotalPrice);  
 		System.out.println("============================================================");
 }
 	/**
@@ -178,10 +178,10 @@ public class PrintSaleController {
 			}
 		}
 		System.out.println("===================== Monthly Report =======================");
-			System.out.println("Top sale of the month in " + DateMax.get(Calendar.DATE)+" "+monthNames[ DateMax.get(Calendar.MONTH) ] +" " +DateMax.get(Calendar.YEAR)+ " is: $"+	Max);
-			System.out.println("Least sale of the month in " + DateMin.get(Calendar.DATE)+" "+monthNames[ DateMin.get(Calendar.MONTH) ] +" " +DateMin.get(Calendar.YEAR)+ " is: $" + Min);		
+			System.out.println("Top sale of the month in " + DateMax.get(Calendar.DATE)+" "+monthNames[ DateMax.get(Calendar.MONTH)-1 ] +" " +DateMax.get(Calendar.YEAR)+ " is: $"+	Max);
+			System.out.println("Least sale of the month in " + DateMin.get(Calendar.DATE)+" "+monthNames[ DateMin.get(Calendar.MONTH)-1 ] +" " +DateMin.get(Calendar.YEAR)+ " is: $" + Min);		
 			System.out.println("------------------------------------------------------------");
-			System.out.println("Overall Revenue: $" + OverallPrice); 
+			System.out.printf("Overall Revenue:  $%.2f\n",OverallPrice); 
 			System.out.println("============================================================");
 		} 
 /**
