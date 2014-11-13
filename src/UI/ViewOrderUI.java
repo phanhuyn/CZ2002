@@ -25,7 +25,13 @@ public class ViewOrderUI {
 		Scanner scan = new Scanner(System.in);
 		int option = 1;
 		while(true){
-			if(mOrderController.getListOrder() == null){
+			if(option == 0){
+				/*
+				 * Back to Order UI
+				 */
+				break;
+			}
+			if(mOrderController.getListOrder().size() == 0){
 				/*
 				 * if no order exist, informs user 
 				 */
@@ -58,38 +64,10 @@ public class ViewOrderUI {
 					 * Order list, include Menu items and promotional packages
 					 */
 					System.out.println(spacing);
-					System.out.println("Order ID: " + order.getId());
-					System.out.println("Staff created order: " + order.getStaff());
-					System.out.println("Date: " + order.getTime());
-					System.out.println("Customer: "+ order.getCustomerName() + "       ID:"+order.getCustomerId());
-					System.out.println("Table: " + order.getTableId());
-					System.out.println("Order list: ");
-					ArrayList<MenuItem> menuItems = order.getMenuItemsList();
-					ArrayList<Integer> quantityMenuItems = order.getQuantityMenuItems();
-					ArrayList<PromotionalPackage> packages = order.getPromotionalPackagesList();
-					ArrayList<Integer> quantityPackage = order.getQuantityPackages();
-					if(menuItems.size()>0){
-						System.out.println("Menu items: ");
-					}
-					
-					for(int i = 0; i < menuItems.size(); ++i){
-						System.out.println((i+1) + ". " + quantityMenuItems.get(i)+" x "+ menuItems.get(i).getName() + "       Price:" + menuItems.get(i).getPrice());
-					}
-					if(packages.size() > 0){
-						System.out.println("Promotional packages: ");
-					}
-					for(int i = 0; i < packages.size(); ++i){
-						System.out.println((i+1) + ". " + quantityPackage.get(i) + " x " + packages.get(i).getName() + "       Price:" + packages.get(i).getPrice());
-					}
-					System.out.println("Total Price: " + order.getTotalPrice());
+					mOrderController.showOrder(order);
 				}
 			}
-			else if(option == 0){
-				/*
-				 * Back to Order UI
-				 */
-				break;
-			}
+			
 			
 			/*
 			 * Ask user to continue view other order or not

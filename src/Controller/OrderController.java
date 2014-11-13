@@ -23,27 +23,6 @@ public class OrderController {
 	/*
 	 * this method use to find order that match the day user input
 	 */
-	public ArrayList<Order> findOrderByTime(int day, int month, int year){
-		ArrayList<Order> matchDayOrderList = new ArrayList<Order>();
-		for(Order order : listOrder){
-			Date date = order.getTime();
-			if(date.getDay() == day && date.getMonth() == (month-1) && date.getYear() == (year-1900)){
-				matchDayOrderList.add(order);
-			}
-		}
-		return matchDayOrderList;
-	}
-	
-	public ArrayList<Order> findOrderByMonth(int month, int year){
-		ArrayList<Order> matchDayOrderList = new ArrayList<Order>();
-		for(Order order : listOrder){
-			Date date = order.getTime();
-			if( date.getMonth() == (month-1) && date.getYear() == (year-1900)){
-				matchDayOrderList.add(order);
-			}
-		}
-		return matchDayOrderList;
-	}
 	
 	public Order find(String customerName, int mId) {
 		// TODO Auto-generated method stub
@@ -55,17 +34,16 @@ public class OrderController {
 		return null;
 	}
 	
-	
 	public ArrayList<Order> getListOrder(){
 		return listOrder;
 	}
 	public void createNewOrder(String mStaffName,
-			ArrayList<MenuItem> orderMenuItemList,
-			ArrayList<PromotionalPackage> orderPackageList, int mCustomerId,
+			ArrayList<MenuItem> orderMenuItemList,ArrayList<Integer> quantityMenuItems,
+			ArrayList<PromotionalPackage> orderPackageList,ArrayList<Integer> quantityPackage, int mCustomerId,
 			String mCustomerName, int mTableId, boolean isSetDate, Date date) {
 		// TODO Auto-generated method stub
 		//create the order
-		Order order = new Order(mStaffName, orderMenuItemList, orderPackageList, mCustomerId, mCustomerName, mTableId);
+		Order order = new Order(mStaffName, orderMenuItemList, quantityMenuItems, orderPackageList, quantityPackage, mCustomerId, mCustomerName, mTableId);
 		//check if date is set manual
 		if(isSetDate){
 			order.setTime(date);
@@ -87,6 +65,34 @@ public class OrderController {
 			
 		listOrder.add(order);
 		
+		showOrder(order);
+	}
+	
+	public void setListTable(ArrayList<Table> mTableList){
+		listTable = mTableList;
+	}
+
+	public void deallocateTable(Order order) {
+		// TODO Auto-generated method stub
+		Table mTable = null;
+		for(Table table: listTable){
+			if(table.getId() == order.getTableId()){
+				mTable = table;
+				break;
+			}
+		}
+		Reservation which = null;
+		for(Reservation reservation : mTable.getReservation(order.getCustomerName(),order.getCustomerName())){
+			if(reservation.getStartTime() == order.getTime()){
+				which = reservation;
+				break;
+			}
+		}
+		mTable.removeReservation(which);
+		
+	}
+	
+	public void showOrder(Order order){
 		System.out.println("Order is made, below is the information: ");
 		System.out.println("Order ID: " + order.getId());
 		System.out.println("Staff created order: " + order.getStaff());
@@ -112,29 +118,5 @@ public class OrderController {
 			System.out.println((i+1) + ". " + quantityPackage.get(i) + " x " + packages.get(i).getName() + "       Price:" + packages.get(i).getPrice());
 		}
 		System.out.println("Total Price: " + order.getTotalPrice());
-	}
-	
-	public void setListTable(ArrayList<Table> mTableList){
-		listTable = mTableList;
-	}
-
-	public void deallocateTable(Order order) {
-		// TODO Auto-generated method stub
-		Table mTable = null;
-		for(Table table: listTable){
-			if(table.getId() == order.getTableId()){
-				mTable = table;
-				break;
-			}
-		}
-		Reservation which = null;
-		for(Reservation reservation : mTable.getReservation(order.getCustomerName(),order.getCustomerName())){
-			if(reservation.getStartTime() == order.getTime()){
-				which = reservation;
-				break;
-			}
-		}
-		mTable.removeReservation(which);
-		
 	}
 }
