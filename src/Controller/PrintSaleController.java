@@ -159,27 +159,44 @@ public class PrintSaleController {
 			System.out.println("No order found on that month!");
 			return;
 		}
+		
 		else{
-			for(int i = 1; i < order.size(); ++i)
+			double[][] sum = new double[31][2];
+			sum[0][0] = (order.get(0)).getTotalPrice();
+			int counter = 0;
+			for(int i = 0; i < order.size(); ++i)
 			{
-				if(Max < (order.get(i)).getTotalPrice()){
-					Max = (order.get(i)).getTotalPrice();
-					DateMax.set(Calendar.MONTH, order.get(i).getTime().getMonth()+1);
-					DateMax.set(Calendar.DATE, order.get(i).getTime().getDate());
-					DateMax.set(Calendar.YEAR, order.get(i).getTime().getYear()+1900);
+				if ((i+1) < order.size()){
+					if ( order.get(i).getTime().getDate()==order.get(i+1).getTime().getDate() ){
+						sum[counter][0] += (order.get(i+1)).getTotalPrice();
+					}
+					else{
+						sum[counter][1] = i;
+						counter++;
+						sum[counter][0] = (order.get(i+1)).getTotalPrice();
+					}
 				}
-				else if(Min > order.get(i).getTotalPrice()){
-					Min = (order.get(i)).getTotalPrice();
-					DateMin.set(Calendar.MONTH, order.get(i).getTime().getMonth()+1);
-					DateMin.set(Calendar.DATE, order.get(i).getTime().getDate());
-					DateMin.set(Calendar.YEAR, order.get(i).getTime().getYear()+1900);
+			}
+			
+			for (int i = 0; i <counter+1; i++){
+				if(Max < sum[i][0]){
+					Max = sum[i][0];
+					DateMax.set(Calendar.MONTH, order.get((int) sum[i][1]).getTime().getMonth()+1);
+					DateMax.set(Calendar.DATE, order.get((int) sum[i][1]).getTime().getDate());
+					DateMax.set(Calendar.YEAR, order.get((int) sum[i][1]).getTime().getYear()+1900);
 				}
-				OverallPrice += (order.get(i)).getTotalPrice();
+				else if(Min > sum[i][0]){
+					Min = sum[i][0];
+					DateMin.set(Calendar.MONTH, order.get((int) sum[i][1]).getTime().getMonth()+1);
+					DateMin.set(Calendar.DATE, order.get((int) sum[i][1]).getTime().getDate());
+					DateMin.set(Calendar.YEAR, order.get((int) sum[i][1]).getTime().getYear()+1900);
+				}
+				OverallPrice += sum[i][0];
 			}
 		}
 		System.out.println("===================== Monthly Report =======================");
-			System.out.println("Top sale of the month in " + DateMax.get(Calendar.DATE)+" "+monthNames[ DateMax.get(Calendar.MONTH)-1 ] +" " +DateMax.get(Calendar.YEAR)+ " is: $"+	Max);
-			System.out.println("Least sale of the month in " + DateMin.get(Calendar.DATE)+" "+monthNames[ DateMin.get(Calendar.MONTH)-1 ] +" " +DateMin.get(Calendar.YEAR)+ " is: $" + Min);		
+			System.out.printf("Top sale of the month in " + DateMax.get(Calendar.DATE)+" "+monthNames[ DateMax.get(Calendar.MONTH)-1 ] +" " +DateMax.get(Calendar.YEAR)+ " is: $%.2f\n",	Max);
+			System.out.printf("Least sale of the month in " + DateMin.get(Calendar.DATE)+" "+monthNames[ DateMin.get(Calendar.MONTH)-1 ] +" " +DateMin.get(Calendar.YEAR)+ " is: $%.2f\n", Min);		
 			System.out.println("------------------------------------------------------------");
 			System.out.printf("Overall Revenue:  $%.2f\n",OverallPrice); 
 			System.out.println("============================================================");
