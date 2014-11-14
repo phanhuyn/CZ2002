@@ -3,6 +3,11 @@
   @version 1.0
   @since 2014-11-10
  */
+/**
+  @author Stefan
+  @version 1.0
+  @since 2014-11-10
+ */
 package Controller;
 
 import java.util.ArrayList;
@@ -117,7 +122,7 @@ public class PrintSaleController {
 				System.out.println("Menu items				: ");
 				for(int j = 0; j < menuItems.size(); ++j)
 				{
-					System.out.println((j+1) + ". " + quantityMenuItems.get(j)+" x "+ menuItems.get(j).getName() + "	:" + menuItems.get(j).getPrice());
+					System.out.printf((j+1) + ". " + quantityMenuItems.get(j)+" x "+ menuItems.get(j).getName() + "	: $%.2f\n" + menuItems.get(j).getPrice());
 				}
 				
 				ArrayList<PromotionalPackage> packages = (order.get(i)).getPromotionalPackagesList();
@@ -125,15 +130,15 @@ public class PrintSaleController {
 				System.out.println("Promotional packages	: ");
 				for(int k = 0; k < packages.size(); ++k)
 				{
-					System.out.println((k+1) + ". " + quantityPackage.get(k) + " x " + packages.get(k).getName() + "       Price	:" + packages.get(k).getPrice());
+					System.out.printf((k+1) + ". " + quantityPackage.get(k) + " x " + packages.get(k).getName() + "       Price	: " + packages.get(k).getPrice());
 				}
 				TotalPrice += (order.get(i)).getTotalPrice();
 				System.out.println("------------------------------------------------------------");
-				System.out.println("Total Price				: $" +order.get(i).getTotalPrice());
+				System.out.printf("Total Price				:  $%.2f\n" +order.get(i).getTotalPrice());
 			}
 		}
 		System.out.println("------------------------------------------------------------");
-		System.out.println("Overall revenue for " + d +" " + m +" "+ y + "		: $" + TotalPrice);  
+		System.out.printf("Overall revenue for " + d +" " + m +" "+ y + "		:  $%.2f\n" + TotalPrice);  
 		System.out.println("============================================================");
 }
 	/**
@@ -181,7 +186,7 @@ public class PrintSaleController {
 			System.out.println("Top sale of the month in " + DateMax.get(Calendar.DATE)+" "+monthNames[ DateMax.get(Calendar.MONTH) ] +" " +DateMax.get(Calendar.YEAR)+ " is: $"+	Max);
 			System.out.println("Least sale of the month in " + DateMin.get(Calendar.DATE)+" "+monthNames[ DateMin.get(Calendar.MONTH) ] +" " +DateMin.get(Calendar.YEAR)+ " is: $" + Min);		
 			System.out.println("------------------------------------------------------------");
-			System.out.println("Overall Revenue: $" + OverallPrice); 
+			System.out.printf("Overall Revenue:  $%.2f\n" + OverallPrice); 
 			System.out.println("============================================================");
 		} 
 /**
