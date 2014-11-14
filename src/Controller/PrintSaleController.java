@@ -52,7 +52,7 @@ public class PrintSaleController {
 	 * @param listOrder getting the list of order.
 	 */
 	public PrintSaleController(ArrayList<Order> listOrder){
-		listOrder = Order.mOrderList;
+		this.listOrder = listOrder;
 	}
 	
 	/**
@@ -99,9 +99,8 @@ public class PrintSaleController {
 	 */
 	
 	public void RevenueByDate(ArrayList<Order> order,int d, int m, int y){
-		int TotalPrice= 0;
-		
-		if(order == null){
+		double TotalPrice= 0;
+		if(order == null || order.size() == 0){
 			System.out.println("No order found on that date!");
 			return;
 		}
@@ -109,10 +108,11 @@ public class PrintSaleController {
 		{
 			for(int i = 0 ; i < order.size(); ++i)
 			{
-				System.out.println("Customer ID:" + order.get(i).getCustomerId());
+				System.out.println("===================== Daily Report =========================");
+				System.out.println("Customer ID				:" + order.get(i).getCustomerId());
 				ArrayList<MenuItem> menuItems = (order.get(i)).getMenuItemsList();
 				ArrayList<Integer> quantityMenuItems = (order.get(i)).getQuantityMenuItems();
-				System.out.println("Menu items: ");
+				System.out.println("Menu items				: ");
 				for(int j = 0; j < menuItems.size(); ++j)
 				{
 					System.out.println((j+1) + ". " + quantityMenuItems.get(j)+" x "+ menuItems.get(j).getName() + "       Price:" + menuItems.get(j).getPrice());
@@ -120,7 +120,7 @@ public class PrintSaleController {
 				
 				ArrayList<PromotionalPackage> packages = (order.get(i)).getPromotionalPackagesList();
 				ArrayList<Integer> quantityPackage = (order.get(i)).getQuantityPackages();
-				System.out.println("Promotional packages: ");
+				System.out.println("Promotional packages	: ");
 				for(int k = 0; k < packages.size(); ++k)
 				{
 					System.out.println((k+1) + ". " + quantityPackage.get(k) + " x " + packages.get(k).getName() + "       Price:" + packages.get(k).getPrice());
@@ -128,8 +128,9 @@ public class PrintSaleController {
 				TotalPrice += (order.get(i)).getTotalPrice();
 			}
 		}
-		System.out.println("Overall revenue for " + d +" " + m +" "+ y + " : " + TotalPrice);  
-
+		System.out.println("----------------------------------------------------------");
+		System.out.println("Overall revenue for " + d +" " + m +" "+ y + " 				: " + TotalPrice);  
+		System.out.println("==========================================================");
 }
 	/**
 	 * print the monthly report according to the order from the list available.
@@ -150,7 +151,7 @@ public class PrintSaleController {
 		
 		String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 			
-		if(order == null){
+		if(order == null|| order.size() == 0){
 			System.out.println("No order found on that month!");
 			return;
 		}
@@ -170,13 +171,14 @@ public class PrintSaleController {
 					DateMin.set(Calendar.YEAR, order.get(i).getTime().getYear()+1900);
 				}
 				OverallPrice += (order.get(i)).getTotalPrice();
-				System.out.println(OverallPrice);
 			}
 		}
-			
+		System.out.println("===================== Monthly Report =========================");
 			System.out.println("Top sale of the month in " + DateMax.get(Calendar.DATE)+" "+monthNames[ DateMax.get(Calendar.MONTH) ] +" " +DateMax.get(Calendar.YEAR)+ " is: "+	Max);
 			System.out.println("Least sale of the month in " + DateMin.get(Calendar.DATE)+" "+monthNames[ DateMin.get(Calendar.MONTH) ] +" " +DateMin.get(Calendar.YEAR)+ " is: " + Min);		
+			System.out.println("----------------------------------------------------------");
 			System.out.println("Overall Revenue: " + OverallPrice); 
+			System.out.println("==========================================================");
 		} 
 /**
  * Print the list of main functionality
@@ -203,7 +205,6 @@ public class PrintSaleController {
 	y = scan.nextInt();
 	ArrayList<Order> order = findOrderByDate(d, m, y);
 	RevenueByDate(order,d,m,y);
-	scan.close();
 	return;
 		
   }
@@ -220,7 +221,6 @@ public class PrintSaleController {
 	y = scan.nextInt();
 	ArrayList<Order> order = findOrderByMonth(m,y);
 	RevenueByMonth(order);
-	scan.close();
 	return;
   }
 }
