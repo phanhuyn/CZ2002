@@ -42,11 +42,14 @@ public class ReservationUI {
 	 * This function is called when reservation option is selected.
 	 */
 	public void run() {
-		System.out.println("1. Reserve table(s)");
-		System.out.println("2. Remove a reservation");
-		System.out.println("3. Return to main menu");
 		
-		System.out.print("Select your option: ");
+		System.out.println("#################################");
+		System.out.println("#       RESERVATION OPTION      #");
+		System.out.println("#      1. Reserve table(s).     #");
+		System.out.println("#      2. Remove a reservation  #");
+		System.out.println("#      3. Main menu       .     #");
+		System.out.println("#################################");
+		System.out.println("Select your option: ");
 		int choice = scan.nextInt(); scan.nextLine();
 		while (1 <= choice && choice <= 2) {
 			switch (choice) {
@@ -59,6 +62,12 @@ public class ReservationUI {
 				default:
 					break;
 			}
+			System.out.println("#################################");
+			System.out.println("#       RESERVATION OPTION      #");
+			System.out.println("#      1. Reserve table(s).     #");
+			System.out.println("#      2. Remove a reservation  #");
+			System.out.println("#      3. Main menu       .     #");
+			System.out.println("#################################");
 			System.out.print("Select your option: ");
 			choice = scan.nextInt(); scan.nextLine();
 		}
