@@ -1,1 +1,7 @@
-0|NHAT|HUY|1|1|12312342|12.3|MenuItem|Chicken Rice with Thai Sald|2|PromotionalPackage|The treat|1
+0|NHAT|HUY|1|1|98712342|12.3|MenuItem|Chicken Rice with Thai Sald|2|Coke|2|PromotionalPackage|The treat|1|Meal of the month|6
+0|NHAT|huyhuy|1|2|98712342|12.3|MenuItem|Ice Lemon Tea|3|PromotionalPackage|The treat|1|Big combo|3
+0|NHAT|zillion|3|0|98712342|12.3|MenuItem|Chocolate Cupcake|1|Ayam Penyet|10|PromotionalPackage|The treat|1
+1|HUY|nhat|1|2|185112342|12.3|MenuItem|Duck Rice|5|PromotionalPackage|The treat|1
+1|HUY|peter|4|1|185112342|12.3|MenuItem|Ayam Penyet|2|PromotionalPackage|The treat|1|Meal of the month|3
+1|HUY|stefan|1|2|271512342|12.3|MenuItem|Ice Lemon Tea|6|PromotionalPackage|The treat|1|Big combo|6
+1|HUY|haho|1|0|271512342|12.3|MenuItem|Chicken Rice with Thai Sald|3|PromotionalPackage|The treat|1|Meal of the month|1
