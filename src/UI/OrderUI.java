@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
-import java.text.DecimalFormat;
+
 
 import Controller.OrderController;
 import Entity.MenuItem;
@@ -106,7 +106,6 @@ public class OrderUI {
 	}
 	else
 	{
-		DecimalFormat  df = new DecimalFormat ("#.##");
 		ArrayList<MenuItem> item = order.getMenuItemsList();
 		ArrayList<Integer> quantityMenuItems = order.getQuantityMenuItems();
 		ArrayList<PromotionalPackage> set = order.getPromotionalPackagesList();
@@ -118,12 +117,15 @@ public class OrderUI {
 		System.out.println("Date(DD/MM/YYYY): " + ( order.getTime() ).getDate() + "/" + ( order.getTime() ).getMonth() + "/" + ( ( order.getTime() ).getYear() + 1900 ));
 		System.out.println("---------------------------------------------------------");
 		
+		double sum = 0;
+		
 		if(item.size() > 0){
 			System.out.println("Menu Items  : ");
 			
 			for(int i = 0; i < item.size(); i++ )
 			{
-				System.out.println("    "  + (quantityMenuItems.get(i)) + "x " + (item.get(i)).getName() + "	" + ( (quantityMenuItems.get(i)) * (item.get(i)).getPrice() ));
+				System.out.printf("    %dx %-30s $%3.2f\n" , (quantityMenuItems.get(i)) , (item.get(i)).getName() , ( (quantityMenuItems.get(i)) * (item.get(i)).getPrice() ));
+				sum += item.get(i).getPrice()*(quantityMenuItems.get(i));
 			}
 		}
 		
@@ -133,16 +135,23 @@ public class OrderUI {
 			
 			for(int i = 0; i < set.size(); i++ )
 			{
-				System.out.println("    " + (quantityPackages.get(i)) + "x " + (set.get(i)).getName() + "	" + ( (quantityPackages.get(i)) * (set.get(i)).getPrice() ));
+				System.out.printf("    %dx %-30s $%3.2f\n" , (quantityPackages.get(i)) , (set.get(i)).getName() , ( (quantityPackages.get(i)) * (set.get(i)).getPrice() ));
+				sum += set.get(i).getPrice()*(quantityPackages.get(i));
 			}
 		}
 		
 		System.out.println("---------------------------------------------------------");
-		System.out.println("SubTotal               : " + df.format(( order.getTotalPrice() )));
-		System.out.println("Taxes                  : " + df.format(( order.getTotalPrice() * 0.07)));
+		if (sum > order.getTotalPrice() ){
+			System.out.printf("SubTotal               :              $%.2f  (Membership Discount)\n" , ( order.getTotalPrice() ));
+		}
+		else{
+			System.out.printf("SubTotal               :              $%.2f\n" , ( order.getTotalPrice() ));
+		}
+		
+		System.out.printf("Taxes                  :              $%.2f\n" , ( order.getTotalPrice() * 0.07));
 		System.out.println("---------------------------------------------------------	");
-		System.out.println("TOTAL                  : " + df.format((order.getTotalPrice() ) * 1.07 ));
-		System.out.println("============= Thank you! Please come again! =============");
+		System.out.printf("TOTAL                  :              $%.2f\n" , (order.getTotalPrice() ) * 1.07 );
+		System.out.println("\n============= Thank you! Please come again! =============\n");
 		
 		mOrderController.deallocateTable(order);
 	}
