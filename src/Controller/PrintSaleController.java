@@ -70,6 +70,7 @@ public class PrintSaleController {
 				matchDayOrderList.add(order);
 			}
 		}
+
 		return matchDayOrderList;
 	}
 	/**
@@ -128,9 +129,9 @@ public class PrintSaleController {
 				TotalPrice += (order.get(i)).getTotalPrice();
 			}
 		}
-		System.out.println("----------------------------------------------------------");
+		System.out.println("------------------------------------------------------------");
 		System.out.println("Overall revenue for " + d +" " + m +" "+ y + " 				: " + TotalPrice);  
-		System.out.println("==========================================================");
+		System.out.println("============================================================");
 }
 	/**
 	 * print the monthly report according to the order from the list available.
@@ -173,12 +174,12 @@ public class PrintSaleController {
 				OverallPrice += (order.get(i)).getTotalPrice();
 			}
 		}
-		System.out.println("===================== Monthly Report =========================");
+		System.out.println("===================== Monthly Report ===========================");
 			System.out.println("Top sale of the month in " + DateMax.get(Calendar.DATE)+" "+monthNames[ DateMax.get(Calendar.MONTH) ] +" " +DateMax.get(Calendar.YEAR)+ " is: "+	Max);
 			System.out.println("Least sale of the month in " + DateMin.get(Calendar.DATE)+" "+monthNames[ DateMin.get(Calendar.MONTH) ] +" " +DateMin.get(Calendar.YEAR)+ " is: " + Min);		
-			System.out.println("----------------------------------------------------------");
+			System.out.println("------------------------------------------------------------");
 			System.out.println("Overall Revenue: " + OverallPrice); 
-			System.out.println("==========================================================");
+			System.out.println("============================================================");
 		} 
 /**
  * Print the list of main functionality
