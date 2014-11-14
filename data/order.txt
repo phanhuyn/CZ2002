@@ -5,3 +5,4 @@
 1|HUY|peter|4|1|185112342|17.90|MenuItem|Ayam Penyet|2|PromotionalPackage|The treat|1|Meal of the month|3
 1|HUY|stefan|1|2|271512342|35.90|MenuItem|Ice Lemon Tea|6|PromotionalPackage|The treat|1|Big combo|6
 1|HUY|haho|1|0|271512342|20.80|MenuItem|Chicken Rice with Thai Sald|3|PromotionalPackage|The treat|1|Meal of the month|1
+1|HUY|haho|1|1|1135512342|1.5|MenuItem|Chicken Rice with Thai Sald|1|PromotionalPackage|The treat|1|Meal of the month|1

@@ -176,6 +176,9 @@ public class PrintSaleController {
 						sum[counter][0] = (order.get(i+1)).getTotalPrice();
 					}
 				}
+				else{
+					sum[counter][1] = i;
+				}
 			}
 			
 			for (int i = 0; i <counter+1; i++){
@@ -188,7 +191,7 @@ public class PrintSaleController {
 				else if(Min > sum[i][0]){
 					Min = sum[i][0];
 					DateMin.set(Calendar.MONTH, order.get((int) sum[i][1]).getTime().getMonth()+1);
-					DateMin.set(Calendar.DATE, order.get((int) sum[i][1]).getTime().getDate());
+					DateMin.set(Calendar.DATE, order.get((int) sum[i][1]).getTime().getDate());					
 					DateMin.set(Calendar.YEAR, order.get((int) sum[i][1]).getTime().getYear()+1900);
 				}
 				OverallPrice += sum[i][0];
